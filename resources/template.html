@@ -1,26 +1,43 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Insert title here</title>
+	<script src="jquery-1.2.6.pack.js" type="text/javascript"></script>
+	<script src="jquery-ui-personalized-1.6b.packed.js" type="text/javascript"></script>
 </head>
 <body>
 
 <!-- ###TEMPLATE_SHOW### begin -->
-<div id="tx-communityflexiblelayout-dashboard">
-	<div id="tx-communityflexiblelayout-dashboard-col1">###COL1_ENTRIES###</div>
-	<div id="tx-communityflexiblelayout-dashboard-col1">###COL2_ENTRIES###</div>
-	<div id="tx-communityflexiblelayout-dashboard-col1">###COL3_ENTRIES###</div>
+<div id="tx-communityflexiblelayout-dashboard2">
+	<div id="tx-communityflexiblelayout-dashboard2-col1">###COL1_ENTRIES###</div>
+	<div id="tx-communityflexiblelayout-dashboard2-col2">###COL2_ENTRIES###</div>
+	<div id="tx-communityflexiblelayout-dashboard2-col3">###COL3_ENTRIES###</div>
 </div>
 <!-- ###TEMPLATE_SHOW### end -->
 
 <!-- ###TEMPLATE_EDIT### begin -->
-<div id="tx-communityflexiblelayout-clipboard">
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#tx-communityflexiblelayout-clipboard').droppable({
+			// accept: "widget",
+			activeClass: 'droppable-active',
+			hoverClass: 'droppable-hover',
+			drop: function(ev, ui) {
+				console.log(ev);
+				console.log(ui);
+				$(this).append("<br>Dropped!");
+			}
+		});
+		$('#tx-communityflexiblelayout-dashboard .widget').draggable();
+	});
+</script>
+<div id="tx-communityflexiblelayout-clipboard" style="width:200px;height:100px;background:#eee;">
 </div>
 <div id="tx-communityflexiblelayout-dashboard">
-	<div id="tx-communityflexiblelayout-dashboard-col1">###COL1_ENTRIES###</div>
-	<div id="tx-communityflexiblelayout-dashboard-col1">###COL2_ENTRIES###</div>
-	<div id="tx-communityflexiblelayout-dashboard-col1">###COL3_ENTRIES###</div>
+	<div id="tx-communityflexiblelayout-dashboard-col1"><div class="widget">###COL1_ENTRIES###</div></div>
+	<div id="tx-communityflexiblelayout-dashboard-col2"><div class="widget">###COL2_ENTRIES###</div></div>
+	<div id="tx-communityflexiblelayout-dashboard-col3"><div class="widget">###COL3_ENTRIES###</div></div>
 </div>
 <!-- ###TEMPLATE_EDIT### end -->
 </body>

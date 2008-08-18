@@ -35,10 +35,10 @@ class tx_communityflexiblelayout_ShowDashboardView {
 	 */
 	public function __construct($model) {
 		$this->model = $model;
+		$this->pObj  = $pObj;
 	}
 
 	public function render() {
-		return 'test';
 	}
 }
 
