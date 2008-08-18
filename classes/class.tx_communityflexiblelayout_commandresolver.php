@@ -1,0 +1,39 @@
+<?php
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandresolverinterface.php');
+
+class tx_communityflexiblelayout_CommandResolver implements tx_communityflexiblelayout_CommandResolverInterface {
+	private $path;
+	private $defaultCommand;
+
+	public function __construct($defaultCommand) {
+		$this->path = t3lib_extMgm::extPath('community_flexiblelayout').'classes/commands';
+		$this->defaultCommand = $defaultCommand;
+	}
+
+	public function getCommand() {
+		if (strlen(t3lib_div::_GP('cmd'))) {
+			$cmdName = t3lib_div::_GP('cmd');
+			$command = $this->loadCommand($cmdName);
+			if ($command instanceof tx_communityflexiblelayout_CommandInterface) {
+				return $command;
+			}
+		}
+		$command = $this->loadCommand($this->defaultCommand);
+		return $command;
+	}
+
+	protected function loadCommand($cmdName) {
+		$class = "tx_communityflexiblelayout_{$cmdName}Command";
+		$file  = "{$this->path}/class.".strtolower($class).".php";
+		if (!file_exists($file)) {
+			return false;
+		}
+		include_once $file;
+		if (!class_exists($class)) {
+			return false;
+		}
+		$command = new $class();
+		return $command;
+	}
+}
+?>

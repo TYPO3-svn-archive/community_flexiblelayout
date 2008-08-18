@@ -22,6 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_commandresolver.php');
 
 /**
  * User Profile Application Controller
@@ -45,7 +46,16 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	}
 
 	public function execute($content, array $configuration) {
-		return 'hello dashboard';
+		$cmdResolver = new tx_communityflexiblelayout_CommandResolver($configuration['defaultCommand']);
+		$command = $cmdResolver->getCommand();
+		$cmdName = $command->getCommandName();
+		switch ($cmdName) {
+			case 'showDashboard':
+			default:
+				
+			break;
+		}
+		return $command->execute();
 	}
 }
 

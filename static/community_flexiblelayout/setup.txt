@@ -1,15 +1,16 @@
 
 plugin.tx_communityflexiblelayout {
 	controller {
-
 		dashboard = USER_INT
 		dashboard {
-
 			includeLibs = EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_dashboard.php
 			userFunc = tx_communityflexiblelayout_controller_Dashboard->execute
-
 		}
 	}
+}
+
+plugin.tx_communityflexiblelayout.controller.dashboard {
+	defaultCommand = showDashboard
 }
 
 	// adding the user profile application controller
