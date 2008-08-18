@@ -22,27 +22,29 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandinterface.php');
-
 /**
- * Show Dashboard Command (model)
+ * show Dashbaord View
  *
  * @author	Frank Nägler <typo3@naegler.net>
  * @package TYPO3
  * @subpackage community_flexiblelayout
  */
-class tx_communityflexiblelayout_showDashboardCommand implements tx_communityflexiblelayout_CommandInterface {
-	protected $commandName = 'showDashboard';
-	
-	public function __construct() {
+class tx_communityflexiblelayout_ShowDashboardView {
+	/**
+	 * constructor for class tx_communityflexiblelayout_ShowDashboardView
+	 */
+	public function __construct($model) {
+		$this->model = $model;
 	}
 
-	public function execute() {
-		return 'tx_communityflexiblelayout_showDashboardCommand';
-	}
-	
-	public function getCommandName() {
-		return $this->commandName;
+	public function render() {
+		return 'test';
 	}
 }
+
+
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MOlDE]['XCLASS']['ext/community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_dashboard.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_dashboard.php']);
+}
+
 ?>

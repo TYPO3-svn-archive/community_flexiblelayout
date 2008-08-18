@@ -23,9 +23,10 @@
 ***************************************************************/
 
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_commandresolver.php');
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_showdashboardview.php');
 
 /**
- * User Profile Application Controller
+ * Dashboard Controller
  *
  * @author	Frank Nägler <typo3@naegler.net>
  * @package TYPO3
@@ -48,14 +49,13 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	public function execute($content, array $configuration) {
 		$cmdResolver = new tx_communityflexiblelayout_CommandResolver($configuration['defaultCommand']);
 		$command = $cmdResolver->getCommand();
+		$command->execute();
+		
 		$cmdName = $command->getCommandName();
-		switch ($cmdName) {
-			case 'showDashboard':
-			default:
-				
-			break;
-		}
-		return $command->execute();
+		$viewName = "tx_communityflexiblelayout_".ucfirst($cmdName)."View";
+		
+		$view = new $viewName($command);
+		return $view->render();
 	}
 }
 
