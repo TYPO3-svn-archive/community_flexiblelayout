@@ -11,12 +11,14 @@ plugin.tx_communityflexiblelayout {
 
 plugin.tx_communityflexiblelayout.controller.dashboard {
 	defaultCommand = showDashboard
+	template = EXT:community_flexiblelayout/resources/template.html
 }
 
 	// adding the user profile application controller
 tt_content.list.20.community_flexiblelayout_Dashboard = < plugin.tx_communityflexiblelayout.controller.dashboard
 
 page.includeJS {
-	jquery		= EXT:community_flexiblelayout/resources/jquery-1.2.6.pack.js
-	jqueryUI	= EXT:community_flexiblelayout/resources/jquery-ui-personalized-1.6b.packed.js
+	jquery				= EXT:community_flexiblelayout/resources/jquery-1.2.6.pack.js
+	jqueryUI			= EXT:community_flexiblelayout/resources/jquery-ui-personalized-1.6b.packed.js
+	jqueryUIControl		= EXT:community_flexiblelayout/resources/jquery_dashboard_control.js
 }

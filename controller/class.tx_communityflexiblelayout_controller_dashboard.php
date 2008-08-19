@@ -24,6 +24,8 @@
 
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_commandresolver.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_showdashboardview.php');
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_editdashboardview.php');
+require_once $GLOBALS['PATH_donation'] . 'classes/class.tx_donation_Registry.php';
 
 /**
  * Dashboard Controller
@@ -37,16 +39,18 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	public $scriptRelPath = 'controller/class.tx_communityflexiblelayout_controller_dashboard.php';	// Path to this script relative to the extension dir.
 	public $extKey        = 'community_flexiblelayout';	// The extension key.
 
-	public $cObj;
-
 	/**
 	 * constructor for class tx_communityflexiblelayout_controller_Dashboard
 	 */
 	public function __construct() {
-
 	}
 
 	public function execute($content, array $configuration) {
+		$registry = tx_donation_Registry::getInstance('');
+		$registry->set('cObj', $this->cObj);
+		$registry->set('configuration', $configuration);
+		$registry->set('plugin', $this);
+		
 		$cmdResolver = new tx_communityflexiblelayout_CommandResolver($configuration['defaultCommand']);
 		$command = $cmdResolver->getCommand();
 		$command->execute();

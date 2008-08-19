@@ -4,6 +4,9 @@
 	<comment></comment>
 	<projects>
 		<project>typo3_src-4.2.0</project>
+		<project>SRC:typo3_src-4.2.1</project>
+		<project>EXT:community</project>
+		<project>EXT:donation</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

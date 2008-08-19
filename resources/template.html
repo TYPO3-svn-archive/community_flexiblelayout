@@ -8,37 +8,62 @@
 </head>
 <body>
 
-<!-- ###TEMPLATE_SHOW### begin -->
+<!-- ###TEMPLATE_SHOWDASHBOARD### begin -->
 <div id="tx-communityflexiblelayout-dashboard2">
 	<div id="tx-communityflexiblelayout-dashboard2-col1">###COL1_ENTRIES###</div>
 	<div id="tx-communityflexiblelayout-dashboard2-col2">###COL2_ENTRIES###</div>
 	<div id="tx-communityflexiblelayout-dashboard2-col3">###COL3_ENTRIES###</div>
 </div>
-<!-- ###TEMPLATE_SHOW### end -->
+<!-- ###TEMPLATE_SHOWDASHBOARD### end -->
 
-<!-- ###TEMPLATE_EDIT### begin -->
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#tx-communityflexiblelayout-clipboard').droppable({
-			// accept: "widget",
-			activeClass: 'droppable-active',
-			hoverClass: 'droppable-hover',
-			drop: function(ev, ui) {
-				console.log(ev);
-				console.log(ui);
-				$(this).append("<br>Dropped!");
-			}
-		});
-		$('#tx-communityflexiblelayout-dashboard .widget').draggable();
-	});
-</script>
-<div id="tx-communityflexiblelayout-clipboard" style="width:200px;height:100px;background:#eee;">
+<!-- ###TEMPLATE_EDITDASHBOARD### begin -->
+<style>
+.droppable-active {
+	border: 1px solid #f00;
+}
+.droppable-hover {
+	border: 1px solid #0f0;
+}
+.widget {
+	border: 2px solid #00f;
+}
+#tx-communityflexiblelayout-clipboard {
+	width:900px;
+	height:200px;
+	background:#eee;
+}
+
+#tx-communityflexiblelayout-dashboard-col1 { width: 200px; float: left; }
+#tx-communityflexiblelayout-dashboard-col2 { width: 500px; float: left; }
+#tx-communityflexiblelayout-dashboard-col3 { width: 200px; float: left; }
+
+#tx-communityflexiblelayout-dashboard-col1 .widget { width: 150px; }
+#tx-communityflexiblelayout-dashboard-col2 .widget { width: 450px; }
+#tx-communityflexiblelayout-dashboard-col3 .widget { width: 150px; }
+
+</style>
+<div id="tx-communityflexiblelayout-clipboard">
 </div>
 <div id="tx-communityflexiblelayout-dashboard">
-	<div id="tx-communityflexiblelayout-dashboard-col1"><div class="widget">###COL1_ENTRIES###</div></div>
-	<div id="tx-communityflexiblelayout-dashboard-col2"><div class="widget">###COL2_ENTRIES###</div></div>
-	<div id="tx-communityflexiblelayout-dashboard-col3"><div class="widget">###COL3_ENTRIES###</div></div>
+	<div id="tx-communityflexiblelayout-dashboard-col1">
+		<div class="widget">Widget 1.1</div>
+		<div class="widget">Widget 1.2</div>
+		<div class="widget">Widget 1.3</div>
+		<div class="widget">Widget 1.4</div>
+	</div>
+	<div id="tx-communityflexiblelayout-dashboard-col2">
+		<div class="widget">Widget 2.1</div>
+		<div class="widget">Widget 2.2</div>
+		<div class="widget">Widget 2.3</div>
+		<div class="widget">Widget 2.4</div>
+	</div>
+	<div id="tx-communityflexiblelayout-dashboard-col3">
+		<div class="widget">Widget 3.1</div>
+		<div class="widget">Widget 3.2</div>
+		<div class="widget">Widget 3.3</div>
+		<div class="widget">Widget 3.4</div>
+	</div>
 </div>
-<!-- ###TEMPLATE_EDIT### end -->
+<!-- ###TEMPLATE_EDITDASHBOARD### end -->
 </body>
 </html>

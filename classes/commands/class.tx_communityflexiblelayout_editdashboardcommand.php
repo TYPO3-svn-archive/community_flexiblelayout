@@ -32,8 +32,8 @@ require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_appl
  * @package TYPO3
  * @subpackage community_flexiblelayout
  */
-class tx_communityflexiblelayout_showDashboardCommand implements tx_communityflexiblelayout_CommandInterface {
-	protected $commandName = 'showDashboard';
+class tx_communityflexiblelayout_editDashboardCommand implements tx_communityflexiblelayout_CommandInterface {
+	protected $commandName = 'editDashboard';
 	/**
 	 * @var tx_community_ApplicationManager
 	 */

@@ -32,7 +32,7 @@ require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx
  * @package TYPO3
  * @subpackage community_flexiblelayout
  */
-class tx_communityflexiblelayout_ShowDashboardView {
+class tx_communityflexiblelayout_EditDashboardView {
 	/**
 	 * @var tx_communityflexiblelayout_TemplateEngineAdapter
 	 */
