@@ -37,6 +37,8 @@ class tx_communityflexiblelayout_EditDashboardView {
 	 * @var tx_communityflexiblelayout_TemplateEngineAdapter
 	 */
 	protected $templateEngine;
+	protected $model;
+
 	/**
 	 * constructor for class tx_communityflexiblelayout_ShowDashboardView
 	 */
@@ -48,6 +50,20 @@ class tx_communityflexiblelayout_EditDashboardView {
 	}
 
 	public function render() {
+		$widgetsArray = $this->model->getAllWidgets();
+		foreach ($widgetsArray as $widgetArray) {
+			$container = '';
+			foreach ($widgetArray as $widget) {
+				$container .= '
+					<div class="widget">
+						<div class="label">'.$widget->getLabel().'</div>
+						<div class="content">'.$widget->render().'</div>
+					</div>
+				';
+			}
+			$number = $i+1;
+			$this->templateEngine->addMarker("CONTAINER{$number}", $container);
+		}
 		return $this->templateEngine->render();
 	}
 }

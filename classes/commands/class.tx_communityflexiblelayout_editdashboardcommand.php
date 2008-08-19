@@ -46,13 +46,10 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 	}
 
 	public function execute() {
-		$applications = $this->communityApplicationManager->getAllApplications();
-		foreach ($applications as $applicationName => $application) {
-			$newWidgets = $application->getWidgets();
-			foreach ($newWidgets as $widget) {
-				if ($widget instanceof tx_community_CommunityApplicationWidget) {
-					$this->widgets[] = $widget;
-				}
+		$widgets = $this->communityApplicationManager->getAllWidgets();
+		foreach ($widgets as $widget) {
+			if ($widget instanceof tx_community_CommunityApplicationWidget) {
+				$this->widgets[] = $widget;
 			}
 		}
 		
