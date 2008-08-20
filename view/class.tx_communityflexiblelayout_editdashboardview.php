@@ -51,6 +51,16 @@ class tx_communityflexiblelayout_EditDashboardView {
 
 	public function render() {
 		$widgetsArray = $this->model->getAllWidgets();
+		$this->templateEngine->addMarker("CONTAINER1", '');
+		$this->templateEngine->addMarker("CONTAINER2", '');
+		$this->templateEngine->addMarker("CONTAINER3", '');
+		$this->templateEngine->addMarker("CONTAINER4", '');
+		$this->templateEngine->addMarker("CONTAINER5", '');
+		$this->templateEngine->addMarker("CONTAINER6", '');
+		$this->templateEngine->addMarker("CONTAINER7", '');
+		$this->templateEngine->addMarker("CONTAINER8", '');
+		$this->templateEngine->addMarker("CONTAINER9", '');
+		$this->templateEngine->addMarker("CONTAINER10", '');
 		foreach ($widgetsArray as $widgetArray) {
 			$container = '';
 			foreach ($widgetArray as $widget) {
