@@ -8,9 +8,16 @@ class tx_communityflexiblelayout_CommandResolver implements tx_communityflexible
 	public function __construct($defaultCommand) {
 		$this->path = t3lib_extMgm::extPath('community_flexiblelayout').'classes/commands';
 		$this->defaultCommand = $defaultCommand;
+		$registry = tx_donation_Registry::getInstance('');
+		$this->conf = $registry->get('configuration');
 	}
 
 	public function getCommand() {
+		if ($this->conf['fixCommand']) {
+			$command = $this->loadCommand($this->conf['fixCommand']);
+			return $command;
+		}
+		
 		if (t3lib_div::_GP('profileId') == $GLOBALS['TSFE']->fe_user->user['uid']) {
 			$command = $this->loadCommand('editDashboard');
 			return $command;
@@ -18,6 +25,9 @@ class tx_communityflexiblelayout_CommandResolver implements tx_communityflexible
 		
 		if (strlen(t3lib_div::_GP('cmd'))) {
 			$cmdName = t3lib_div::_GP('cmd');
+			if (($cmdName == 'editDashboard' || $cmdName == 'saveDashboard') && !$GLOBALS['TSFE']->fe_user->user['uid']) {
+				$cmdName = 'showDashboard';
+			}
 			$command = $this->loadCommand($cmdName);
 			if ($command instanceof tx_communityflexiblelayout_CommandInterface) {
 				return $command;
