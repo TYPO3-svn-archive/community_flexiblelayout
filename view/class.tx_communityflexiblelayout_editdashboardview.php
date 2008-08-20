@@ -55,8 +55,7 @@ class tx_communityflexiblelayout_EditDashboardView {
 		$cObj = $this->templateEngine->getCObj();
 		for ($i=1; $i<=$this->conf['containerCount']; $i++) {
 			$marker['CONTAINER_ID'] = "tx-communityflexiblelayout-dashboard-col{$i}";
-			$marker['CONTAINER_CLASSES'] = "tx-communityflexiblelayout-dashboard-container";
-					
+			$marker['CONTAINER_CLASSES'] = ($this->conf['containerConfig.'][$i.'.']['alternativClassName'] ? $this->conf['containerConfig.'][$i.'.']['alternativClassName'] : $this->conf['containerClass']);		
 			$widgetsArray = $this->model->getWidgetsByCol($i);
 			$widgetCode = '';
 			if (is_array($widgetsArray)) {
