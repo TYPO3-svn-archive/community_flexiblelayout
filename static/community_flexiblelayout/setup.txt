@@ -13,6 +13,8 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 	defaultCommand = showDashboard
 	template = EXT:community_flexiblelayout/resources/template.html
 	containerCount = 5
+	communityID = wildeGockel
+	profileID = userProfile
 }
 
 	// adding the user profile application controller

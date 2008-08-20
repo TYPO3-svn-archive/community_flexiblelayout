@@ -43,10 +43,12 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 	
 	public function __construct() {
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
+		$registry = tx_donation_Registry::getInstance('');
+		$this->conf = $registry->get('configuration');
 	}
 
 	public function execute() {
-		$widgets = $this->communityApplicationManager->getAllWidgets();
+		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileID']);
 		foreach ($widgets as $widgetName => $widget) {
 			if ($widget instanceof tx_community_CommunityApplicationWidget) {
 				$this->widgets[$widgetName] = $widget;
@@ -55,16 +57,18 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 		
 		$dashboardConfig = unserialize($GLOBALS['TSFE']->fe_user->user['tx_communityflexiblelayout_dashboardconfig']);
 		if (is_array($dashboardConfig)) {
-			$config = $dashboardConfig[$GLOBALS['TSFE']->id];
-			foreach($config as $c) {
-				$parts = t3lib_div::trimExplode(',', $c);
-				$newConfig[$parts[2]] = array(
-					'col'	=> $parts[0],
-					'pos'	=> $parts[1],
-					'id'	=> $parts[2]
-				);
+			$config = $dashboardConfig[$this->conf['communityID']][$this->conf['profileID']];
+			if (is_array($config)) {
+				foreach($config as $c) {
+					$parts = t3lib_div::trimExplode(',', $c);
+					$newConfig[$parts[2]] = array(
+						'col'	=> $parts[0],
+						'pos'	=> $parts[1],
+						'id'	=> $parts[2]
+					);
+				}
+				$config = $newConfig;
 			}
-			$config = $newConfig;
 		} else {
 			$config = array();
 		}

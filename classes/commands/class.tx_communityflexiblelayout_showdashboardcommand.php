@@ -43,10 +43,12 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 	
 	public function __construct() {
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
+		$registry = tx_donation_Registry::getInstance('');
+		$this->conf = $registry->get('configuration');
 	}
 
 	public function execute() {
-		$widgets = $this->communityApplicationManager->getAllWidgets();
+		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileID']);
 		foreach ($widgets as $widgetName => $widget) {
 			if ($widget instanceof tx_community_CommunityApplicationWidget) {
 				$this->widgets[$widgetName] = $widget;
@@ -63,7 +65,7 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 			$data = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 			$dashboardConfig = unserialize($data['tx_communityflexiblelayout_dashboardconfig']);
 			if (is_array($dashboardConfig)) {
-				$config = $dashboardConfig[$GLOBALS['TSFE']->id];
+				$config = $dashboardConfig[$this->conf['communityID']][$this->conf['profileID']];
 				foreach($config as $c) {
 					$parts = t3lib_div::trimExplode(',', $c);
 					$newConfig[$parts[2]] = array(
