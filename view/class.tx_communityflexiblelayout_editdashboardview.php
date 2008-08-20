@@ -64,6 +64,7 @@ class tx_communityflexiblelayout_EditDashboardView {
 					$widgetClasses[] = 'widget';
 					$widgetClasses[] = ($widget->isDragable()) ? 'draggable' : 'undraggable';
 					$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
+					$widgetClasses[] = ($widget->getWidgetClass()) ? $widget->getWidgetClass() : '' ;
 					$widgetMarker = array(
 						'WIDGET_LABEL'	=> $widget->getLabel(),
 						'WIDGET_CONTENT' => $widget->render(),
@@ -97,6 +98,7 @@ class tx_communityflexiblelayout_EditDashboardView {
 				$widgetClasses[] = 'widget';
 				$widgetClasses[] = ($widget->isDragable()) ? 'draggable' : '';
 				$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
+				$widgetClasses[] = ($widget->getWidgetClass()) ? $widget->getWidgetClass() : '' ;
 				$widgetMarker = array(
 					'WIDGET_LABEL'	=> $widget->getLabel(),
 					'WIDGET_CONTENT' => $widget->render(),
