@@ -32,8 +32,8 @@ require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_appl
  * @package TYPO3
  * @subpackage community_flexiblelayout
  */
-class tx_communityflexiblelayout_showDashboardCommand implements tx_communityflexiblelayout_CommandInterface {
-	protected $commandName = 'showDashboard';
+class tx_communityflexiblelayout_saveDashboardCommand implements tx_communityflexiblelayout_CommandInterface {
+	protected $commandName = 'saveDashboard';
 	/**
 	 * @var tx_community_ApplicationManager
 	 */
@@ -46,56 +46,25 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 	}
 
 	public function execute() {
-		$widgets = $this->communityApplicationManager->getAllWidgets();
-		foreach ($widgets as $widgetName => $widget) {
-			if ($widget instanceof tx_community_CommunityApplicationWidget) {
-				$this->widgets[$widgetName] = $widget;
-			}
+		$newConfig = t3lib_div::_GP('dashboardConfig');
+		if ($newConfig) {
+			$tmp[$GLOBALS['TSFE']->id] = $newConfig;
+			$dashboardConfig = serialize($tmp);	
 		}
-		
-		$profileId = intval(t3lib_div::_GP('profileId'));
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-			'tx_communityflexiblelayout_dashboardconfig',
+		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
 			'fe_users',
-			'uid = ' . $profileId
+			'uid = ' . $GLOBALS['TSFE']->fe_user->user['uid'],
+			array('tx_communityflexiblelayout_dashboardconfig' => $dashboardConfig)
 		);
-		if ($GLOBALS['TYPO3_DB']->sql_num_rows($res) > 0) {
-			$data = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-			$dashboardConfig = unserialize($data['tx_communityflexiblelayout_dashboardconfig']);
-			if (is_array($dashboardConfig)) {
-				$config = $dashboardConfig[$GLOBALS['TSFE']->id];
-				foreach($config as $c) {
-					$parts = t3lib_div::trimExplode(',', $c);
-					$newConfig[$parts[2]] = array(
-						'col'	=> $parts[0],
-						'pos'	=> $parts[1],
-						'id'	=> $parts[2]
-					);
-				}
-				$config = $newConfig;
-			} else {
-				$config = array();
-			}
-			foreach ($this->widgets as $widgetName => $widget) {
-				if (is_array($config[$widgetName])) {
-					$this->cols[$config[$widgetName]['col']][$config[$widgetName]['pos']] = $widget;
-				} else {
-					$this->cols[$widget->getLayoutContainer()][] = $widget;
-				}
-			}
-		}
+		$this->status = ($GLOBALS['TYPO3_DB']->sql_affected_rows() > 0) ? 'saved' : 'error';
+	}
+	
+	public function getJsonResponse() {
+		return json_encode($this->status);
 	}
 	
 	public function getCommandName() {
 		return $this->commandName;
 	}
-	
-	public function getWidgetsByCol($col) {
-		return $this->cols[$col];
-	}
-		
-	public function getAllWidgets() {
-		return $this->cols;
-	}
-	}
+}
 ?>

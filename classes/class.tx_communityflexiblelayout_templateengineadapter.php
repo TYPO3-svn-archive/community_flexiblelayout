@@ -82,6 +82,10 @@ class tx_communityflexiblelayout_TemplateEngineAdapter {
 		return $this->templateEngine->getMarkersFromSubpart($subpart);
 	}
 	
+	public function getCObj() {
+		return $this->templateEngine->getCObj();
+	}
+	
 	public function getHelperMarkers($helperMarker, $subpart) {
 		return $this->templateEngine->getHelperMarkers($helperMarker, $subpart);
 	}

@@ -50,30 +50,72 @@ class tx_communityflexiblelayout_EditDashboardView {
 	}
 
 	public function render() {
-		$widgetsArray = $this->model->getAllWidgets();
-		$this->templateEngine->addMarker("CONTAINER1", '');
-		$this->templateEngine->addMarker("CONTAINER2", '');
-		$this->templateEngine->addMarker("CONTAINER3", '');
-		$this->templateEngine->addMarker("CONTAINER4", '');
-		$this->templateEngine->addMarker("CONTAINER5", '');
-		$this->templateEngine->addMarker("CONTAINER6", '');
-		$this->templateEngine->addMarker("CONTAINER7", '');
-		$this->templateEngine->addMarker("CONTAINER8", '');
-		$this->templateEngine->addMarker("CONTAINER9", '');
-		$this->templateEngine->addMarker("CONTAINER10", '');
-		foreach ($widgetsArray as $widgetArray) {
-			$container = '';
-			foreach ($widgetArray as $widget) {
-				$container .= '
-					<div class="widget">
-						<div class="label">'.$widget->getLabel().'</div>
-						<div class="content">'.$widget->render().'</div>
-					</div>
-				';
+		$containerTemplate = $this->templateEngine->getSubpart('template_container');
+		$widgetTemplate = $this->templateEngine->getSubpart('template_widget');
+		$cObj = $this->templateEngine->getCObj();
+		for ($i=1; $i<=$this->conf['containerCount']; $i++) {
+			$marker['CONTAINER_ID'] = "tx-communityflexiblelayout-dashboard-col{$i}";
+			$marker['CONTAINER_CLASSES'] = "tx-communityflexiblelayout-dashboard-container";
+					
+			$widgetsArray = $this->model->getWidgetsByCol($i);
+			$widgetCode = '';
+			if (is_array($widgetsArray)) {
+				foreach ($widgetsArray as $widgetName => $widget) {
+					$widgetClasses = array();
+					$widgetClasses[] = 'widget';
+					$widgetClasses[] = ($widget->isDragable()) ? 'draggable' : 'undraggable';
+					$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
+					$widgetMarker = array(
+						'WIDGET_LABEL'	=> $widget->getLabel(),
+						'WIDGET_CONTENT' => $widget->render(),
+						'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getID()}",
+						'WIDGET_CLASSES' => implode(' ', $widgetClasses)
+					);
+					
+					$widgetCode .= $cObj->substituteMarkerArray(
+						$widgetTemplate,
+						$widgetMarker,
+						'###|###'
+					);
+				}
 			}
-			$number = $i+1;
-			$this->templateEngine->addMarker("CONTAINER{$number}", $container);
+			$container = $cObj->substituteSubpart(
+				$containerTemplate,
+				'###TEMPLATE_WIDGET###',
+				$widgetCode
+			);
+			$containerCode .= $cObj->substituteMarkerArray(
+				$container,
+				$marker,
+				'###|###'
+			);
 		}
+		$widgetsArray = $this->model->getWidgetsByCol(0);
+		$clipBoardWidgets = '';
+		if (is_array($widgetsArray)) {
+			foreach ($widgetsArray as $widgetName => $widget) {
+				$widgetClasses = array();
+				$widgetClasses[] = 'widget';
+				$widgetClasses[] = ($widget->isDragable()) ? 'draggable' : '';
+				$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
+				$widgetMarker = array(
+					'WIDGET_LABEL'	=> $widget->getLabel(),
+					'WIDGET_CONTENT' => $widget->render(),
+					'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getID()}",
+					'WIDGET_CLASSES' => implode(' ', $widgetClasses)
+				);
+				
+				$clipBoardWidgets .= $cObj->substituteMarkerArray(
+					$widgetTemplate,
+					$widgetMarker,
+					'###|###'
+				);
+			}
+		}
+		
+		$this->templateEngine->addSubpart('template_container', $containerCode);
+		$this->templateEngine->addMarker('clipboard_widgets', $clipBoardWidgets);
+		$this->templateEngine->addMarker('PAGEID', $GLOBALS['TSFE']->id);
 		return $this->templateEngine->render();
 	}
 }

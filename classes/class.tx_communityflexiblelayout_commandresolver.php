@@ -11,6 +11,11 @@ class tx_communityflexiblelayout_CommandResolver implements tx_communityflexible
 	}
 
 	public function getCommand() {
+		if (t3lib_div::_GP('profileId') == $GLOBALS['TSFE']->fe_user->user['uid']) {
+			$command = $this->loadCommand('editDashboard');
+			return $command;
+		}
+		
 		if (strlen(t3lib_div::_GP('cmd'))) {
 			$cmdName = t3lib_div::_GP('cmd');
 			$command = $this->loadCommand($cmdName);

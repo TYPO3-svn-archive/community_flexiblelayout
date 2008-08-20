@@ -47,28 +47,35 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 
 	public function execute() {
 		$widgets = $this->communityApplicationManager->getAllWidgets();
-		foreach ($widgets as $widget) {
+		foreach ($widgets as $widgetName => $widget) {
 			if ($widget instanceof tx_community_CommunityApplicationWidget) {
-				$this->widgets[] = $widget;
+				$this->widgets[$widgetName] = $widget;
 			}
 		}
 		
-		for ($i=0; $i < count($this->widgets); $i++) {
-			$this->cols[$widget->getLayoutContainer()][] = $widget;
+		$dashboardConfig = unserialize($GLOBALS['TSFE']->fe_user->user['tx_communityflexiblelayout_dashboardconfig']);
+		if (is_array($dashboardConfig)) {
+			$config = $dashboardConfig[$GLOBALS['TSFE']->id];
+			foreach($config as $c) {
+				$parts = t3lib_div::trimExplode(',', $c);
+				$newConfig[$parts[2]] = array(
+					'col'	=> $parts[0],
+					'pos'	=> $parts[1],
+					'id'	=> $parts[2]
+				);
+			}
+			$config = $newConfig;
+		} else {
+			$config = array();
 		}
-		
-		for ($i=0; $i < count($cols); $i++) {
-			usort($this->cols[$i], array($this, "sortByPosition"));
+
+		foreach ($this->widgets as $widgetName => $widget) {
+			if (is_array($config[$widgetName])) {
+				$this->cols[$config[$widgetName]['col']][$config[$widgetName]['pos']] = $widget;
+			} else {
+				$this->cols[$widget->getLayoutContainer()][] = $widget;
+			}
 		}
-	}
-	
-	protected function sortByPosition($a, $b) {
-        $aval = $a->getPosition();
-        $bval = $b->getPosition();
-        if ($aval == $bval) {
-            return 0;
-        }
-        return ($aval > $bval) ? +1 : -1;
 	}
 	
 	public function getCommandName() {

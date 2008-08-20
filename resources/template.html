@@ -9,14 +9,47 @@
 <body>
 
 <!-- ###TEMPLATE_SHOWDASHBOARD### begin -->
-<div id="tx-communityflexiblelayout-dashboard2">
-	<div id="tx-communityflexiblelayout-dashboard2-col1">###COL1_ENTRIES###</div>
-	<div id="tx-communityflexiblelayout-dashboard2-col2">###COL2_ENTRIES###</div>
-	<div id="tx-communityflexiblelayout-dashboard2-col3">###COL3_ENTRIES###</div>
+<style>
+.droppable-active {
+	border: 1px solid #f00;
+}
+.droppable-hover {
+	border: 1px solid #0f0;
+}
+.widget {
+	border: 2px solid #00f;
+}
+
+#tx-communityflexiblelayout-dashboard-col1 { width: 200px; min-height: 100px; border: 1px solid #f00; float: left; }
+#tx-communityflexiblelayout-dashboard-col2 { width: 500px; min-height: 100px; border: 1px solid #f00; float: left; }
+#tx-communityflexiblelayout-dashboard-col3 { width: 200px; min-height: 100px; border: 1px solid #f00; float: left; }
+
+#tx-communityflexiblelayout-dashboard-col1 .widget { width: 150px; }
+#tx-communityflexiblelayout-dashboard-col2 .widget { width: 450px; }
+#tx-communityflexiblelayout-dashboard-col3 .widget { width: 150px; }
+
+.label {background: #ebebeb; }
+
+</style>
+<div id="tx-communityflexiblelayout-dashboard">
+	<!-- ###TEMPLATE_CONTAINER### begin -->
+	<div id="###CONTAINER_ID###" class="###CONTAINER_CLASSES###">
+		<!-- ###TEMPLATE_WIDGET### begin -->
+		<div id="###WIDGET_ID###" class="###WIDGET_CLASSES###">
+			<div class="label">###WIDGET_LABEL###</div>
+			<div class="content">###WIDGET_CONTENT###</div>
+		</div>
+		<!-- ###TEMPLATE_WIDGET### end -->
+	</div>
+	<!-- ###TEMPLATE_CONTAINER### end -->
 </div>
 <!-- ###TEMPLATE_SHOWDASHBOARD### end -->
 
 <!-- ###TEMPLATE_EDITDASHBOARD### begin -->
+<script type="text/javascript">
+	var __PAGEID__ = '###PAGEID###';
+	var __EDIT__ = true;
+</script>
 <style>
 .droppable-active {
 	border: 1px solid #f00;
@@ -41,19 +74,23 @@
 #tx-communityflexiblelayout-dashboard-col2 .widget { width: 450px; }
 #tx-communityflexiblelayout-dashboard-col3 .widget { width: 150px; }
 
+.label {background: #ebebeb; }
+
 </style>
 <div id="tx-communityflexiblelayout-clipboard">
+	###CLIPBOARD_WIDGETS###
 </div>
 <div id="tx-communityflexiblelayout-dashboard">
-	<div id="tx-communityflexiblelayout-dashboard-col1">
-		###CONTAINER1###
+	<!-- ###TEMPLATE_CONTAINER### begin -->
+	<div id="###CONTAINER_ID###" class="###CONTAINER_CLASSES###">
+		<!-- ###TEMPLATE_WIDGET### begin -->
+		<div id="###WIDGET_ID###" class="###WIDGET_CLASSES###">
+			<div class="label">###WIDGET_LABEL###</div>
+			<div class="content">###WIDGET_CONTENT###</div>
+		</div>
+		<!-- ###TEMPLATE_WIDGET### end -->
 	</div>
-	<div id="tx-communityflexiblelayout-dashboard-col2">
-		###CONTAINER2###
-	</div>
-	<div id="tx-communityflexiblelayout-dashboard-col3">
-		###CONTAINER3###
-	</div>
+	<!-- ###TEMPLATE_CONTAINER### end -->
 </div>
 <!-- ###TEMPLATE_EDITDASHBOARD### end -->
 </body>

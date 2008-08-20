@@ -32,11 +32,13 @@ require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx
  * @package TYPO3
  * @subpackage community_flexiblelayout
  */
-class tx_communityflexiblelayout_ShowDashboardView {
+class tx_communityflexiblelayout_SaveDashboardView {
 	/**
 	 * @var tx_communityflexiblelayout_TemplateEngineAdapter
 	 */
 	protected $templateEngine;
+	protected $model;
+
 	/**
 	 * constructor for class tx_communityflexiblelayout_ShowDashboardView
 	 */
@@ -48,50 +50,9 @@ class tx_communityflexiblelayout_ShowDashboardView {
 	}
 
 	public function render() {
-		$containerTemplate = $this->templateEngine->getSubpart('template_container');
-		$widgetTemplate = $this->templateEngine->getSubpart('template_widget');
-		$cObj = $this->templateEngine->getCObj();
-		for ($i=1; $i<=$this->conf['containerCount']; $i++) {
-			$marker['CONTAINER_ID'] = "tx-communityflexiblelayout-dashboard-col{$i}";
-			$marker['CONTAINER_CLASSES'] = "tx-communityflexiblelayout-dashboard-container";
-					
-			$widgetsArray = $this->model->getWidgetsByCol($i);
-			$widgetCode = '';
-			if (is_array($widgetsArray)) {
-				foreach ($widgetsArray as $widgetName => $widget) {
-					$widgetClasses = array();
-					$widgetClasses[] = 'widget';
-					$widgetClasses[] = ($widget->isDragable()) ? 'draggable' : 'undraggable';
-					$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
-					$widgetMarker = array(
-						'WIDGET_LABEL'	=> $widget->getLabel(),
-						'WIDGET_CONTENT' => $widget->render(),
-						'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getID()}",
-						'WIDGET_CLASSES' => implode(' ', $widgetClasses)
-					);
-					
-					$widgetCode .= $cObj->substituteMarkerArray(
-						$widgetTemplate,
-						$widgetMarker,
-						'###|###'
-					);
-				}
-			}
-			$container = $cObj->substituteSubpart(
-				$containerTemplate,
-				'###TEMPLATE_WIDGET###',
-				$widgetCode
-			);
-			$containerCode .= $cObj->substituteMarkerArray(
-				$container,
-				$marker,
-				'###|###'
-			);
-		}
-		$this->templateEngine->addSubpart('template_container', $containerCode);
-		$this->templateEngine->addMarker('PAGEID', $GLOBALS['TSFE']->id);
-		return $this->templateEngine->render();
-			}
+		echo $this->model->getJsonResponse();
+		die();
+	}
 }
 
 

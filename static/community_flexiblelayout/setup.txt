@@ -12,6 +12,7 @@ plugin.tx_communityflexiblelayout {
 plugin.tx_communityflexiblelayout.controller.dashboard {
 	defaultCommand = showDashboard
 	template = EXT:community_flexiblelayout/resources/template.html
+	containerCount = 5
 }
 
 	// adding the user profile application controller
