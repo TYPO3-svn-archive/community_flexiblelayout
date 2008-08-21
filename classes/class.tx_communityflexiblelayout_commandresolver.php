@@ -2,30 +2,45 @@
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandresolverinterface.php');
 
 class tx_communityflexiblelayout_CommandResolver implements tx_communityflexiblelayout_CommandResolverInterface {
-	private $path;
-	private $defaultCommand;
-
+	protected $path;
+	protected $defaultCommand;
+	protected $request;
+	
 	public function __construct($defaultCommand) {
 		$this->path = t3lib_extMgm::extPath('community_flexiblelayout').'classes/commands';
 		$this->defaultCommand = $defaultCommand;
 		$registry = tx_donation_Registry::getInstance('');
 		$this->conf = $registry->get('configuration');
+		$this->request = t3lib_div::_GP('tx_communityflexiblelayout');
 	}
 
 	public function getCommand() {
 		if ($this->conf['fixCommand']) {
-			$command = $this->loadCommand($this->conf['fixCommand']);
-			return $command;
+			$this->request['cmd'] = $this->conf['fixCommand'];
 		}
 		
-		if (t3lib_div::_GP('profileId') == $GLOBALS['TSFE']->fe_user->user['uid']) {
+		/**
+		 * @TODO: Umbau: Arbeite mit user object von communityManager, nicht mit $GLOBALS['TSFE']->fe_user->user
+		 */
+		if (isset($this->request['profileId']) && ($this->request['profileId'] == $GLOBALS['TSFE']->fe_user->user['uid'])) {
 			$command = $this->loadCommand('editDashboard');
 			return $command;
 		}
 		
-		if (strlen(t3lib_div::_GP('cmd'))) {
-			$cmdName = t3lib_div::_GP('cmd');
-			if (($cmdName == 'editDashboard' || $cmdName == 'saveDashboard') && !$GLOBALS['TSFE']->fe_user->user['uid']) {
+		/**
+		 * @TODO: Umbau: Arbeite mit user object von communityManager, nicht mit $GLOBALS['TSFE']->fe_user->user
+		 */
+		if (isset($this->request['profileId']) && ($this->request['profileId'] != $GLOBALS['TSFE']->fe_user->user['uid'])) {
+			$command = $this->loadCommand('showDashboard');
+			return $command;
+		}
+		
+		/**
+		 * @TODO: Umbau: Arbeite mit user object von communityManager, nicht mit $GLOBALS['TSFE']->fe_user->user
+		 */
+		if (strlen($this->request['cmd'])) {
+			$cmdName = $this->request['cmd'];
+			if (($cmdName == 'editDashboard' || $cmdName == 'saveDashboard') && !$GLOBALS['TSFE']->loginUser) {
 				$cmdName = 'showDashboard';
 			}
 			$command = $this->loadCommand($cmdName);

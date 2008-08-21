@@ -34,10 +34,10 @@
 					}
 				},
 				'update': function(e, ui) {
-					$.get('/index.php', {
+					$.post('/index.php', {
 						'id': __PAGEID__,
-						'cmd': 'saveDashboard',
-						'dashboardConfig[]': getDashboardConfig()
+						'tx_communityflexiblelayout[cmd]': 'saveDashboard',
+						'tx_communityflexiblelayout[dashboardConfig][]': getDashboardConfig()
 					});
 				}
 			});

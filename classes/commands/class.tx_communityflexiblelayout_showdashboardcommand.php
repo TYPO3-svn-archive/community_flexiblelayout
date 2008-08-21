@@ -40,11 +40,13 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 	protected $communityApplicationManager;
 	protected $widgets = array();
 	protected $cols = array();
+	protected $request;
 	
 	public function __construct() {
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
 		$registry = tx_donation_Registry::getInstance('');
 		$this->conf = $registry->get('configuration');
+		$this->request = t3lib_div::_GP('tx_communityflexiblelayout');
 	}
 
 	public function execute() {
@@ -55,7 +57,7 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 			}
 		}
 		
-		$profileId = intval(t3lib_div::_GP('profileId'));
+		$profileId = intval($this->request['profileId']);
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 			'tx_communityflexiblelayout_dashboardconfig',
 			'fe_users',

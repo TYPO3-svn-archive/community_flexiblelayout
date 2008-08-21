@@ -40,18 +40,19 @@ class tx_communityflexiblelayout_saveDashboardCommand implements tx_communityfle
 	protected $communityApplicationManager;
 	protected $widgets = array();
 	protected $cols = array();
+	protected $request;
 	
 	public function __construct() {
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
 		$registry = tx_donation_Registry::getInstance('');
 		$this->conf = $registry->get('configuration');
+		$this->request = t3lib_div::_GP('tx_communityflexiblelayout');
 	}
 
 	public function execute() {
-		$newConfig = t3lib_div::_GP('dashboardConfig');
+		$newConfig = $this->request['dashboardConfig'];
 		if ($newConfig) {
 			$tmp[$this->conf['communityID']][$this->conf['profileID']] = $newConfig;
-			print_r($tmp);
 			$dashboardConfig = serialize($tmp);	
 		}
 		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
