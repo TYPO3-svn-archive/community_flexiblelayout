@@ -18,6 +18,15 @@
 
 	$(document).ready(function() {
 		if (__EDIT__) {
+			$('#tx-communityflexiblelayout-clipboard').slideUp();
+			$('#tx-communityflexiblelayout-clipboard-helper').toggle(
+				function() {
+					$('#tx-communityflexiblelayout-clipboard').slideDown('slow');
+				},
+				function() {
+					$('#tx-communityflexiblelayout-clipboard').slideUp('slow');
+				}
+			);
 			$('#tx-communityflexiblelayout-clipboard .widget').each(function() {
 				$(this).find('.content').hide();
 			});
