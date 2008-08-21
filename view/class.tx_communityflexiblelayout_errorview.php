@@ -25,27 +25,44 @@
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
 
 /**
- * show Dashbaord View
+ * Error View
  *
  * @author	Frank Nägler <typo3@naegler.net>
  * @package TYPO3
  * @subpackage community_flexiblelayout
  */
-class tx_communityflexiblelayout_SaveDashboardView {
+class tx_communityflexiblelayout_ErrorView {
+	/**
+	 * @var Exception
+	 */
 	protected $model;
+	/**
+	 * @var tslib_cObj
+	 */
+	protected $cObj;
 
 	/**
 	 * constructor for class tx_communityflexiblelayout_ShowDashboardView
 	 */
 	public function __construct($model) {
 		$this->model = $model;
+		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->conf = $registry->getConfiguration();
 	}
 
 	public function render() {
-		echo $this->model->getJsonResponse();
-		die();
+		$templateCode = $this->cObj->fileResource($this->conf['template']);
+		$templateCode = $this->cObj->getSubpart($templateCode, "###TEMPLATE_ERROR_{$this->model->getCode()}###");
+		
+		$marker = array(
+			'###ERR_MESSAGE###'		=> $this->model->getMessage(), 
+			'###ERR_CODE###'		=> $this->model->getCode(),
+			'###ERR_FILE###'		=> $this->model->getFile(),
+			'###ERR_LINE###'		=> $this->model->getLine(),
+			'###ERR_TRACE###'		=> $this->model->getTraceAsString()
+		);
+		return $this->cObj->substituteMarkerArray($templateCode, $marker);
 	}
 }
 

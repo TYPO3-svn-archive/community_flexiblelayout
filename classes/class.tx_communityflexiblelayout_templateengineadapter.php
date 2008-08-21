@@ -22,7 +22,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('donation').'classes/class.tx_donation_HtmlTemplateView.php');
 
 class tx_communityflexiblelayout_TemplateEngineAdapter {
 	/**
@@ -31,7 +30,8 @@ class tx_communityflexiblelayout_TemplateEngineAdapter {
 	protected $templateEngine;
 	
 	public function __construct($htmlFile, $subpart, $prefix = '') {
-		$this->templateEngine = new tx_donation_HtmlTemplateView($htmlFile, $subpart, $prefix = '');
+		$this->templateEngine = null;
+		//new tx_donation_HtmlTemplateView($htmlFile, $subpart, $prefix = '');
 	}
 	
 	public function loadHtmlFile($htmlFile) {

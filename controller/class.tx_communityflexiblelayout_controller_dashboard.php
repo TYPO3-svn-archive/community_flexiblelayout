@@ -26,7 +26,8 @@ require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_showdashboardview.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_editdashboardview.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_savedashboardview.php');
-require_once $GLOBALS['PATH_donation'] . 'classes/class.tx_donation_Registry.php';
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_errorview.php');
+require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
 
 /**
  * Dashboard Controller
@@ -47,19 +48,21 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	}
 
 	public function execute($content, array $configuration) {
-		$registry = tx_donation_Registry::getInstance('');
-		$registry->set('cObj', $this->cObj);
-		$registry->set('configuration', $configuration);
-		$registry->set('plugin', $this);
+		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
+		$registry->setConfiguration($configuration);
 		
 		$cmdResolver = new tx_communityflexiblelayout_CommandResolver($configuration['defaultCommand']);
-		$command = $cmdResolver->getCommand();
-		$command->execute();
+		try {
+			$model = $cmdResolver->getCommand();
+			$model->execute();
+			$cmdName = $model->getCommandName();
+			$viewName = "tx_communityflexiblelayout_".ucfirst($cmdName)."View";
+		} catch (tx_communityflexiblelayout_NoProfileIdException $exception) {
+			$viewName = 'tx_communityflexiblelayout_ErrorView';
+			$model = $exception;
+		}
 		
-		$cmdName = $command->getCommandName();
-		$viewName = "tx_communityflexiblelayout_".ucfirst($cmdName)."View";
-		
-		$view = new $viewName($command);
+		$view = new $viewName($model);
 		return $view->render();
 	}
 }

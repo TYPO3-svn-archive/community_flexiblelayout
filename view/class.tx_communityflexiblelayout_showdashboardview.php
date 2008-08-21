@@ -22,8 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once $GLOBALS['PATH_donation'] . 'classes/class.tx_donation_Registry.php';
-require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_templateengineadapter.php');
+require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
 
 /**
  * show Dashbaord View
@@ -34,23 +33,25 @@ require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx
  */
 class tx_communityflexiblelayout_ShowDashboardView {
 	/**
-	 * @var tx_communityflexiblelayout_TemplateEngineAdapter
+	 * @var tslib_cObj
 	 */
-	protected $templateEngine;
+	protected $cObj;
+	
 	/**
 	 * constructor for class tx_communityflexiblelayout_ShowDashboardView
 	 */
 	public function __construct($model) {
 		$this->model = $model;
-		$registry = tx_donation_Registry::getInstance('');
-		$this->conf = $registry->get('configuration');
-		$this->templateEngine = new tx_communityflexiblelayout_TemplateEngineAdapter($this->conf['template'], 'TEMPLATE_'.$this->model->getCommandName());
+		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
+		$this->conf = $registry->getConfiguration();
 	}
 
 	public function render() {
-		$containerTemplate = $this->templateEngine->getSubpart('template_container');
-		$widgetTemplate = $this->templateEngine->getSubpart('template_widget');
-		$cObj = $this->templateEngine->getCObj();
+		$templateCode = $this->cObj->fileResource($this->conf['template']);
+		$templateCode = $this->cObj->getSubpart($templateCode, '###TEMPLATE_SHOWDASHBOARD###');
+		$containerTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_CONTAINER###');
+		$widgetTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_WIDGET###');
 		for ($i=1; $i<=$this->conf['containerCount']; $i++) {
 			$marker['CONTAINER_ID'] = "tx-communityflexiblelayout-dashboard-col{$i}";
 			$marker['CONTAINER_CLASSES'] = ($this->conf['containerConfig.'][$i.'.']['alternativClassName'] ? $this->conf['containerConfig.'][$i.'.']['alternativClassName'] : $this->conf['containerClass']);		
@@ -71,28 +72,31 @@ class tx_communityflexiblelayout_ShowDashboardView {
 						'WIDGET_CLASSES' => implode(' ', $widgetClasses)
 					);
 					
-					$widgetCode .= $cObj->substituteMarkerArray(
+					$widgetCode .= $this->cObj->substituteMarkerArray(
 						$widgetTemplate,
 						$widgetMarker,
 						'###|###'
 					);
 				}
 			}
-			$container = $cObj->substituteSubpart(
+			$container = $this->cObj->substituteSubpart(
 				$containerTemplate,
 				'###TEMPLATE_WIDGET###',
 				$widgetCode
 			);
-			$containerCode .= $cObj->substituteMarkerArray(
+			$containerCode .= $this->cObj->substituteMarkerArray(
 				$container,
 				$marker,
 				'###|###'
 			);
 		}
-		$this->templateEngine->addSubpart('template_container', $containerCode);
-		$this->templateEngine->addMarker('PAGEID', $GLOBALS['TSFE']->id);
-		return $this->templateEngine->render();
-			}
+		$content = $this->cObj->substituteSubpart($templateCode, '###TEMPLATE_CONTAINER###', $containerCode);
+
+		$marker = array(
+			'###PAGEID###' => $GLOBALS['TSFE']->id
+		);
+		return $this->cObj->substituteMarkerArray($content, $marker);
+	}
 }
 
 

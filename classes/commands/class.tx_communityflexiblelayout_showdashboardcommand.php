@@ -24,6 +24,7 @@
 
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandinterface.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_applicationmanager.php');
+require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
 
 /**
  * Show Dashboard Command (model)
@@ -44,8 +45,8 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 	
 	public function __construct() {
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
-		$registry = tx_donation_Registry::getInstance('');
-		$this->conf = $registry->get('configuration');
+		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
+		$this->conf = $registry->getConfiguration();
 		$this->request = t3lib_div::_GP('tx_communityflexiblelayout');
 	}
 
@@ -56,7 +57,6 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 				$this->widgets[$widgetName] = $widget;
 			}
 		}
-		
 		$profileId = intval($this->request['profileId']);
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 			'tx_communityflexiblelayout_dashboardconfig',
