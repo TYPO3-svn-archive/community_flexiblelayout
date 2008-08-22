@@ -25,6 +25,7 @@
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandinterface.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_applicationmanager.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_layoutmanager.php');
 
 /**
  * Show Dashboard Command (model)
@@ -46,6 +47,7 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->conf = $registry->getConfiguration();
+		$this->request = t3lib_div::_GP('tx_community');
 	}
 
 	public function execute() {
@@ -55,21 +57,25 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 				$this->widgets[$widgetName] = $widget;
 			}
 		}
+		/**
+		 * @var tx_communityflexiblelayout_LayoutManager
+		 */
+		$layoutManager = new tx_communityflexiblelayout_LayoutManager();
 		
-		$dashboardConfig = unserialize($GLOBALS['TSFE']->fe_user->user['tx_communityflexiblelayout_dashboardconfig']);
-		if (is_array($dashboardConfig)) {
-			$config = $dashboardConfig[$this->conf['communityID']][$this->conf['profileID']];
-			if (is_array($config)) {
-				foreach($config as $c) {
-					$parts = t3lib_div::trimExplode(',', $c);
-					$newConfig[$parts[2]] = array(
-						'col'	=> $parts[0],
-						'pos'	=> $parts[1],
-						'id'	=> $parts[2]
-					);
-				}
-				$config = $newConfig;
+		$profileId = intval($this->request['user']);
+		
+		$config = $layoutManager->getConfiguration($this->conf['communityID'], $this->conf['profileID'], $profileId);
+		$config = unserialize($config);
+		if (is_array($config)) {
+			foreach($config as $c) {
+				$parts = t3lib_div::trimExplode(',', $c);
+				$newConfig[$parts[2]] = array(
+					'col'	=> $parts[0],
+					'pos'	=> $parts[1],
+					'id'	=> $parts[2]
+				);
 			}
+			$config = $newConfig;
 		} else {
 			$config = array();
 		}

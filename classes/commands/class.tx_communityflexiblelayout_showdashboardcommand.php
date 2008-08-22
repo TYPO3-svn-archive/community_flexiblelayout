@@ -25,6 +25,7 @@
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandinterface.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_applicationmanager.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_layoutmanager.php');
 
 /**
  * Show Dashboard Command (model)
@@ -47,7 +48,7 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->conf = $registry->getConfiguration();
-		$this->request = t3lib_div::_GP('tx_communityflexiblelayout');
+		$this->request = t3lib_div::_GP('tx_community');
 	}
 
 	public function execute() {
@@ -57,35 +58,32 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 				$this->widgets[$widgetName] = $widget;
 			}
 		}
-		$profileId = intval($this->request['profileId']);
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-			'tx_communityflexiblelayout_dashboardconfig',
-			'fe_users',
-			'uid = ' . $profileId
-		);
-		if ($GLOBALS['TYPO3_DB']->sql_num_rows($res) > 0) {
-			$data = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-			$dashboardConfig = unserialize($data['tx_communityflexiblelayout_dashboardconfig']);
-			if (is_array($dashboardConfig)) {
-				$config = $dashboardConfig[$this->conf['communityID']][$this->conf['profileID']];
-				foreach($config as $c) {
-					$parts = t3lib_div::trimExplode(',', $c);
-					$newConfig[$parts[2]] = array(
-						'col'	=> $parts[0],
-						'pos'	=> $parts[1],
-						'id'	=> $parts[2]
-					);
-				}
-				$config = $newConfig;
-			} else {
-				$config = array();
+		$profileId = intval($this->request['user']);
+		/**
+		 * @var tx_communityflexiblelayout_LayoutManager
+		 */
+		$layoutManager = new tx_communityflexiblelayout_LayoutManager();
+		$config = $layoutManager->getConfiguration($this->conf['communityID'], $this->conf['profileID'], $profileId);
+
+		$config = unserialize($config);
+		if (is_array($config)) {
+			foreach($config as $c) {
+				$parts = t3lib_div::trimExplode(',', $c);
+				$newConfig[$parts[2]] = array(
+					'col'	=> $parts[0],
+					'pos'	=> $parts[1],
+					'id'	=> $parts[2]
+				);
 			}
-			foreach ($this->widgets as $widgetName => $widget) {
-				if (is_array($config[$widgetName])) {
-					$this->cols[$config[$widgetName]['col']][$config[$widgetName]['pos']] = $widget;
-				} else {
-					$this->cols[$widget->getLayoutContainer()][] = $widget;
-				}
+			$config = $newConfig;
+		} else {
+			$config = array();
+		}
+		foreach ($this->widgets as $widgetName => $widget) {
+			if (is_array($config[$widgetName])) {
+				$this->cols[$config[$widgetName]['col']][$config[$widgetName]['pos']] = $widget;
+			} else {
+				$this->cols[$widget->getLayoutContainer()][] = $widget;
 			}
 		}
 	}

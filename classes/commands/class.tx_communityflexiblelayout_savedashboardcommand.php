@@ -25,6 +25,8 @@
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandinterface.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_applicationmanager.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_layoutmanager.php');
+require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_usergateway.php');
 
 /**
  * Show Dashboard Command (model)
@@ -53,15 +55,17 @@ class tx_communityflexiblelayout_saveDashboardCommand implements tx_communityfle
 	public function execute() {
 		$newConfig = $this->request['dashboardConfig'];
 		if ($newConfig) {
-			$tmp[$this->conf['communityID']][$this->conf['profileID']] = $newConfig;
-			$dashboardConfig = serialize($tmp);	
+			$dashboardConfig = serialize($newConfig);	
 		}
-		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-			'fe_users',
-			'uid = ' . $GLOBALS['TSFE']->fe_user->user['uid'],
-			array('tx_communityflexiblelayout_dashboardconfig' => $dashboardConfig)
-		);
-		$this->status = ($GLOBALS['TYPO3_DB']->sql_affected_rows() > 0) ? 'saved' : 'error';
+		/**
+		 * @var tx_communityflexiblelayout_LayoutManager
+		 */
+		$layoutManager = new tx_communityflexiblelayout_LayoutManager();
+		
+		$userGateway = new tx_community_model_UserGateway();
+		$user = $userGateway->findCurrentlyLoggedInUser();
+		$profileId = $user->getUid();
+		$this->status = ($layoutManager->setConfiguration($this->conf['communityID'], $this->conf['profileID'], $profileId, $dashboardConfig)) ? 'saved' : 'error';
 	}
 	
 	public function getJsonResponse() {
