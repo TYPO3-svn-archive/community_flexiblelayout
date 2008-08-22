@@ -1,31 +1,33 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2008 Frank Nägler <typo3@naegler.net>
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2008 Frank Nägler <typo3@naegler.net>
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandresolverinterface.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'exceptions/class.tx_communityflexiblelayout_noprofileidexception.php');
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'exceptions/class.tx_communityflexiblelayout_unknownprofileexception.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
 require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_usergateway.php');
+require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_groupgateway.php');
 
 class tx_communityflexiblelayout_CommandResolver implements tx_communityflexiblelayout_CommandResolverInterface {
 	protected $path;
@@ -35,6 +37,10 @@ class tx_communityflexiblelayout_CommandResolver implements tx_communityflexible
 	 * @var tx_community_model_UserGateway
 	 */
 	protected $userGateway;
+	/**
+	 * @var tx_community_model_GroupGateway
+	 */
+	protected $groupGateway;
 	
 	public function __construct($defaultCommand) {
 		$this->path = t3lib_extMgm::extPath('community_flexiblelayout').'classes/commands';
@@ -43,29 +49,38 @@ class tx_communityflexiblelayout_CommandResolver implements tx_communityflexible
 		$this->conf = $registry->getConfiguration();
 		$this->communityRequest = t3lib_div::_GP('tx_community');
 		$this->layoutRequest = t3lib_div::_GP('tx_communityflexiblelayout');
-		$this->userGateway = new tx_community_model_UserGateway();
+		$this->userGateway	= new tx_community_model_UserGateway();
+		$this->groupGateway	= new tx_community_model_GroupGateway();
+		$this->gateway		= ($this->conf['profileID'] == 'GroupProfile') ? $this->groupGateway : $this->userGateway; 
 	}
 
 	public function getCommand() {
+		$profileId = ($this->conf['profileID'] == 'GroupProfile') ? $this->communityRequest['group'] : $this->communityRequest['user'];
+		
 		if ($this->conf['fixCommand'] && ($this->layoutRequest['cmd'] != 'saveDashboard')) {
 			$this->layoutRequest['cmd'] = $this->conf['fixCommand'];
 		}
-		
+
 		/**
 		 * @var tx_community_model_User
 		 */
 		$loggedinUser = $this->userGateway->findCurrentlyLoggedInUser();
-		
-		// if loggedin user profil, force edit mode
-		if (isset($this->communityRequest['user']) && ($this->communityRequest['user'] == $loggedinUser->getUid())) {
-			$command = $this->loadCommand('editDashboard');
-			return $command;
-		}
 
-		// if not loggedin user profil, force show mode
-		if (isset($this->communityRequest['user']) && ($this->communityRequest['user'] != $loggedinUser->getUid())) {
-			$command = $this->loadCommand('showDashboard');
-			return $command;
+		if ($loggedinUser !== null) {
+			// if loggedin user profil, force edit mode
+			if (isset($profileId) && ($profileId == $loggedinUser->getUid())) {
+				$command = $this->loadCommand('editDashboard');
+				return $command;
+			}
+	
+			// if not loggedin user profil, force show mode
+			if (isset($profileId) && ($profileId != $loggedinUser->getUid())) {
+				if ($this->gateway->findById($profileId) === null) {
+					throw new tx_communityflexiblelayout_UnknownProfileException();
+				}
+				$command = $this->loadCommand('showDashboard');
+				return $command;
+			}
 		}
 		
 		if (strlen($this->layoutRequest['cmd'])) {
@@ -74,12 +89,12 @@ class tx_communityflexiblelayout_CommandResolver implements tx_communityflexible
 				$cmdName = 'showDashboard';
 			}
 			// if we are in show mode and have no profile id given, throw tx_communityflexiblelayout_NoProfileIdException
-			if ($cmdName == 'showDashboard' && (!isset($this->communityRequest['user']))) {
+			if ($cmdName == 'showDashboard' && (!isset($profileId))) {
 				throw new tx_communityflexiblelayout_NoProfileIdException();
 			}
-			// if we are in show mode and have an invalid profile id given, throw tx_communityflexiblelayout_UnknowProfileException
-			if ($cmdName == 'showDashboard' && (isset($this->communityRequest['user'])) && ($this->userGateway->findById($this->communityRequest['user']) === null)) {
-				throw new tx_communityflexiblelayout_UnknowProfileException();
+			// if we are in show mode and have an invalid profile id given, throw tx_communityflexiblelayout_UnknownProfileException
+			if ($cmdName == 'showDashboard' && (isset($profileId)) && ($this->gateway->findById($profileId) === null)) {
+				throw new tx_communityflexiblelayout_UnknownProfileException();
 			}
 			$command = $this->loadCommand($cmdName);
 			if ($command instanceof tx_communityflexiblelayout_CommandInterface) {
@@ -87,15 +102,15 @@ class tx_communityflexiblelayout_CommandResolver implements tx_communityflexible
 			}
 		}
 		// if we the defaultCommand = showDashboard and have no profile id given, throw tx_communityflexiblelayout_NoProfileIdException
-		if ($this->defaultCommand == 'showDashboard' && (!isset($this->communityRequest['user']))) {
+		if ($this->defaultCommand == 'showDashboard' && (!isset($profileId))) {
 			throw new tx_communityflexiblelayout_NoProfileIdException();
 		}
-		
-		// if we are in show mode and have an invalid profile id given, throw tx_communityflexiblelayout_UnknowProfileException
-		if ($this->defaultCommand == 'showDashboard' && (!isset($this->communityRequest['user'])) && ($this->userGateway->findById($this->communityRequest['user']) === null)) {
-			throw new tx_communityflexiblelayout_UnknowProfileException();
+
+		// if we are in show mode and have an invalid profile id given, throw tx_communityflexiblelayout_UnknownProfileException
+		if ($this->defaultCommand == 'showDashboard' && (isset($profileId)) && ($this->gateway->findById($profileId) === null)) {
+			throw new tx_communityflexiblelayout_UnknownProfileException();
 		}
-		
+
 		$command = $this->loadCommand($this->defaultCommand);
 		return $command;
 	}

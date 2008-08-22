@@ -60,9 +60,11 @@ class tx_communityflexiblelayout_controller_Dashboard {
 		} catch (tx_communityflexiblelayout_NoProfileIdException $exception) {
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
-		} catch (tx_communityflexiblelayout_UnknowProfileException $exception) {
+		} catch (tx_communityflexiblelayout_UnknownProfileException $exception) {
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
+		} catch (Exception $exception) {
+			die ('unhandled exception: ' . $exception->);
 		}
 		
 		$view = new $viewName($model);

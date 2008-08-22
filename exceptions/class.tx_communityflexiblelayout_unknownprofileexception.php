@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class tx_communityflexiblelayout_UnknowProfileException extends Exception {
+class tx_communityflexiblelayout_UnknownProfileException extends Exception {
 	
 	function __construct() {
 		parent::__construct('unknown profile', 2100);
