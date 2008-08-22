@@ -1,26 +1,26 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2008 Frank Nägler <typo3@naegler.net>
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2008 Frank Nägler <typo3@naegler.net>
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
 
@@ -54,8 +54,13 @@ class tx_communityflexiblelayout_EditDashboardView {
 		$containerTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_CONTAINER###');
 		$widgetTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_WIDGET###');
 		for ($i=1; $i<=$this->conf['containerCount']; $i++) {
+			$containerClasses = array();
+			$containerClasses[] = 'container';
+			$containerClasses[] = $this->conf['containerClass'];
+			$containerClasses[] = ($this->conf['containerConfig.'][$i.'.']['alternativClassName']) ? $this->conf['containerConfig.'][$i.'.']['alternativClassName'] : '';
+
 			$marker['CONTAINER_ID'] = "tx-communityflexiblelayout-dashboard-col{$i}";
-			$marker['CONTAINER_CLASSES'] = ($this->conf['containerConfig.'][$i.'.']['alternativClassName'] ? $this->conf['containerConfig.'][$i.'.']['alternativClassName'] : $this->conf['containerClass']);		
+			$marker['CONTAINER_CLASSES'] = implode(' ', $containerClasses);
 			$widgetsArray = $this->model->getWidgetsByCol($i);
 			$widgetCode = '';
 			if (is_array($widgetsArray)) {
@@ -71,24 +76,24 @@ class tx_communityflexiblelayout_EditDashboardView {
 						'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getID()}",
 						'WIDGET_CLASSES' => implode(' ', $widgetClasses)
 					);
-					
+						
 					$widgetCode .= $this->cObj->substituteMarkerArray(
-						$widgetTemplate,
-						$widgetMarker,
+					$widgetTemplate,
+					$widgetMarker,
 						'###|###'
-					);
+						);
 				}
 			}
 			$container = $this->cObj->substituteSubpart(
-				$containerTemplate,
+			$containerTemplate,
 				'###TEMPLATE_WIDGET###',
-				$widgetCode
+			$widgetCode
 			);
 			$containerCode .= $this->cObj->substituteMarkerArray(
-				$container,
-				$marker,
+			$container,
+			$marker,
 				'###|###'
-			);
+				);
 		}
 		$widgetsArray = $this->model->getWidgetsByCol(0);
 		$clipBoardWidgets = '';
@@ -105,16 +110,16 @@ class tx_communityflexiblelayout_EditDashboardView {
 					'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getID()}",
 					'WIDGET_CLASSES' => implode(' ', $widgetClasses)
 				);
-				
+
 				$clipBoardWidgets .= $this->cObj->substituteMarkerArray(
-					$widgetTemplate,
-					$widgetMarker,
+				$widgetTemplate,
+				$widgetMarker,
 					'###|###'
-				);
+					);
 			}
 		}
 		$content = $this->cObj->substituteSubpart($templateCode, '###TEMPLATE_CONTAINER###', $containerCode);
-		
+
 		$marker = array(
 			'###CLIPBOARD_WIDGETS###' => $clipBoardWidgets, 
 			'###PAGEID###' => $GLOBALS['TSFE']->id
