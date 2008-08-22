@@ -47,7 +47,7 @@ class tx_communityflexiblelayout_CommandResolver implements tx_communityflexible
 	}
 
 	public function getCommand() {
-		if ($this->conf['fixCommand']) {
+		if ($this->conf['fixCommand'] && ($this->layoutRequest['cmd'] != 'saveDashboard')) {
 			$this->layoutRequest['cmd'] = $this->conf['fixCommand'];
 		}
 		
@@ -73,19 +73,29 @@ class tx_communityflexiblelayout_CommandResolver implements tx_communityflexible
 			if (($cmdName == 'editDashboard' || $cmdName == 'saveDashboard') && !$GLOBALS['TSFE']->loginUser) {
 				$cmdName = 'showDashboard';
 			}
-			// if we are in show mode and have no profile id given, throw exception
+			// if we are in show mode and have no profile id given, throw tx_communityflexiblelayout_NoProfileIdException
 			if ($cmdName == 'showDashboard' && (!isset($this->communityRequest['user']))) {
 				throw new tx_communityflexiblelayout_NoProfileIdException();
+			}
+			// if we are in show mode and have an invalid profile id given, throw tx_communityflexiblelayout_UnknowProfileException
+			if ($cmdName == 'showDashboard' && (isset($this->communityRequest['user'])) && ($this->userGateway->findById($this->communityRequest['user']) === null)) {
+				throw new tx_communityflexiblelayout_UnknowProfileException();
 			}
 			$command = $this->loadCommand($cmdName);
 			if ($command instanceof tx_communityflexiblelayout_CommandInterface) {
 				return $command;
 			}
 		}
-		// if we the defaultCommand = showDashboard and have no profile id given, throw exception
+		// if we the defaultCommand = showDashboard and have no profile id given, throw tx_communityflexiblelayout_NoProfileIdException
 		if ($this->defaultCommand == 'showDashboard' && (!isset($this->communityRequest['user']))) {
 			throw new tx_communityflexiblelayout_NoProfileIdException();
 		}
+		
+		// if we are in show mode and have an invalid profile id given, throw tx_communityflexiblelayout_UnknowProfileException
+		if ($this->defaultCommand == 'showDashboard' && (!isset($this->communityRequest['user'])) && ($this->userGateway->findById($this->communityRequest['user']) === null)) {
+			throw new tx_communityflexiblelayout_UnknowProfileException();
+		}
+		
 		$command = $this->loadCommand($this->defaultCommand);
 		return $command;
 	}
