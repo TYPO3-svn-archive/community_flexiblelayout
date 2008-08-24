@@ -64,7 +64,7 @@ class tx_communityflexiblelayout_controller_Dashboard {
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
 		} catch (Exception $exception) {
-			die ('unhandled exception: ' . $exception->);
+			die ('unhandled exception: ' . $exception);
 		}
 		
 		$view = new $viewName($model);
