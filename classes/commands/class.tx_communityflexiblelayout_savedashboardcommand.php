@@ -65,7 +65,7 @@ class tx_communityflexiblelayout_saveDashboardCommand implements tx_communityfle
 		$userGateway = new tx_community_model_UserGateway();
 		$user = $userGateway->findCurrentlyLoggedInUser();
 		$profileId = $user->getUid();
-		$this->status = ($layoutManager->setConfiguration($this->conf['communityID'], $this->conf['profileID'], $profileId, $dashboardConfig)) ? 'saved' : 'error';
+		$this->status = ($layoutManager->setConfiguration($this->conf['communityID'], $this->conf['profileType'], $profileId, $dashboardConfig)) ? 'saved' : 'error';
 	}
 	
 	public function getJsonResponse() {

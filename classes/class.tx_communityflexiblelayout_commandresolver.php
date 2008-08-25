@@ -23,95 +23,52 @@
  ***************************************************************/
 
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandresolverinterface.php');
-require_once(t3lib_extMgm::extPath('community_flexiblelayout').'exceptions/class.tx_communityflexiblelayout_noprofileidexception.php');
-require_once(t3lib_extMgm::extPath('community_flexiblelayout').'exceptions/class.tx_communityflexiblelayout_unknownprofileexception.php');
-require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
-require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_usergateway.php');
-require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_groupgateway.php');
+require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_profilefactory.php');
 
 class tx_communityflexiblelayout_CommandResolver implements tx_communityflexiblelayout_CommandResolverInterface {
 	protected $path;
 	protected $defaultCommand;
 	protected $request;
 	/**
-	 * @var tx_community_model_UserGateway
+	 * @var tx_community_model_AbstractProfile
 	 */
-	protected $userGateway;
-	/**
-	 * @var tx_community_model_GroupGateway
-	 */
-	protected $groupGateway;
+	protected $profile;
 	
 	public function __construct($defaultCommand) {
-		$this->path = t3lib_extMgm::extPath('community_flexiblelayout').'classes/commands';
-		$this->defaultCommand = $defaultCommand;
-		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
-		$this->conf = $registry->getConfiguration();
-		$this->communityRequest = t3lib_div::_GP('tx_community');
-		$this->layoutRequest = t3lib_div::_GP('tx_communityflexiblelayout');
-		$this->userGateway	= new tx_community_model_UserGateway();
-		$this->groupGateway	= new tx_community_model_GroupGateway();
-		$this->gateway		= ($this->conf['profileID'] == 'GroupProfile') ? $this->groupGateway : $this->userGateway; 
+		$this->path				= t3lib_extMgm::extPath('community_flexiblelayout').'classes/commands';
+		$this->defaultCommand	= $defaultCommand;
+		$this->request			= t3lib_div::_GP('tx_communityflexiblelayout');
+		
+		$registry				= tx_community_Registry::getInstance('tx_communityflexiblelayout');
+		$this->conf				= $registry->getConfiguration();
+
+		try {
+			$this->profile		= tx_community_ProfileFactory::createProfile($this->conf['profileType']);
+		} catch (Exception $exception) {
+			throw $exception;
+		}	
 	}
 
 	public function getCommand() {
-		$profileId = ($this->conf['profileID'] == 'GroupProfile') ? $this->communityRequest['group'] : $this->communityRequest['user'];
-		
-		if ($this->conf['fixCommand'] && ($this->layoutRequest['cmd'] != 'saveDashboard')) {
-			$this->layoutRequest['cmd'] = $this->conf['fixCommand'];
+		// first prio: saveDashboard command in request and profile is editable
+		if ($this->profile->isEditable() && ($this->request['cmd'] == 'saveDashboard')) {
+			$command = $this->loadCommand('saveDashboard');
+			return $command;
 		}
-
-		/**
-		 * @var tx_community_model_User
-		 */
-		$loggedinUser = $this->userGateway->findCurrentlyLoggedInUser();
-
-		if ($loggedinUser !== null) {
-			// if loggedin user profil, force edit mode
-			if (isset($profileId) && ($profileId == $loggedinUser->getUid())) {
-				$command = $this->loadCommand('editDashboard');
-				return $command;
-			}
-	
-			// if not loggedin user profil, force show mode
-			if (isset($profileId) && ($profileId != $loggedinUser->getUid())) {
-				if ($this->gateway->findById($profileId) === null) {
-					throw new tx_communityflexiblelayout_UnknownProfileException();
-				}
-				$command = $this->loadCommand('showDashboard');
-				return $command;
-			}
-		}
-		
-		if (strlen($this->layoutRequest['cmd'])) {
-			$cmdName = $this->layoutRequest['cmd'];
-			if (($cmdName == 'editDashboard' || $cmdName == 'saveDashboard') && !$GLOBALS['TSFE']->loginUser) {
+		// second prio: fixCommand
+		if ($this->conf['fixCommand']) {
+			$cmdName = $this->conf['fixCommand'];
+			if ($cmdName == 'editDashboard' && !$this->profile->isEditable()) {
 				$cmdName = 'showDashboard';
 			}
-			// if we are in show mode and have no profile id given, throw tx_communityflexiblelayout_NoProfileIdException
-			if ($cmdName == 'showDashboard' && (!isset($profileId))) {
-				throw new tx_communityflexiblelayout_NoProfileIdException();
-			}
-			// if we are in show mode and have an invalid profile id given, throw tx_communityflexiblelayout_UnknownProfileException
-			if ($cmdName == 'showDashboard' && (isset($profileId)) && ($this->gateway->findById($profileId) === null)) {
-				throw new tx_communityflexiblelayout_UnknownProfileException();
-			}
 			$command = $this->loadCommand($cmdName);
-			if ($command instanceof tx_communityflexiblelayout_CommandInterface) {
-				return $command;
-			}
-		}
-		// if we the defaultCommand = showDashboard and have no profile id given, throw tx_communityflexiblelayout_NoProfileIdException
-		if ($this->defaultCommand == 'showDashboard' && (!isset($profileId))) {
-			throw new tx_communityflexiblelayout_NoProfileIdException();
+			return $command;
 		}
 
-		// if we are in show mode and have an invalid profile id given, throw tx_communityflexiblelayout_UnknownProfileException
-		if ($this->defaultCommand == 'showDashboard' && (isset($profileId)) && ($this->gateway->findById($profileId) === null)) {
-			throw new tx_communityflexiblelayout_UnknownProfileException();
-		}
+		// third prio: isEditable ? editDasboard : showDashboard;
+		$cmdName = $this->profile->isEditable() ? 'editDashboard' : 'showDashboard';
 
-		$command = $this->loadCommand($this->defaultCommand);
+		$command = $this->loadCommand($cmdName);
 		return $command;
 	}
 

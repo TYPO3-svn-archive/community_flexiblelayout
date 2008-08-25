@@ -52,7 +52,7 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 	}
 
 	public function execute() {
-		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileID']);
+		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
 		foreach ($widgets as $widgetName => $widget) {
 			if ($widget instanceof tx_community_CommunityApplicationWidget) {
 				$this->widgets[$widgetName] = $widget;
@@ -63,7 +63,7 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 		 * @var tx_communityflexiblelayout_LayoutManager
 		 */
 		$layoutManager = new tx_communityflexiblelayout_LayoutManager();
-		$config = $layoutManager->getConfiguration($this->conf['communityID'], $this->conf['profileID'], $profileId);
+		$config = $layoutManager->getConfiguration($this->conf['communityID'], $this->conf['profileType'], $profileId);
 
 		$config = unserialize($config);
 		if (is_array($config)) {

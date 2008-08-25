@@ -57,7 +57,7 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 	}
 
 	public function execute() {
-		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileID']);
+		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
 		foreach ($widgets as $widgetName => $widget) {
 			if ($widget instanceof tx_community_CommunityApplicationWidget) {
 				$this->widgets[$widgetName] = $widget;
@@ -76,7 +76,7 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 		$profileId = $loggedinUser->getUid();
 		$profileId = (intval($this->request['user'])) ? intval($this->request['user']) : $profileId;
 
-		$config = $layoutManager->getConfiguration($this->conf['communityID'], $this->conf['profileID'], $profileId);
+		$config = $layoutManager->getConfiguration($this->conf['communityID'], $this->conf['profileType'], $profileId);
 		$config = unserialize($config);
 		if (is_array($config)) {
 			foreach($config as $c) {

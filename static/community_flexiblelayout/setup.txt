@@ -10,15 +10,14 @@ plugin.tx_communityflexiblelayout {
 }
 
 plugin.tx_communityflexiblelayout.controller.dashboard {
-	defaultCommand = showDashboard
-	template = EXT:community_flexiblelayout/resources/template.html
-	containerCount = 5
-	communityID = wildeGockel
-	profileID = UserProfile
-	containerClass = tx-communityflexiblelayout-dashboard-container
+	template		= EXT:community_flexiblelayout/resources/template.html
+	containerCount	= 3
+	communityID		= wildeGockel
+	profileType		= UserProfile
+	containerClass	= tx-communityflexiblelayout-dashboard-container
 }
 
-	// adding the user profile application controller
+# adding the user profile application controller
 tt_content.list.20.community_flexiblelayout_Dashboard = < plugin.tx_communityflexiblelayout.controller.dashboard
 
 page.includeJS {

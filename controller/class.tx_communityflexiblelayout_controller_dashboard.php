@@ -51,22 +51,24 @@ class tx_communityflexiblelayout_controller_Dashboard {
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$registry->setConfiguration($configuration);
 		
-		$cmdResolver = new tx_communityflexiblelayout_CommandResolver($configuration['defaultCommand']);
 		try {
+			$cmdResolver = new tx_communityflexiblelayout_CommandResolver($configuration['defaultCommand']);
 			$model = $cmdResolver->getCommand();
 			$model->execute();
 			$cmdName = $model->getCommandName();
 			$viewName = "tx_communityflexiblelayout_".ucfirst($cmdName)."View";
-		} catch (tx_communityflexiblelayout_NoProfileIdException $exception) {
+		} catch (tx_community_NoProfileIdException $exception) {
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
-		} catch (tx_communityflexiblelayout_UnknownProfileException $exception) {
+		} catch (tx_community_UnknownProfileTypeException $exception) {
+			$viewName = 'tx_communityflexiblelayout_ErrorView';
+			$model = $exception;
+		} catch (tx_community_UnknownProfileException $exception) {
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
 		} catch (Exception $exception) {
 			die ('unhandled exception: ' . $exception);
 		}
-		
 		$view = new $viewName($model);
 		return $view->render();
 	}
