@@ -40,6 +40,10 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 	 * @var tx_community_ApplicationManager
 	 */
 	protected $communityApplicationManager;
+	/**
+	 * @var tx_community_model_AbstractProfile
+	 */
+	protected $profile;
 	protected $widgets = array();
 	protected $cols = array();
 	protected $request;
@@ -58,7 +62,15 @@ class tx_communityflexiblelayout_showDashboardCommand implements tx_communityfle
 				$this->widgets[$widgetName] = $widget;
 			}
 		}
-		$profileId = intval($this->request['user']);
+
+		try {
+			$this->profile		= tx_community_ProfileFactory::createProfile($this->conf['profileType']);
+		} catch (Exception $exception) {
+			throw $exception;
+		}	
+		
+		$profileId = $this->profile->getUid();
+		
 		/**
 		 * @var tx_communityflexiblelayout_LayoutManager
 		 */

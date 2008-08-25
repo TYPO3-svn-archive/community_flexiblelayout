@@ -41,6 +41,10 @@ class tx_communityflexiblelayout_saveDashboardCommand implements tx_communityfle
 	 * @var tx_community_ApplicationManager
 	 */
 	protected $communityApplicationManager;
+	/**
+	 * @var tx_community_model_AbstractProfile
+	 */
+	protected $profile;
 	protected $widgets = array();
 	protected $cols = array();
 	protected $request;
@@ -62,9 +66,13 @@ class tx_communityflexiblelayout_saveDashboardCommand implements tx_communityfle
 		 */
 		$layoutManager = new tx_communityflexiblelayout_LayoutManager();
 		
-		$userGateway = new tx_community_model_UserGateway();
-		$user = $userGateway->findCurrentlyLoggedInUser();
-		$profileId = $user->getUid();
+		try {
+			$this->profile		= tx_community_ProfileFactory::createProfile($this->conf['profileType']);
+		} catch (Exception $exception) {
+			throw $exception;
+		}	
+		
+		$profileId = $this->profile->getUid();
 		$this->status = ($layoutManager->setConfiguration($this->conf['communityID'], $this->conf['profileType'], $profileId, $dashboardConfig)) ? 'saved' : 'error';
 	}
 	

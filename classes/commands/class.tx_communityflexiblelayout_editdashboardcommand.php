@@ -45,6 +45,10 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 	 * @var tx_community_model_UserGateway
 	 */
 	protected $userGateway;
+	/**
+	 * @var tx_community_model_AbstractProfile
+	 */
+	protected $profile;
 	protected $widgets = array();
 	protected $cols = array();
 
@@ -68,13 +72,13 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 		 */
 		$layoutManager = new tx_communityflexiblelayout_LayoutManager();
 
-		/**
-		 * @var tx_community_model_User
-		 */
-		$loggedinUser = $this->userGateway->findCurrentlyLoggedInUser();
-
-		$profileId = $loggedinUser->getUid();
-		$profileId = (intval($this->request['user'])) ? intval($this->request['user']) : $profileId;
+		try {
+			$this->profile		= tx_community_ProfileFactory::createProfile($this->conf['profileType']);
+		} catch (Exception $exception) {
+			throw $exception;
+		}	
+		
+		$profileId = $this->profile->getUid();
 
 		$config = $layoutManager->getConfiguration($this->conf['communityID'], $this->conf['profileType'], $profileId);
 		$config = unserialize($config);

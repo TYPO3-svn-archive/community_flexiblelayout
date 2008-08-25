@@ -15,7 +15,25 @@
 		});
 		return rData;
 	}
-
+	
+	function getParam(paramName) {
+		var SELF_LOCATION = self.location.href;
+		var urlSplit = SELF_LOCATION.split('?');
+		if (!urlSplit[1]) { // no query
+			return '';
+		}
+		
+		var urlQuery = urlSplit[1];
+		var paramsSplit = urlSplit[1].split('&');
+		for (var i = 0; i < paramsSplit.length; i++) {
+			paramSplit = paramsSplit[i].split('=');
+			if (paramSplit[0] == paramName) {
+				return paramSplit[1] ? paramSplit[1] : '';
+			}
+		}
+		return '';
+   	}
+	
 	$(document).ready(function() {
 		if (__EDIT__) {
 			$('#tx-communityflexiblelayout-clipboard').slideUp();
@@ -43,11 +61,27 @@
 					}
 				},
 				'update': function(e, ui) {
-					$.post('/index.php', {
-						'id': __PAGEID__,
-						'tx_communityflexiblelayout[cmd]': 'saveDashboard',
-						'tx_communityflexiblelayout[dashboardConfig][]': getDashboardConfig()
-					});
+					if (getParam('tx_community[group]').length) {
+						$.post('/index.php', {
+							'id': __PAGEID__,
+							'tx_community[group]': getParam('tx_community[group]'), 
+							'tx_communityflexiblelayout[cmd]': 'saveDashboard',
+							'tx_communityflexiblelayout[dashboardConfig][]': getDashboardConfig()
+						});
+					} else if (getParam('tx_community[user]').length) {
+						$.post('/index.php', {
+							'id': __PAGEID__,
+							'tx_community[user]': getParam('tx_community[user]'), 
+							'tx_communityflexiblelayout[cmd]': 'saveDashboard',
+							'tx_communityflexiblelayout[dashboardConfig][]': getDashboardConfig()
+						});
+					} else {
+						$.post('/index.php', {
+							'id': __PAGEID__,
+							'tx_communityflexiblelayout[cmd]': 'saveDashboard',
+							'tx_communityflexiblelayout[dashboardConfig][]': getDashboardConfig()
+						});
+					}
 				}
 			});
 		}
