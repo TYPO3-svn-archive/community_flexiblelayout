@@ -13,7 +13,7 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 	template		= EXT:community_flexiblelayout/resources/template.html
 	containerCount	= 3
 	communityID		= wildeGockel
-	profileType		= GroupProfile
+	profileType		= UserProfile
 	containerClass	= tx-communityflexiblelayout-dashboard-container
 }
 
