@@ -28,6 +28,10 @@ require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_co
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_savedashboardview.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_errorview.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
+require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_noprofileid.php');
+require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_unknownprofile.php');
+require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_unknownprofiletype.php');
+
 
 /**
  * Dashboard Controller
@@ -57,13 +61,13 @@ class tx_communityflexiblelayout_controller_Dashboard {
 			$model->execute();
 			$cmdName = $model->getCommandName();
 			$viewName = "tx_communityflexiblelayout_".ucfirst($cmdName)."View";
-		} catch (tx_community_NoProfileIdException $exception) {
+		} catch (tx_community_exception_NoProfileId $exception) {
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
-		} catch (tx_community_UnknownProfileTypeException $exception) {
+		} catch (tx_community_exception_UnknownProfile $exception) {
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
-		} catch (tx_community_UnknownProfileException $exception) {
+		} catch (tx_community_exception_UnknownProfileType $exception) {
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
 		} catch (Exception $exception) {
