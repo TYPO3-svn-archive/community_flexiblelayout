@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author' => 'Frank Nägler',
 	'author_email' => 'typo3@naegler.net',
 	'shy' => '',
-	'dependencies' => 'community,community_jquery',
+	'dependencies' => 'community,community_jquery,community_logger',
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
@@ -33,7 +33,8 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'community' => '',
-			'community_jquery' => ''
+			'community_jquery' => '',
+			'community_logger' => '',
 		),
 		'conflicts' => array(
 		),

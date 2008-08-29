@@ -27,11 +27,13 @@ require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_co
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_editdashboardview.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_savedashboardview.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_errorview.php');
+
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_noprofileid.php');
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_unknownprofile.php');
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_unknownprofiletype.php');
 
+require_once(t3lib_extMgm::extPath('community_logger').'classes/class.tx_communitylogger_logger.php');
 
 /**
  * Dashboard Controller
@@ -46,9 +48,15 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	public $extKey        = 'community_flexiblelayout';	// The extension key.
 
 	/**
+	 * @var tx_communitylogger_Logger
+	 */
+	protected $logger;
+	
+	/**
 	 * constructor for class tx_communityflexiblelayout_controller_Dashboard
 	 */
 	public function __construct() {
+		$this->logger = tx_communitylogger_Logger::getInstance($this->extKey);
 	}
 
 	public function execute($content, array $configuration) {
@@ -62,15 +70,19 @@ class tx_communityflexiblelayout_controller_Dashboard {
 			$cmdName = $model->getCommandName();
 			$viewName = "tx_communityflexiblelayout_".ucfirst($cmdName)."View";
 		} catch (tx_community_exception_NoProfileId $exception) {
+			$this->logger->fatal($exception->__toString());
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
 		} catch (tx_community_exception_UnknownProfile $exception) {
+			$this->logger->fatal($exception->__toString());
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
 		} catch (tx_community_exception_UnknownProfileType $exception) {
+			$this->logger->fatal($exception->__toString());
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
 		} catch (Exception $exception) {
+			$this->logger->fatal($exception->__toString());
 			die ('unhandled exception: ' . $exception);
 		}
 		$view = new $viewName($model);
