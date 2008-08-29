@@ -35,7 +35,7 @@
    	}
 	
 	$(document).ready(function() {
-		if (__EDIT__) {
+		if ( (typeof __EDIT__ != 'undefined') && __EDIT__) {
 			$('#tx-communityflexiblelayout-clipboard').slideUp();
 			$('#tx-communityflexiblelayout-clipboard-helper').toggle(
 				function() {
