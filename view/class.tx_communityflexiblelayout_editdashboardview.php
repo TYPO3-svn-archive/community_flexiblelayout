@@ -72,7 +72,7 @@ class tx_communityflexiblelayout_EditDashboardView {
 					$widgetClasses[] = ($widget->getWidgetClass()) ? $widget->getWidgetClass() : '' ;
 					$widgetMarker = array(
 						'WIDGET_LABEL'	=> $widget->getLabel(),
-						'WIDGET_CONTENT' => $widget->render(),
+						'WIDGET_CONTENT' => $widget->execute(),
 						'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getID()}",
 						'WIDGET_CLASSES' => implode(' ', $widgetClasses)
 					);
@@ -106,7 +106,7 @@ class tx_communityflexiblelayout_EditDashboardView {
 				$widgetClasses[] = ($widget->getWidgetClass()) ? $widget->getWidgetClass() : '' ;
 				$widgetMarker = array(
 					'WIDGET_LABEL'	=> $widget->getLabel(),
-					'WIDGET_CONTENT' => $widget->render(),
+					'WIDGET_CONTENT' => $widget->execute(),
 					'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getID()}",
 					'WIDGET_CLASSES' => implode(' ', $widgetClasses)
 				);
