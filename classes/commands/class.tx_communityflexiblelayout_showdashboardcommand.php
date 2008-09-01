@@ -57,7 +57,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 	public function __construct() {
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
-		$this->conf = $registry->getConfiguration();
+		$this->conf = $tx_community_controller_AbstractCommunityApplicationregistry->getConfiguration();
 		$this->request = t3lib_div::_GP('tx_community');
 		$this->accessManager = tx_community_AccessManager::getInstance();
 		
@@ -68,7 +68,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 
 	public function execute() {
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
-		$config = $this->communityApplicationManager->getTypoScriptConfiguration();
+		$config = $this->communityApplicationManager->getApplication($this->conf['profileType'])->getTypoScriptConfiguration();
 		foreach ($widgets as $widgetName => $widget) {
 			$widget->initialize($this->data, $config);
 			$widget->setCommunityApplication($this);
