@@ -73,7 +73,7 @@ class tx_communityflexiblelayout_ShowDashboardView {
 					$widgetMarker = array(
 						'WIDGET_LABEL'	=> $widget->getLabel(),
 						'WIDGET_CONTENT' => $widget->execute(),
-						'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getID()}",
+						'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getId()}",
 						'WIDGET_CLASSES' => implode(' ', $widgetClasses)
 					);
 						

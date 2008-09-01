@@ -27,6 +27,7 @@ require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_appl
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_layoutmanager.php');
 require_once(t3lib_extMgm::extPath('community').'controller/class.tx_community_controller_abstractcommunityapplication.php');
+require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_accessmanager.php');
 
 /**
  * Show Dashboard Command (model)
@@ -45,6 +46,10 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 	 * @var tx_community_model_AbstractProfile
 	 */
 	protected $profile;
+	/**
+	 * @var tx_community_AccessManager
+	 */
+	protected $accessManager;
 	protected $widgets = array();
 	protected $cols = array();
 	protected $request;
@@ -54,19 +59,29 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->conf = $registry->getConfiguration();
 		$this->request = t3lib_div::_GP('tx_community');
+		$this->accessManager = tx_community_AccessManager::getInstance();
 		
 		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+		parent::__construct();
 		parent::tslib_pibase();
 	}
 
 	public function execute() {
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
 		foreach ($widgets as $widgetName => $widget) {
+			$widget->initialize($this->data, $this->conf);
+			$widget->setCommunityApplication($this);
+			
 			if ($widget instanceof tx_community_CommunityApplicationWidget) {
+				if ($widget instanceof tx_community_acl_AclResource) {
+					if (!$this->accessManager->isAllowed($widget)) {
+						continue;
+					}
+				}
 				$this->widgets[$widgetName] = $widget;
 			}
 		}
-
+		
 		try {
 			$this->profile		= tx_community_ProfileFactory::createProfile($this->conf['profileType']);
 		} catch (Exception $exception) {
