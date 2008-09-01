@@ -29,6 +29,7 @@ require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_appl
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
 require_once(t3lib_extMgm::extPath('community').'controller/class.tx_community_controller_abstractcommunityapplication.php');
 require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_usergateway.php');
+require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_accessmanager.php');
 
 /**
  * Show Dashboard Command (model)
@@ -51,6 +52,10 @@ class tx_communityflexiblelayout_editDashboardCommand extends tx_community_contr
 	 * @var tx_community_model_AbstractProfile
 	 */
 	protected $profile;
+	/**
+	 * @var tx_community_AccessManager
+	 */
+	protected $accessManager;
 	protected $widgets = array();
 	protected $cols = array();
 	/**
@@ -64,18 +69,25 @@ class tx_communityflexiblelayout_editDashboardCommand extends tx_community_contr
 		$this->conf = $registry->getConfiguration();
 		$this->request = t3lib_div::_GP('tx_community');
 		$this->userGateway = new tx_community_model_UserGateway();
+		$this->accessManager = tx_community_AccessManager::getInstance();
 		
 		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+		parent::__construct();
 		parent::tslib_pibase();
 	}
 	
 	public function execute() {
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
+		$config = $this->communityApplicationManager->getTypoScriptConfiguration();
 		foreach ($widgets as $widgetName => $widget) {
+			$widget->initialize($this->data, $config);
+			$widget->setCommunityApplication($this);
+			
 			if ($widget instanceof tx_community_CommunityApplicationWidget) {
 				$this->widgets[$widgetName] = $widget;
 			}
 		}
+
 		/**
 		 * @var tx_communityflexiblelayout_LayoutManager
 		 */
@@ -106,10 +118,6 @@ class tx_communityflexiblelayout_editDashboardCommand extends tx_community_contr
 		}
 
 		foreach ($this->widgets as $widgetName => $widget) {
-			/* @var $widget tx_community_CommunityApplicationWidget */
-			$widget->initialize($this->data, $this->conf);
-			$widget->setCommunityApplication($this);
-			
 			if (is_array($config[$widgetName])) {
 				$this->cols[$config[$widgetName]['col']][$config[$widgetName]['pos']] = $widget;
 			} else {

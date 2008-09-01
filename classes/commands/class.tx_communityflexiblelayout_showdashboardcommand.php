@@ -68,8 +68,9 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 
 	public function execute() {
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
+		$config = $this->communityApplicationManager->getTypoScriptConfiguration();
 		foreach ($widgets as $widgetName => $widget) {
-			$widget->initialize($this->data, $this->conf);
+			$widget->initialize($this->data, $config);
 			$widget->setCommunityApplication($this);
 			
 			if ($widget instanceof tx_community_CommunityApplicationWidget) {
