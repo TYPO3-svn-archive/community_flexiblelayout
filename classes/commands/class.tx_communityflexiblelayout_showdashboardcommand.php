@@ -74,6 +74,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 			
 			if ($widget instanceof tx_community_CommunityApplicationWidget) {
 				if ($widget instanceof tx_community_acl_AclResource) {
+					$this->accessManager->addResource($widget);
 					if (!$this->accessManager->isAllowed($widget)) {
 						continue;
 					}
