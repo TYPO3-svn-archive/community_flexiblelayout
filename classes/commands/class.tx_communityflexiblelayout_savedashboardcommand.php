@@ -27,6 +27,7 @@ require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_appl
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_layoutmanager.php');
 require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_usergateway.php');
+require_once(t3lib_extMgm::extPath('community').'controller/class.tx_community_controller_abstractcommunityapplication.php');
 
 /**
  * Show Dashboard Command (model)
@@ -35,7 +36,7 @@ require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_
  * @package TYPO3
  * @subpackage community_flexiblelayout
  */
-class tx_communityflexiblelayout_saveDashboardCommand implements tx_communityflexiblelayout_CommandInterface {
+class tx_communityflexiblelayout_saveDashboardCommand extends tx_community_controller_AbstractCommunityApplication implements tx_communityflexiblelayout_CommandInterface {
 	protected $commandName = 'saveDashboard';
 	/**
 	 * @var tx_community_ApplicationManager
@@ -54,6 +55,9 @@ class tx_communityflexiblelayout_saveDashboardCommand implements tx_communityfle
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->conf = $registry->getConfiguration();
 		$this->request = t3lib_div::_GP('tx_communityflexiblelayout');
+		
+		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+		parent::tslib_pibase();
 	}
 
 	public function execute() {

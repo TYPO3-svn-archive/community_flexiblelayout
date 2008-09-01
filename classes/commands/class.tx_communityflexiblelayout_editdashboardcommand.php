@@ -23,9 +23,11 @@
  ***************************************************************/
 
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandinterface.php');
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_layoutmanager.php');
+
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_applicationmanager.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
-require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_layoutmanager.php');
+require_once(t3lib_extMgm::extPath('community').'controller/class.tx_community_controller_abstractcommunityapplication.php');
 require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_usergateway.php');
 
 /**
@@ -35,7 +37,7 @@ require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_
  * @package TYPO3
  * @subpackage community_flexiblelayout
  */
-class tx_communityflexiblelayout_editDashboardCommand implements tx_communityflexiblelayout_CommandInterface {
+class tx_communityflexiblelayout_editDashboardCommand extends tx_community_controller_AbstractCommunityApplication implements tx_communityflexiblelayout_CommandInterface {
 	protected $commandName = 'editDashboard';
 	/**
 	 * @var tx_community_ApplicationManager
@@ -51,6 +53,10 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 	protected $profile;
 	protected $widgets = array();
 	protected $cols = array();
+	/**
+	 * @var t3lib_cobj
+	 */
+	public $cObj;
 
 	public function __construct() {
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
@@ -58,8 +64,11 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 		$this->conf = $registry->getConfiguration();
 		$this->request = t3lib_div::_GP('tx_community');
 		$this->userGateway = new tx_community_model_UserGateway();
+		
+		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+		parent::tslib_pibase();
 	}
-
+	
 	public function execute() {
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
 		foreach ($widgets as $widgetName => $widget) {
@@ -97,12 +106,20 @@ class tx_communityflexiblelayout_editDashboardCommand implements tx_communityfle
 		}
 
 		foreach ($this->widgets as $widgetName => $widget) {
+			/* @var $widget tx_community_CommunityApplicationWidget */
+			$widget->initialize($this->data, $this->conf);
+			$widget->setCommunityApplication($this);
+			
 			if (is_array($config[$widgetName])) {
 				$this->cols[$config[$widgetName]['col']][$config[$widgetName]['pos']] = $widget;
 			} else {
 				$this->cols[$widget->getLayoutContainer()][] = $widget;
 			}
 		}
+	}
+	
+	public function getName() {
+		return $this->conf['profileType'];
 	}
 
 	public function getCommandName() {
