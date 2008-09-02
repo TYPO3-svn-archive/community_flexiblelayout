@@ -58,6 +58,7 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	 */
 	public function __construct() {
 		$this->logger = tx_communitylogger_Logger::getInstance($this->extKey);
+		$this->logger->info('loaded');
 	}
 
 	public function execute($content, array $configuration) {
