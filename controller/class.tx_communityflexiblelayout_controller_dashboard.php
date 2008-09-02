@@ -68,7 +68,10 @@ class tx_communityflexiblelayout_controller_Dashboard {
 
 		if ($configuration['profileType'] == 'UserProfile' && (!isset($this->request['user']))) {
 			$userGateway = new tx_community_model_UserGateway();
-			$GLOBALS['_GET']['tx_community']['user'] = $userGateway->findCurrentlyLoggedInUser()->getUid();
+			$user = $userGateway->findCurrentlyLoggedInUser();
+			if (!is_null($user)) {
+				$GLOBALS['_GET']['tx_community']['user'] = $user->getUid();
+			}
 		}
 		
 		try {
