@@ -77,11 +77,13 @@ class tx_communityflexiblelayout_EditDashboardView {
 						'WIDGET_CLASSES' => implode(' ', $widgetClasses)
 					);
 						
-					$widgetCode .= $this->cObj->substituteMarkerArray(
-					$widgetTemplate,
-					$widgetMarker,
+					$tmpWidgetCode = $this->cObj->substituteMarkerArray(
+						$widgetTemplate,
+						$widgetMarker,
 						'###|###'
-						);
+					);
+					
+					$widgetCode .= $this->cObj->stdWrap($tmpWidgetCode, $this->conf['containerConfig.'][$i.'.']['widgets.'][$widget->getId().'.']['stdWrap.']);
 				}
 			}
 			$container = $this->cObj->substituteSubpart(
