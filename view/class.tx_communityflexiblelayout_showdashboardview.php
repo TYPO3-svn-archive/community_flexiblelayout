@@ -77,23 +77,30 @@ class tx_communityflexiblelayout_ShowDashboardView {
 						'WIDGET_CLASSES' => implode(' ', $widgetClasses)
 					);
 						
-					$widgetCode .= $this->cObj->substituteMarkerArray(
-					$widgetTemplate,
-					$widgetMarker,
+					$tmpWidgetCode = $this->cObj->substituteMarkerArray(
+						$widgetTemplate,
+						$widgetMarker,
 						'###|###'
-						);
+					);
+					
+					$widgetCode .= $this->cObj->stdWrap($tmpWidgetCode, $this->conf['containerConfig.'][$i.'.']['widgets.'][$widget->getId().'.']['stdWrap.']);
 				}
 			}
 			$container = $this->cObj->substituteSubpart(
-			$containerTemplate,
+				$containerTemplate,
 				'###TEMPLATE_WIDGET###',
-			$widgetCode
+				$widgetCode
 			);
-			$containerCode .= $this->cObj->substituteMarkerArray(
-			$container,
-			$marker,
+
+			$tmpContainerCode = $this->cObj->substituteMarkerArray(
+				$container,
+				$marker,
 				'###|###'
-				);
+			);
+			
+			$containerCode .= $this->cObj->stdWrap($tmpContainerCode, $this->conf['containerConfig.'][$i.'.']['stdWrap.']);
+			
+		
 		}
 		$content = $this->cObj->substituteSubpart($templateCode, '###TEMPLATE_CONTAINER###', $containerCode);
 

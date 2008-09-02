@@ -85,15 +85,19 @@ class tx_communityflexiblelayout_EditDashboardView {
 				}
 			}
 			$container = $this->cObj->substituteSubpart(
-			$containerTemplate,
+				$containerTemplate,
 				'###TEMPLATE_WIDGET###',
-			$widgetCode
+				$widgetCode
 			);
-			$containerCode .= $this->cObj->substituteMarkerArray(
-			$container,
-			$marker,
+			
+			$tmpContainerCode = $this->cObj->substituteMarkerArray(
+				$container,
+				$marker,
 				'###|###'
-				);
+			);
+			
+			$containerCode .= $this->cObj->stdWrap($tmpContainerCode, $this->conf['containerConfig.'][$i.'.']['stdWrap.']);
+			
 		}
 		$widgetsArray = $this->model->getWidgetsByCol(0);
 		$clipBoardWidgets = '';
