@@ -57,7 +57,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 	public function __construct() {
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
-		$this->conf = $tx_community_controller_AbstractCommunityApplicationregistry->getConfiguration();
+		$this->conf = $registry->getConfiguration();
 		$this->request = t3lib_div::_GP('tx_community');
 		$this->accessManager = tx_community_AccessManager::getInstance();
 		
