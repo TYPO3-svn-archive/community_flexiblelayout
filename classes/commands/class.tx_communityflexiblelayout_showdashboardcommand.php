@@ -23,11 +23,12 @@
 ***************************************************************/
 
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandinterface.php');
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_layoutmanager.php');
+
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_applicationmanager.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
-require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_layoutmanager.php');
-require_once(t3lib_extMgm::extPath('community').'controller/class.tx_community_controller_abstractcommunityapplication.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_accessmanager.php');
+require_once(t3lib_extMgm::extPath('community').'controller/class.tx_community_controller_abstractcommunityapplication.php');
 
 /**
  * Show Dashboard Command (model)
@@ -60,6 +61,8 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 		$this->conf = $registry->getConfiguration();
 		$this->request = t3lib_div::_GP('tx_community');
 		$this->accessManager = tx_community_AccessManager::getInstance();
+		
+		$this->name = $this->conf['profileType'];
 		
 		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
 		parent::__construct();

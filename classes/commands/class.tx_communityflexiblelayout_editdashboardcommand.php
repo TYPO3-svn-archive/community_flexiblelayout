@@ -71,6 +71,8 @@ class tx_communityflexiblelayout_editDashboardCommand extends tx_community_contr
 		$this->userGateway = new tx_community_model_UserGateway();
 		$this->accessManager = tx_community_AccessManager::getInstance();
 		
+		$this->name = $this->conf['profileType'];
+		
 		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
 		parent::__construct();
 		parent::tslib_pibase();
@@ -78,7 +80,6 @@ class tx_communityflexiblelayout_editDashboardCommand extends tx_community_contr
 	
 	public function execute() {
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
-		debug($this->conf['profileType']);
 		$config = $this->communityApplicationManager->getApplication($this->conf['profileType'])->getTypoScriptConfiguration();
 		foreach ($widgets as $widgetName => $widget) {
 			$widget->initialize($this->data, $config);

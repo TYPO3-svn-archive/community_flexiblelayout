@@ -56,6 +56,8 @@ class tx_communityflexiblelayout_saveDashboardCommand extends tx_community_contr
 		$this->conf = $registry->getConfiguration();
 		$this->request = t3lib_div::_GP('tx_communityflexiblelayout');
 		
+		$this->name = $this->conf['profileType'];
+		
 		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
 		parent::tslib_pibase();
 	}

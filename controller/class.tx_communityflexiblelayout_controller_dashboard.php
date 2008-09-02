@@ -32,6 +32,7 @@ require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_regi
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_noprofileid.php');
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_unknownprofile.php');
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_unknownprofiletype.php');
+require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_usergateway.php');
 
 require_once(t3lib_extMgm::extPath('community_logger').'classes/class.tx_communitylogger_logger.php');
 
@@ -62,6 +63,12 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	public function execute($content, array $configuration) {
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$registry->setConfiguration($configuration);
+		$this->request = t3lib_div::_GP('tx_community');
+
+		if ($configuration['profileType'] == 'UserProfile' && (!isset($this->request['user']))) {
+			$userGateway = new tx_community_model_UserGateway();
+			$GLOBALS['_GET']['tx_community']['user'] = $userGateway->findCurrentlyLoggedInUser()->getUid();
+		}
 		
 		try {
 			$cmdResolver = new tx_communityflexiblelayout_CommandResolver($configuration['defaultCommand']);
