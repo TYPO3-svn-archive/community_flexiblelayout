@@ -65,7 +65,7 @@ class tx_communityflexiblelayout_controller_Dashboard {
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$registry->setConfiguration($configuration);
 		$this->request = t3lib_div::_GP('tx_community');
-
+		$this->logger->debug("\$configuration['profileType']" . $configuration['profileType']);
 		if ($configuration['profileType'] == 'UserProfile' && (!isset($this->request['user']))) {
 			$userGateway = new tx_community_model_UserGateway();
 			$user = $userGateway->findCurrentlyLoggedInUser();
@@ -79,6 +79,7 @@ class tx_communityflexiblelayout_controller_Dashboard {
 			$model = $cmdResolver->getCommand();
 			$model->execute();
 			$cmdName = $model->getCommandName();
+			$this->logger->debug("\$cmdName: $cmdName");
 			$viewName = "tx_communityflexiblelayout_".ucfirst($cmdName)."View";
 		} catch (tx_community_exception_NoProfileId $exception) {
 			$this->logger->fatal($exception->__toString());
