@@ -1,26 +1,26 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2008 Frank Nägler <typo3@naegler.net>
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2008 Frank Nägler <typo3@naegler.net>
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_commandresolver.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_showdashboardview.php');
@@ -52,7 +52,7 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	 * @var tx_communitylogger_Logger
 	 */
 	protected $logger;
-	
+
 	/**
 	 * constructor for class tx_communityflexiblelayout_controller_Dashboard
 	 */
@@ -62,8 +62,6 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	}
 
 	public function execute($content, array $configuration) {
-		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
-		$registry->setConfiguration($configuration);
 		$this->request = t3lib_div::_GP('tx_community');
 		$this->logger->debug("\$configuration['profileType']" . $configuration['profileType']);
 		if ($configuration['profileType'] == 'UserProfile' && (!isset($this->request['user']))) {
@@ -73,7 +71,28 @@ class tx_communityflexiblelayout_controller_Dashboard {
 				$GLOBALS['_GET']['tx_community']['user'] = $user->getUid();
 			}
 		}
+		$this->request = t3lib_div::_GP('tx_community');
 		
+		$profileId = (isset($this->request['user'])) ? (int) $this->request['user'] : (int) $this->request['group'];
+		
+		// hook implementation for the community_pranks extension
+		if (t3lib_extMgm::isLoaded('community_pranks')) {
+			require_once(t3lib_extMgm::extPath('community_pranks').'model/class.tx_communitypranks_model_prankgateway.php');
+			$pranksGateway = t3lib_div::makeInstance('tx_communitypranks_model_PranksGateway');
+			/** @var $pranksGateway tx_communitypranks_model_PranksGateway */
+			$resourceId = "tx_communityflexiblelayout_{$configuration['profileType']}_{$profileId}";
+			$pranks = $pranksGateway->findByResourceId($resourceId);
+			foreach ($pranks as $prank) {
+				$configuration = $prank->overwriteConfiguration($configuration);
+				if (method_exists($prank, 'myCustomFunction')) {
+					$prank->myCustomFunction();
+				}
+			}
+		}
+
+		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
+		$registry->setConfiguration($configuration);
+
 		try {
 			$cmdResolver = new tx_communityflexiblelayout_CommandResolver($configuration['defaultCommand']);
 			$model = $cmdResolver->getCommand();
