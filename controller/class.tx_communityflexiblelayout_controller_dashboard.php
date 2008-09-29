@@ -71,7 +71,7 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	public function execute($content, array $configuration) {
 		$this->request = t3lib_div::_GP('tx_community');
 		$this->logger->debug("\$configuration['profileType']" . $configuration['profileType']);
-		if ($configuration['profileType'] == 'UserProfile' && (!isset($this->request['user']))) {
+		if ($configuration['profileType'] == 'userProfile' && (!isset($this->request['user']))) {
 			$userGateway = new tx_community_model_UserGateway();
 			$user = $userGateway->findCurrentlyLoggedInUser();
 			if (!is_null($user)) {
