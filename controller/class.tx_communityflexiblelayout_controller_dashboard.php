@@ -59,6 +59,9 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	public function __construct() {
 		$this->logger = tx_communitylogger_Logger::getInstance($this->extKey);
 		$this->logger->info('loaded');
+		$applicationManagerClass = t3lib_div::makeInstanceClassName('tx_community_ApplicationManager');
+		$applicationManager      = call_user_func(array($applicationManagerClass, 'getInstance'));
+		$GLOBALS['TX_COMMUNITY']['applicationManager'] = $applicationManager;
 	}
 
 	public function execute($content, array $configuration) {
