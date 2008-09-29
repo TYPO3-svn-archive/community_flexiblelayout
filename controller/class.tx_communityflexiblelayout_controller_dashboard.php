@@ -29,6 +29,7 @@ require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_co
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_communityflexiblelayout_errorview.php');
 
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
+require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_applicationmanager.php');
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_noprofileid.php');
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_unknownprofile.php');
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_unknownprofiletype.php');
@@ -59,9 +60,12 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	public function __construct() {
 		$this->logger = tx_communitylogger_Logger::getInstance($this->extKey);
 		$this->logger->info('loaded');
-		$applicationManagerClass = t3lib_div::makeInstanceClassName('tx_community_ApplicationManager');
-		$applicationManager      = call_user_func(array($applicationManagerClass, 'getInstance'));
-		$GLOBALS['TX_COMMUNITY']['applicationManager'] = $applicationManager;
+		if (!($GLOBALS['TX_COMMUNITY']['applicationManager'] instanceof tx_community_ApplicationManager)) {
+			$applicationManagerClass = t3lib_div::makeInstanceClassName('tx_community_ApplicationManager');
+			
+			$applicationManager      = call_user_func(array($applicationManagerClass, 'getInstance'));
+			$GLOBALS['TX_COMMUNITY']['applicationManager'] = $applicationManager;
+		}
 	}
 
 	public function execute($content, array $configuration) {
