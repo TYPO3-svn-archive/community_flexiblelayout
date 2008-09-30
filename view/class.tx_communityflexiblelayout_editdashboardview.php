@@ -69,11 +69,11 @@ class tx_communityflexiblelayout_EditDashboardView {
 					$widgetClasses[] = 'widget';
 					$widgetClasses[] = ($widget->isDragable()) ? 'draggable' : 'undraggable';
 					$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
-					$widgetClasses[] = ($widget->getWidgetClass()) ? $widget->getWidgetClass() : '' ;
+					$widgetClasses[] = ($widget->getCssClass()) ? $widget->getCssClass() : '' ;
 					$widgetMarker = array(
 						'WIDGET_LABEL'	=> $widget->getLabel(),
 						'WIDGET_CONTENT' => $widget->execute(),
-						'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getID()}",
+						'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getName()}",
 						'WIDGET_CLASSES' => implode(' ', $widgetClasses)
 					);
 						
@@ -83,7 +83,7 @@ class tx_communityflexiblelayout_EditDashboardView {
 						'###|###'
 					);
 					
-					$widgetCode .= $this->cObj->stdWrap($tmpWidgetCode, $this->conf['containerConfig.'][$i.'.']['widgets.'][$widget->getId().'.']['stdWrap.']);
+					$widgetCode .= $this->cObj->stdWrap($tmpWidgetCode, $this->conf['containerConfig.'][$i.'.']['widgets.'][$widget->getName().'.']['stdWrap.']);
 				}
 			}
 			$container = $this->cObj->substituteSubpart(
@@ -109,11 +109,11 @@ class tx_communityflexiblelayout_EditDashboardView {
 				$widgetClasses[] = 'widget';
 				$widgetClasses[] = ($widget->isDragable()) ? 'draggable' : '';
 				$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
-				$widgetClasses[] = ($widget->getWidgetClass()) ? $widget->getWidgetClass() : '' ;
+				$widgetClasses[] = ($widget->getCssClass()) ? $widget->getCssClass() : '' ;
 				$widgetMarker = array(
 					'WIDGET_LABEL'	=> $widget->getLabel(),
 					'WIDGET_CONTENT' => $widget->execute(),
-					'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getId()}",
+					'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getName()}",
 					'WIDGET_CLASSES' => implode(' ', $widgetClasses)
 				);
 
