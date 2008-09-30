@@ -37,6 +37,7 @@ require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_acce
 require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_usergateway.php');
 require_once(t3lib_extMgm::extPath('community').'controller/class.tx_community_controller_abstractcommunityapplication.php');
 require_once(t3lib_extMgm::extPath('community').'controller/class.tx_community_controller_abstractcommunityapplicationwidget.php');
+require_once(t3lib_extMgm::extPath('community').'view/class.tx_community_view_abstractview.php');
 
 
 require_once(t3lib_extMgm::extPath('community_logger').'classes/class.tx_communitylogger_logger.php');
