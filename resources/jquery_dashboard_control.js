@@ -50,6 +50,7 @@
 			});
 			$('.tx-communityflexiblelayout-dashboard-container, #tx-communityflexiblelayout-clipboard').sortable({
 				'connectWith': ['.tx-communityflexiblelayout-dashboard-container', '#tx-communityflexiblelayout-clipboard'],
+				'handle': '.label',
 				'cancel': '.undraggable',
 				'cursor': 'crosshair',
 				'over': function(e, ui) {
