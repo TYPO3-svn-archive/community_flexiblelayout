@@ -30,6 +30,7 @@ require_once(t3lib_extMgm::extPath('community_flexiblelayout').'view/class.tx_co
 
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_applicationmanager.php');
+require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_localizationmanager.php');
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_noprofileid.php');
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_unknownprofile.php');
 require_once(t3lib_extMgm::extPath('community').'classes/exception/class.tx_community_exception_unknownprofiletype.php');
@@ -76,22 +77,22 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	public function execute($content, array $configuration) {
 		$this->request = t3lib_div::_GP('tx_community');
 		$this->logger->debug("\$configuration['profileType']" . $configuration['profileType']);
-		if ($configuration['profileType'] == 'userProfile' && (!isset($this->request['user']))) {
-			$userGateway = new tx_community_model_UserGateway();
+		if (($configuration['profileType'] == 'userProfile' || $configuration['profileType'] == 'StartPage') && (!isset($this->request['user']))) {
+			$userGateway = t3lib_div::makeInstance('tx_community_model_UserGateway');
 			$user = $userGateway->findCurrentlyLoggedInUser();
 			if (!is_null($user)) {
 				$GLOBALS['_GET']['tx_community']['user'] = $user->getUid();
 			}
 		}
 		$this->request = t3lib_div::_GP('tx_community');
-		
+
 		$profileId = (isset($this->request['user'])) ? (int) $this->request['user'] : (int) $this->request['group'];
 		
 		// hook implementation for the community_pranks extension
 		if (t3lib_extMgm::isLoaded('community_pranks')) {
 			require_once(t3lib_extMgm::extPath('community_pranks').'model/class.tx_communitypranks_model_prankgateway.php');
+			/** @var tx_communitypranks_model_PranksGateway */
 			$pranksGateway = t3lib_div::makeInstance('tx_communitypranks_model_PranksGateway');
-			/** @var $pranksGateway tx_communitypranks_model_PranksGateway */
 			$resourceId = "tx_communityflexiblelayout_{$configuration['profileType']}_{$profileId}";
 			$pranks = $pranksGateway->findByResourceId($resourceId);
 			foreach ($pranks as $prank) {
