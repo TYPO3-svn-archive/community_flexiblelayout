@@ -70,6 +70,10 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 	}
 
 	public function execute() {
+		if ($this->conf['fixProfileType']) {
+			$this->conf['profileType'] = $this->conf['fixProfileType'];
+		}
+		
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
 		$application = $this->communityApplicationManager->getApplication($this->conf['profileType']);
 		$config = $application->getCommunityTypoScriptConfiguration();
@@ -118,10 +122,13 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 		}
 		foreach ($this->widgets as $widgetName => $widget) {
 			if (is_array($config[$widgetName])) {
-				$this->cols[$config[$widgetName]['col']][$config[$widgetName]['pos']] = $widget;
+				$this->cols[$config[$widgetName]['col']]['pos'.$config[$widgetName]['pos']] = $widget;
 			} else {
 				$this->cols[$widget->getLayoutContainer()][] = $widget;
 			}
+		}
+		foreach ($this->cols as $k => $v) {
+			ksort($this->cols[$k]);
 		}
 	}
 	

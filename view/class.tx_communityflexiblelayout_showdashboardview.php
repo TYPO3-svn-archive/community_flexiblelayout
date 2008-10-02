@@ -52,23 +52,27 @@ class tx_communityflexiblelayout_ShowDashboardView {
 		$templateCode = $this->cObj->getSubpart($templateCode, '###TEMPLATE_SHOWDASHBOARD###');
 		$containerTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_CONTAINER###');
 		$widgetTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_WIDGET###');
+		if (isset($this->conf['fixColumn'])) {
+			$this->conf['containerCount'] = 1;
+		}
 		for ($i=1; $i<=$this->conf['containerCount']; $i++) {
+			$currentColumn = (isset($this->conf['fixColumn'])) ? $this->conf['fixColumn'] : $i;
 			$containerClasses = array();
 			$containerClasses[] = 'container';
 			$containerClasses[] = $this->conf['containerClass'];
-			$containerClasses[] = ($this->conf['containerConfig.'][$i.'.']['alternativClassName']) ? $this->conf['containerConfig.'][$i.'.']['alternativClassName'] : '';
+			$containerClasses[] = ($this->conf['containerConfig.'][$currentColumn.'.']['alternativClassName']) ? $this->conf['containerConfig.'][$currentColumn.'.']['alternativClassName'] : '';
 				
-			$marker['CONTAINER_ID'] = "tx-communityflexiblelayout-dashboard-col{$i}";
+			$marker['CONTAINER_ID'] = "tx-communityflexiblelayout-dashboard-col{$currentColumn}";
 			$marker['CONTAINER_CLASSES'] = implode(' ', $containerClasses);
 				
-			$widgetsArray = $this->model->getWidgetsByCol($i);
+			$widgetsArray = $this->model->getWidgetsByCol($currentColumn);
 			$widgetCode = '';
 			if (is_array($widgetsArray)) {
 				foreach ($widgetsArray as $widgetName => $widget) {
 					$widgetClasses = array();
 					$widgetClasses[] = 'widget';
-					$widgetClasses[] = ($widget->isDragable()) ? 'draggable' : 'undraggable';
-					$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
+					//$widgetClasses[] = ($widget->isDragable()) ? 'draggable' : 'undraggable';
+					//$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
 					$widgetClasses[] = ($widget->getCssClass()) ? $widget->getCssClass() : '' ;
 					$widgetMarker = array(
 						'WIDGET_LABEL'	=> $widget->getLabel(),
@@ -83,7 +87,7 @@ class tx_communityflexiblelayout_ShowDashboardView {
 						'###|###'
 					);
 					
-					$widgetCode .= $this->cObj->stdWrap($tmpWidgetCode, $this->conf['containerConfig.'][$i.'.']['widgets.'][$widget->getName().'.']['stdWrap.']);
+					$widgetCode .= $this->cObj->stdWrap($tmpWidgetCode, $this->conf['containerConfig.'][$currentColumn.'.']['widgets.'][$widget->getName().'.']['stdWrap.']);
 				}
 			}
 			$container = $this->cObj->substituteSubpart(
@@ -98,7 +102,7 @@ class tx_communityflexiblelayout_ShowDashboardView {
 				'###|###'
 			);
 			
-			$containerCode .= $this->cObj->stdWrap($tmpContainerCode, $this->conf['containerConfig.'][$i.'.']['stdWrap.']);
+			$containerCode .= $this->cObj->stdWrap($tmpContainerCode, $this->conf['containerConfig.'][$currentColumn.'.']['stdWrap.']);
 			
 		
 		}

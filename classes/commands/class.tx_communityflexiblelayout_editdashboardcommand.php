@@ -124,10 +124,13 @@ class tx_communityflexiblelayout_editDashboardCommand extends tx_community_contr
 
 		foreach ($this->widgets as $widgetName => $widget) {
 			if (is_array($config[$widgetName])) {
-				$this->cols[$config[$widgetName]['col']][$config[$widgetName]['pos']] = $widget;
+				$this->cols[$config[$widgetName]['col']]['pos'.$config[$widgetName]['pos']] = $widget;
 			} else {
 				$this->cols[$widget->getLayoutContainer()][] = $widget;
 			}
+		}
+		foreach ($this->cols as $k => $v) {
+			ksort($this->cols[$k]);
 		}
 	}
 	
