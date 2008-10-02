@@ -70,14 +70,19 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 	}
 
 	public function execute() {
+		$this->logger = tx_communitylogger_Logger::getInstance($this->commandName);
+		$this->logger->info('loaded');
+		$this->logger->debug('configuration: ' . print_r($this->conf, true));
 		if ($this->conf['fixProfileType']) {
 			$this->conf['profileType'] = $this->conf['fixProfileType'];
 		}
 		
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
+		$this->logger->debug('COUNT($widgets): ' . count($widgets));
 		$application = $this->communityApplicationManager->getApplication($this->conf['profileType']);
 		$config = $application->getCommunityTypoScriptConfiguration();
 		foreach ($widgets as $widgetName => $widget) {
+			$this->logger->debug($widgetName . ' loaded');
 			$widget->initialize($this->data, $config);
 			$widget->setCommunityApplication($application);
 			
@@ -95,6 +100,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 		try {
 			$this->profile		= tx_community_ProfileFactory::createProfile($this->conf['profileType']);
 		} catch (Exception $exception) {
+			$this->logger->fatal($exception->__toString());
 			throw $exception;
 		}	
 		

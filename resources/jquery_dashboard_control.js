@@ -59,7 +59,11 @@
 						ui.helper.find('.content').hide();
 					} else {
 						ui.helper.find('.content').show();
+						ui.element.addClass('ui-sortable-hover');
 					}
+				},
+				'out': function(e, ui) {
+					ui.element.removeClass('ui-sortable-hover');
 				},
 				'update': function(e, ui) {
 					if (getParam('tx_community[group]').length) {
