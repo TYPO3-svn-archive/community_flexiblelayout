@@ -67,7 +67,7 @@ class tx_communityflexiblelayout_EditDashboardView {
 				foreach ($widgetsArray as $widgetName => $widget) {
 					$widgetClasses = array();
 					$widgetClasses[] = 'widget';
-					$widgetClasses[] = ($widget->isDraggable()) ? 'draggable' : '';
+					$widgetClasses[] = ($widget->isDraggable()) ? 'draggable' : 'undraggable';
 					$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
 					$widgetClasses[] = ($widget->getCssClass()) ? $widget->getCssClass() : '' ;
 					$widgetMarker = array(
@@ -107,7 +107,7 @@ class tx_communityflexiblelayout_EditDashboardView {
 			foreach ($widgetsArray as $widgetName => $widget) {
 				$widgetClasses = array();
 				$widgetClasses[] = 'widget';
-				$widgetClasses[] = ($widget->isDraggable()) ? 'draggable' : '';
+				$widgetClasses[] = ($widget->isDraggable()) ? 'draggable' : 'undraggable';
 				$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
 				$widgetClasses[] = ($widget->getCssClass()) ? $widget->getCssClass() : '' ;
 				$widgetMarker = array(
