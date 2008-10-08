@@ -78,6 +78,11 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 		}
 		
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
+		$disabledWidgets = t3lib_div::trimExplode(',', $this->conf['disabledWidgets.'][$this->conf['profileType']]);
+		if (!is_array($disabledWidgets)) {
+			$disabledWidgets = array();
+		}
+		
 		$this->logger->debug('COUNT($widgets): ' . count($widgets));
 		$application = $this->communityApplicationManager->getApplication($this->conf['profileType']);
 		$config = $application->getCommunityTypoScriptConfiguration();
@@ -86,7 +91,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 			$widget->initialize($this->data, $config);
 			$widget->setCommunityApplication($application);
 			
-			if ($widget instanceof tx_community_CommunityApplicationWidget) {
+			if ($widget instanceof tx_community_CommunityApplicationWidget && (!in_array($widgetName, $disabledWidgets))) {
 				if ($widget instanceof tx_community_acl_AclResource) {
 					$this->accessManager->addResource($widget);
 					if (!$this->accessManager->isAllowed($widget)) {
