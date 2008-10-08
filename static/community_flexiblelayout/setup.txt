@@ -18,7 +18,7 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 	fixColumn		=
 	fixProfileType	=
 	disabledWidgets {
-		userProfile		= image
+		userProfile		= image,onlineFriends,friendsBirthdayList
 		groupProfile	= image
 		StartPage		= image
 	}
