@@ -81,14 +81,17 @@ class tx_communityflexiblelayout_editDashboardCommand extends tx_community_contr
 	public function execute() {
 		$application = $this->communityApplicationManager->getApplication($this->conf['profileType']);
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
-		
+		$disabledWidgets = t3lib_div::trimExplode(',', $this->conf['disabledWidgets.'][$this->conf['profileType']]);
+		if (!is_array($disabledWidgets)) {
+			$disabledWidgets = array();
+		}
 		
 		$config = $application->getCommunityTypoScriptConfiguration();
 		foreach ($widgets as $widgetName => $widget) {
 			$widget->initialize($this->data, $config);
 			$widget->setCommunityApplication($application);
 			
-			if ($widget instanceof tx_community_CommunityApplicationWidget) {
+			if ($widget instanceof tx_community_CommunityApplicationWidget && (!in_array($widgetName, $disabledWidgets))) {
 				$this->widgets[$widgetName] = $widget;
 			}
 		}
