@@ -92,7 +92,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 			$widget->setCommunityApplication($application);
 			
 			if ($widget instanceof tx_community_CommunityApplicationWidget && (!in_array($widgetName, $disabledWidgets))) {
-				if ($widget instanceof tx_community_acl_AclResource) {
+				if ($widget instanceof tx_community_acl_AclResource && ($this->conf['profileType'] != 'groupProfile')) {
 					$this->accessManager->addResource($widget);
 					if (!$this->accessManager->isAllowed($widget)) {
 						continue;
