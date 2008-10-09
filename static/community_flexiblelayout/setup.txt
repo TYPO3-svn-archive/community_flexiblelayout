@@ -22,6 +22,29 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 		groupProfile	= image
 		StartPage		= image
 	}
+	defaultConfiguration {
+		userProfile {
+			0 = 1,1,personalInformation
+			1 = 1,2,communityPinboardWidget
+			2 = 2,1,profileActions
+			3 = 3,1,friendsBirthdayList
+			3 = 3,2,myGroups 
+		}
+		groupProfile {
+			0 = 1,1,groupInformation
+			1 = 1,2,profileActions
+			2 = 1,3,memberList
+			3 = 1,4,communityPinboardWidget 
+		}
+		StartPage {
+			0 = 1,1,communityPointsStatementOfAccountWidget
+			1 = 2,1,communityPinboardWidget
+			2 = 4,1,onlineFriends
+			3 = 4,2,onlineFriends
+			4 = 4,3,friendsBirthdayList
+			5 = 4,4,myGroups 
+		}
+	}
 }
 
 # adding the user profile application controller

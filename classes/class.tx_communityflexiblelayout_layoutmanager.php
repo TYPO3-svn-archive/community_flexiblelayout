@@ -38,7 +38,7 @@ class tx_communityflexiblelayout_LayoutManager {
 			$data = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 			return $data['configuration'];
 		}
-		return null;
+		return serialize($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']['controller.']['dashboard.']['defaultConfiguration.'][$profileType.'.']);
 	}
 
 	public function setConfiguration($communityId, $profileType, $profileId, $configuration) {
