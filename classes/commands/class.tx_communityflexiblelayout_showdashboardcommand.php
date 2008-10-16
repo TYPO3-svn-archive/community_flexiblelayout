@@ -37,7 +37,7 @@ require_once(t3lib_extMgm::extPath('community').'controller/class.tx_community_c
  * @package TYPO3
  * @subpackage community_flexiblelayout
  */
-class tx_communityflexiblelayout_showDashboardCommand extends tx_community_controller_AbstractCommunityApplication implements tx_communityflexiblelayout_CommandInterface {
+class tx_communityflexiblelayout_showDashboardCommand extends tx_community_controller_AbstractCommunityApplication implements tx_communityflexiblelayout_CommandInterface  {
 	protected $commandName = 'showDashboard';
 	/**
 	 * @var tx_community_ApplicationManager
@@ -54,9 +54,11 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 	protected $widgets = array();
 	protected $cols = array();
 	protected $request;
+	protected $allowed = false;
 	
 	public function __construct() {
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
+		
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->conf = $registry->getConfiguration();
 		$this->request = t3lib_div::_GP('tx_community');
@@ -67,12 +69,19 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
 		parent::__construct();
 		parent::tslib_pibase();
+
+		$this->accessManager->addResource($this);
 	}
 
 	public function execute() {
 		$this->logger = tx_communitylogger_Logger::getInstance($this->commandName);
 		$this->logger->info('loaded');
 		$this->logger->debug('configuration: ' . print_r($this->conf, true));
+
+		if ($this->accessManager->isAllowed($this)) {
+			$this->allowed = true;
+		}		
+		
 		if ($this->conf['fixProfileType']) {
 			$this->conf['profileType'] = $this->conf['fixProfileType'];
 		}
@@ -95,9 +104,11 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 				if ($widget instanceof tx_community_acl_AclResource && ($this->conf['profileType'] != 'groupProfile')) {
 					$this->accessManager->addResource($widget);
 					if (!$this->accessManager->isAllowed($widget)) {
+						$this->logger->debug('BLOCKED: ' . $widget->getName());
 						continue;
 					}
 				}
+				$this->logger->debug('ADDED: ' . $widget->getName());
 				$this->widgets[$widgetName] = $widget;
 			}
 		}
@@ -143,6 +154,10 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 		}
 	}
 	
+	public function isAllowed() {
+		return $this->allowed;
+	}
+	
 	public function getCommandName() {
 		return $this->commandName;
 	}
@@ -154,5 +169,5 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 	public function getAllWidgets() {
 		return $this->cols;
 	}
-	}
+}
 ?>
