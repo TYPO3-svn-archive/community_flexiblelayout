@@ -56,7 +56,8 @@ class tx_communityflexiblelayout_ShowDashboardView {
 			$this->conf['containerCount'] = 1;
 		}
 		for ($i=1; $i<=$this->conf['containerCount']; $i++) {
-			$currentColumn = (isset($this->conf['fixColumn'])) ? $this->conf['fixColumn'] : $i;
+			$currentColumn = (strlen($this->conf['fixColumn'])) ? $this->conf['fixColumn'] : $i;
+
 			$containerClasses = array();
 			$containerClasses[] = 'container';
 			$containerClasses[] = $this->conf['containerClass'];
@@ -64,7 +65,7 @@ class tx_communityflexiblelayout_ShowDashboardView {
 				
 			$marker['CONTAINER_ID'] = "tx-communityflexiblelayout-dashboard-col{$currentColumn}";
 			$marker['CONTAINER_CLASSES'] = implode(' ', $containerClasses);
-				
+
 			$widgetsArray = $this->model->getWidgetsByCol($currentColumn);
 			$widgetCode = '';
 			if (is_array($widgetsArray)) {
