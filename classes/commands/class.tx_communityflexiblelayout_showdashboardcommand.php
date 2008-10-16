@@ -78,12 +78,18 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 		$this->logger->info('loaded');
 		$this->logger->debug('configuration: ' . print_r($this->conf, true));
 
+		// check with the accessManager
 		if ($this->accessManager->isAllowed($this)) {
 			$this->allowed = true;
-		}		
+		}
 		
 		if ($this->conf['fixProfileType']) {
 			$this->conf['profileType'] = $this->conf['fixProfileType'];
+		}
+		
+		// check if it is the users own profile
+		if ($this->conf['profileType'] == 'userProfile' && $this->profile->isEditable()) {
+			$this->allowed = true;
 		}
 		
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
