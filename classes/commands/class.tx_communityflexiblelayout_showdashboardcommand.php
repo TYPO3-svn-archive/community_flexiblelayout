@@ -101,6 +101,12 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 			$this->allowed = true;
 		}
 		
+		// check if it is the fixColumn and startPage
+		if ($this->conf['profileType'] == 'StartPage' && strlen($this->conf['fixColumn'])) {
+			$this->allowed = true;
+		}
+		
+		
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
 		$disabledWidgets = t3lib_div::trimExplode(',', $this->conf['disabledWidgets.'][$this->conf['profileType']]);
 		if (!is_array($disabledWidgets)) {
