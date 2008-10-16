@@ -56,7 +56,7 @@ class tx_communityflexiblelayout_ShowDashboardView {
 		
 		if (!$this->model->isAllowed()) {
 			// @todo: render subpart: ###TEMPLATE_NOT_ALLOWED###;
-			return 'not allowed';
+			return '';
 		}
 		
 		if (isset($this->conf['fixColumn'])) {
