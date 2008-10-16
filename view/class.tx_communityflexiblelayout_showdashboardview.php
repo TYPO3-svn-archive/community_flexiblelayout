@@ -52,6 +52,13 @@ class tx_communityflexiblelayout_ShowDashboardView {
 		$templateCode = $this->cObj->getSubpart($templateCode, '###TEMPLATE_SHOWDASHBOARD###');
 		$containerTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_CONTAINER###');
 		$widgetTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_WIDGET###');
+		$notAllowedTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_NOT_ALLOWED###');
+		
+		if (!$this->model->isAllowed()) {
+			// @todo: render subpart: ###TEMPLATE_NOT_ALLOWED###;
+			return 'not allowed';
+		}
+		
 		if (isset($this->conf['fixColumn'])) {
 			$this->conf['containerCount'] = 1;
 		}
