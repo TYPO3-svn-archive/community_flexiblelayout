@@ -87,6 +87,15 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 			$this->conf['profileType'] = $this->conf['fixProfileType'];
 		}
 		
+		try {
+			$this->profile		= tx_community_ProfileFactory::createProfile($this->conf['profileType']);
+		} catch (Exception $exception) {
+			$this->logger->fatal($exception->__toString());
+			throw $exception;
+		}	
+		
+		$profileId = $this->profile->getUid();
+		
 		// check if it is the users own profile
 		if ($this->conf['profileType'] == 'userProfile' && $this->profile->isEditable()) {
 			$this->allowed = true;
@@ -118,16 +127,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 				$this->widgets[$widgetName] = $widget;
 			}
 		}
-		
-		try {
-			$this->profile		= tx_community_ProfileFactory::createProfile($this->conf['profileType']);
-		} catch (Exception $exception) {
-			$this->logger->fatal($exception->__toString());
-			throw $exception;
-		}	
-		
-		$profileId = $this->profile->getUid();
-		
+				
 		/**
 		 * @var tx_communityflexiblelayout_LayoutManager
 		 */
