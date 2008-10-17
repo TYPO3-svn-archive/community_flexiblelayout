@@ -78,9 +78,9 @@ class tx_communityflexiblelayout_ShowDashboardView {
 			if (is_array($widgetsArray)) {
 				foreach ($widgetsArray as $widgetName => $widget) {
 					$widgetClasses = array();
-					$widgetClasses[] = 'widget';
-					$widgetClasses[] = ($widget->isDraggable()) ? 'draggable' : 'undraggable';
-					$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
+					$widgetClasses[] = 'widget undraggable';
+					//$widgetClasses[] = ($widget->isDraggable()) ? 'draggable' : 'undraggable';
+					//$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
 					$widgetClasses[] = ($widget->getCssClass()) ? $widget->getCssClass() : '' ;
 					$widgetMarker = array(
 						'WIDGET_LABEL'	=> $widget->getLabel(),
