@@ -106,10 +106,10 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 			$this->allowed = true;
 		}
 		
-		// @TODO: fix group permissions by AccessManger
+		// @TODO:  fix group permissions by AccessManger
 		// @FIXME: this is a evil hack to make the group profile visible, we disable
 		//         the AccessManager and ACLs now for the groupprofile!
-		if ($this->conf['profileType'] == 'groupProfile') {
+		if ($this->conf['profileType'] == 'groupProfile' && ($this->profile->getGrouptype() < tx_community_model_Group::TYPE_SECRET)) {
 			$this->allowed = true;
 		}
 		
