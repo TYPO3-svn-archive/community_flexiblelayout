@@ -125,6 +125,10 @@ class tx_communityflexiblelayout_controller_Dashboard {
 			$this->logger->fatal($exception->__toString());
 			$viewName = 'tx_communityflexiblelayout_ErrorView';
 			$model = $exception;
+		} catch (tx_communityflexiblelayout_exception_NoAccess $exception) {
+			$this->logger->fatal($exception->__toString());
+			$viewName = 'tx_communityflexiblelayout_ErrorView';
+			$model = $exception;
 		} catch (Exception $exception) {
 			$this->logger->fatal($exception->__toString());
 			die ('unhandled exception: ' . $exception);

@@ -24,6 +24,7 @@
 
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'interfaces/class.tx_communityflexiblelayout_commandinterface.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout').'classes/class.tx_communityflexiblelayout_layoutmanager.php');
+require_once(t3lib_extMgm::extPath('community_flexiblelayout').'exceptions/class.tx_communityflexiblelayout_exception_noaccess.php');
 
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_applicationmanager.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
@@ -113,6 +114,9 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 			$this->allowed = true;
 		}
 		
+		if ($this->allowed == false) {
+			throw new tx_communityflexiblelayout_exception_NoAccess();
+		}
 		
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
 		$disabledWidgets = t3lib_div::trimExplode(',', $this->conf['disabledWidgets.'][$this->conf['profileType']]);

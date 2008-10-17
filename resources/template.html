@@ -100,6 +100,7 @@
 	1000 = no profile id given
 	1100 = unknown profile type
 	1200 = unknown profile
+	5000 = no access / ACL restriction in effect
  -->
 <!-- ###TEMPLATE_ERROR_1000### start -->
 <h2>###ERR_MESSAGE###</h2>
@@ -127,6 +128,15 @@
 <p>Trace:</p>
 <pre>###ERR_TRACE###</pre>
 <!-- ###TEMPLATE_ERROR_1200### end -->
+
+<!-- ###TEMPLATE_ERROR_5000### start -->
+<h2>###ERR_MESSAGE###</h2>
+<p>Datei: ###ERR_FILE###</p>
+<p>Zeile: ###ERR_LINE###</p>
+<p>Code: ###ERR_CODE###</p>
+<p>Trace:</p>
+<pre>###ERR_TRACE###</pre>
+<!-- ###TEMPLATE_ERROR_5000### end -->
 
 </body>
 </html>
