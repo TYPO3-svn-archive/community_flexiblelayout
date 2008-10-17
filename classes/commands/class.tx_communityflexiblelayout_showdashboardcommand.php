@@ -106,6 +106,13 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 			$this->allowed = true;
 		}
 		
+		// @TODO: fix group permissions by AccessManger
+		// @FIXME: this is a evil hack to make the group profile visible, we disable
+		//         the AccessManager and ACLs now for the groupprofile!
+		if ($this->conf['profileType'] == 'groupProfile') {
+			$this->allowed = true;
+		}
+		
 		
 		$widgets = $this->communityApplicationManager->getWidgetsByApplication($this->conf['profileType']);
 		$disabledWidgets = t3lib_div::trimExplode(',', $this->conf['disabledWidgets.'][$this->conf['profileType']]);
