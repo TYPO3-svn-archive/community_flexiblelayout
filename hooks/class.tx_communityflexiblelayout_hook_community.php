@@ -53,6 +53,9 @@ class tx_communityflexiblelayout_hook_Community implements tx_community_UserProf
 	}
 	
 	protected function getAddAsScoolmateLink() {
+		
+		// @TODO: check if there is a relatiion with this role, change link to remove, edit, etc,
+		
 		$content = $this->profileActionsWidget->getCommunityApplication()->pi_linkToPage(
 			$this->localizationManager->getLL('action_addAsScoolmate'),
 			$GLOBALS['TSFE']->id,
