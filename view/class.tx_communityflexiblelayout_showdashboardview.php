@@ -59,7 +59,7 @@ class tx_communityflexiblelayout_ShowDashboardView {
 			return '';
 		}
 		
-		if (isset($this->conf['fixColumn'])) {
+		if (strlen($this->conf['fixColumn'])) {
 			$this->conf['containerCount'] = 1;
 		}
 		for ($i=1; $i<=$this->conf['containerCount']; $i++) {
