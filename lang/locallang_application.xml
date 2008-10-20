@@ -6,10 +6,14 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="action_addAsScoolmate">add as scoolmate</label>
+			<label index="action_addAsFriend">add as scoolmate</label>
+			<label index="action_removeAsFriend">remove as scoolmate</label>
+			<label index="action_editRelationship">edit relationship</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="action_addAsScoolmate">Schulfreunde werden</label>
+			<label index="action_addAsFriend">Schulfreunde werden</label>
+			<label index="action_removeAsFriend">Freundschaft auflösen</label>
+			<label index="action_editRelationship">Freundschaft ändern</label>
 		</languageKey>
 	</data>
 </T3locallang>
