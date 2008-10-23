@@ -55,8 +55,7 @@ class tx_communityflexiblelayout_ShowDashboardView {
 		$notAllowedTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_NOT_ALLOWED###');
 		
 		if (!$this->model->isAllowed()) {
-			// @todo: render subpart: ###TEMPLATE_NOT_ALLOWED###;
-			return '';
+			return $notAllowedTemplate;
 		}
 		
 		if (strlen($this->conf['fixColumn'])) {

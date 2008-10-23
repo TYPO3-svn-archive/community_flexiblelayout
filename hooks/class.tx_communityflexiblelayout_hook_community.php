@@ -24,6 +24,7 @@
 
 require_once(t3lib_extMgm::extPath('community').'interfaces/interface.tx_community_userprofileactionsprovider.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_localizationmanager.php');
+require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_usergateway.php');
 
 class tx_communityflexiblelayout_hook_Community implements tx_community_UserProfileActionsProvider {
 	/**
@@ -57,7 +58,6 @@ class tx_communityflexiblelayout_hook_Community implements tx_community_UserProf
 	}
 	
 	protected function getScoolmateLinks() {
-		// @TODO: check if there is a relatiion with this role, change link to remove, edit, etc,
 		$returnData = array();
 		
 		$requestedUser  = $this->profileActionsWidget->getCommunityApplication()->getRequestedUser();
@@ -108,27 +108,18 @@ class tx_communityflexiblelayout_hook_Community implements tx_community_UserProf
 	}
 
 	protected function isScoolmate(tx_community_model_User $user, tx_community_model_User $friend) {
-			// TODO this schould at some time be moved to a more appropriate place like a FriendshipManager or so
-			// TODO: Question: I think this should be a method of the user object: isInRelationTo($user, $role) ?
-		$isFriend = false;
+		$isScoolmate = false;
+		
+		$userGateway	= t3lib_div::makeInstance('tx_community_model_UserGateway');
+		$friendsOfUser	= $userGateway->findConnectedUsersByRole($user, 3);
 
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-			'f1.uid',
-			'tx_community_friend AS f1 JOIN tx_community_friend AS f2
-				ON f1.feuser = f2.friend AND f1.friend = f2.feuser
-				AND f1.feuser = ' . $user->getUid()
-			. ' AND f1.friend = ' . $friend->getUid()
-			. ' AND f1.role = 3',
-			''
-		);
-
-		$friendConnectionCount = $GLOBALS['TYPO3_DB']->sql_num_rows($res);
-
-		if ($friendConnectionCount > 0) {
-			$isFriend = true;
+		foreach ($friendsOfUser as $friendOfUser) {
+			if ($friendOfUser->getUid() == $friend->getUid()) {
+				$isScoolmate = true;
+				break;
+			}
 		}
-
-		return $isFriend;
+		return $isScoolmate;
 	}
 	
 }
