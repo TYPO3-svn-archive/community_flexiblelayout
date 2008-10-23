@@ -28,6 +28,15 @@ class tx_communityflexiblelayout_LayoutManager {
 	public function __construct() {
 	}
 
+	public function hasConfiguration($communityId, $profileType, $profileId) {
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+			'configuration',
+			$this->table,
+			'community_id = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($communityId, $this->table) . ' AND profile_type = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($profileType, $this->table) . ' AND profile_id = ' . intval($profileId) 
+		);
+		return ($GLOBALS['TYPO3_DB']->sql_num_rows($res) > 0);
+	}
+
 	public function getConfiguration($communityId, $profileType, $profileId) {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 			'configuration',
@@ -42,7 +51,6 @@ class tx_communityflexiblelayout_LayoutManager {
 	}
 
 	public function setConfiguration($communityId, $profileType, $profileId, $configuration) {
-		$oldConfig = $this->getConfiguration($communityId, $profileType, $profileId);
 		$data = array(
 			'community_id'	=> $GLOBALS['TYPO3_DB']->quoteStr($communityId, $this->table),
 			'profile_type'	=> $GLOBALS['TYPO3_DB']->quoteStr($profileType, $this->table),
@@ -50,7 +58,7 @@ class tx_communityflexiblelayout_LayoutManager {
 			'configuration'	=> $configuration,
 		); 
 		
-		if ($oldConfig === null) {
+		if ($this->hasConfiguration($communityId, $profileType, $profileId)) {
 			$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery(
 				$this->table,
 				$data
