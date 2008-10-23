@@ -58,7 +58,7 @@ class tx_communityflexiblelayout_LayoutManager {
 			'configuration'	=> $configuration,
 		); 
 		
-		if ($this->hasConfiguration($communityId, $profileType, $profileId)) {
+		if (!$this->hasConfiguration($communityId, $profileType, $profileId)) {
 			$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery(
 				$this->table,
 				$data
