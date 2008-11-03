@@ -53,6 +53,7 @@
 				'handle': '.label',
 				'cancel': '.undraggable',
 				'cursor': 'crosshair',
+				'placeholder': 'widget-placeholder',
 				'over': function(e, ui) {
 					if (ui.element.attr('id') == 'tx-communityflexiblelayout-clipboard') {
 						ui.helper.find('.label').show();
@@ -64,6 +65,32 @@
 				},
 				'out': function(e, ui) {
 					ui.element.removeClass('ui-sortable-hover');
+				},
+				'start': function(e, ui) {
+					ui.placeholder
+						.width(ui.helper.width())
+						.height(ui.helper.height()); 
+				},
+				'stop': function(e, ui) {
+					ui.placeholder
+						.width("auto")
+						.height("auto"); 
+				},
+				'sort': function(e, ui) {
+					ui.placeholder
+						.width(ui.helper.width())
+						.height(ui.helper.height()); // maintain size of placeholder when ui.item is repositioned 
+					// console.log(ui.item);
+					// console.log(ui.helper);
+					// $(ui.item).height();
+					// ;
+					/*
+					$(ui.item).parent().find('.widget-placeholder').each(function(element) {
+						element.width($(ui.item).width());
+						element.height($(ui.item).height());
+					});
+					*/
+					
 				},
 				'update': function(e, ui) {
 					if (getParam('tx_community[group]').length) {
