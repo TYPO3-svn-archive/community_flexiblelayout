@@ -61,6 +61,8 @@
 					} else {
 						ui.helper.find('.content').show();
 						ui.element.addClass('ui-sortable-hover');
+						ui.item
+							.width(ui.element.width());
 					}
 				},
 				'out': function(e, ui) {
@@ -80,8 +82,6 @@
 					ui.placeholder
 						.width("auto")
 						.height(ui.helper.height()); // maintain size of placeholder when ui.item is repositioned
-					ui.item
-						.width("auto"); 
 				},
 				'update': function(e, ui) {
 					if (getParam('tx_community[group]').length) {
