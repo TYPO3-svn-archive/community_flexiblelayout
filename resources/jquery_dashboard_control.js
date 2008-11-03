@@ -79,7 +79,9 @@
 				'sort': function(e, ui) {
 					ui.placeholder
 						.width("auto")
-						.height(ui.helper.height()); // maintain size of placeholder when ui.item is repositioned 
+						.height(ui.helper.height()); // maintain size of placeholder when ui.item is repositioned
+					ui.item
+						.width("auto"); 
 				},
 				'update': function(e, ui) {
 					if (getParam('tx_community[group]').length) {
