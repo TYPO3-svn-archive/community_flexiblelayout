@@ -40,7 +40,7 @@
 			$('#tx-communityflexiblelayout-clipboard-helper').click(
 				function() {
 					$('#tx-communityflexiblelayout-clipboard').slideDown('slow', function() {
-						$(this).hide();
+						$('#tx-communityflexiblelayout-clipboard-helper').hide();
 					});
 					
 				}
