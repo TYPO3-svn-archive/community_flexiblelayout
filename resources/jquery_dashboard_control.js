@@ -36,7 +36,7 @@
 	
 	$(document).ready(function() {
 		if ( (typeof __EDIT__ != 'undefined') && __EDIT__) {
-			$('#tx-communityflexiblelayout-clipboard').slideUp();
+			//$('#tx-communityflexiblelayout-clipboard').slideUp();
 			$('#tx-communityflexiblelayout-clipboard-helper').click(
 				function() {
 					$('#tx-communityflexiblelayout-clipboard-wrap').slideDown('slow');
