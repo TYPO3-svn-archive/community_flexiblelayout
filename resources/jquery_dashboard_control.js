@@ -37,14 +37,15 @@
 	$(document).ready(function() {
 		if ( (typeof __EDIT__ != 'undefined') && __EDIT__) {
 			$('#tx-communityflexiblelayout-clipboard').slideUp();
-			$('#tx-communityflexiblelayout-clipboard-helper').toggle(
+			$('#tx-communityflexiblelayout-clipboard-helper').click(
 				function() {
 					$('#tx-communityflexiblelayout-clipboard').slideDown('slow');
-					$('#tx-communityflexiblelayout-clipboard-wrap').removeClass('clipboard-box').addClass('clipboard-box-on');
-				},
+				}
+			).hide();
+			$('#tx-communityflexiblelayout-clipboard-helper-off').click(
 				function() {
 					$('#tx-communityflexiblelayout-clipboard').slideUp('slow');
-					$('#tx-communityflexiblelayout-clipboard-wrap').removeClass('clipboard-box-on').addClass('clipboard-box');
+					$('#tx-communityflexiblelayout-clipboard-helper').show();
 				}
 			);
 			$('#tx-communityflexiblelayout-clipboard .widget').each(function() {
