@@ -40,8 +40,9 @@
 			$('#tx-communityflexiblelayout-clipboard-helper').click(
 				function() {
 					$('#tx-communityflexiblelayout-clipboard').slideDown('slow');
+					$(this).hide();
 				}
-			).hide();
+			);
 			$('#tx-communityflexiblelayout-clipboard-helper-off').click(
 				function() {
 					$('#tx-communityflexiblelayout-clipboard').slideUp('slow');
