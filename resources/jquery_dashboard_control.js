@@ -40,9 +40,11 @@
 			$('#tx-communityflexiblelayout-clipboard-helper').toggle(
 				function() {
 					$('#tx-communityflexiblelayout-clipboard').slideDown('slow');
+					$('#tx-communityflexiblelayout-clipboard-wrap').removeClass('clipboard-box').addClass('clipboard-box-on');
 				},
 				function() {
 					$('#tx-communityflexiblelayout-clipboard').slideUp('slow');
+					$('#tx-communityflexiblelayout-clipboard-wrap').removeClass('clipboard-box-on').addClass('clipboard-box');
 				}
 			);
 			$('#tx-communityflexiblelayout-clipboard .widget').each(function() {
