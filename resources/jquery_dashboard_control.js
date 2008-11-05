@@ -39,14 +39,17 @@
 			$('#tx-communityflexiblelayout-clipboard').slideUp();
 			$('#tx-communityflexiblelayout-clipboard-helper').click(
 				function() {
-					$('#tx-communityflexiblelayout-clipboard').slideDown('slow');
-					$(this).hide();
+					$('#tx-communityflexiblelayout-clipboard').slideDown('slow', function() {
+						$(this).hide();
+					});
+					
 				}
 			);
 			$('#tx-communityflexiblelayout-clipboard-helper-off').click(
 				function() {
-					$('#tx-communityflexiblelayout-clipboard').slideUp('slow');
-					$('#tx-communityflexiblelayout-clipboard-helper').show();
+					$('#tx-communityflexiblelayout-clipboard').slideUp('slow', function() {
+						$('#tx-communityflexiblelayout-clipboard-helper').show();
+					});
 				}
 			);
 			$('#tx-communityflexiblelayout-clipboard .widget').each(function() {
