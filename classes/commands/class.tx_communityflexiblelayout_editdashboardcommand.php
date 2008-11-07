@@ -69,7 +69,7 @@ class tx_communityflexiblelayout_editDashboardCommand extends tx_community_contr
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->conf = $registry->getConfiguration();
 		//$this->configuration = $registry->getConfiguration();
-		$this->request = t3lib_div::_GP('tx_community');
+		$this->request = t3lib_div::GParrayMerged('tx_community');
 		//$this->userGateway = new tx_community_model_UserGateway();
 		$this->accessManager = tx_community_AccessManager::getInstance();
 		

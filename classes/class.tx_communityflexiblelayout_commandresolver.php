@@ -37,7 +37,7 @@ class tx_communityflexiblelayout_CommandResolver implements tx_communityflexible
 	public function __construct($defaultCommand) {
 		$this->path				= t3lib_extMgm::extPath('community_flexiblelayout').'classes/commands';
 		$this->defaultCommand	= $defaultCommand;
-		$this->request			= t3lib_div::_GP('tx_communityflexiblelayout');
+		$this->request			= t3lib_div::GParrayMerged('tx_communityflexiblelayout');
 		
 		$registry				= tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->conf				= $registry->getConfiguration();

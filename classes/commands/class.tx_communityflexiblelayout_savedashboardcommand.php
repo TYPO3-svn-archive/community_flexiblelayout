@@ -54,7 +54,7 @@ class tx_communityflexiblelayout_saveDashboardCommand extends tx_community_contr
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
 		$registry = tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->conf = $registry->getConfiguration();
-		$this->request = t3lib_div::_GP('tx_communityflexiblelayout');
+		$this->request = t3lib_div::GParrayMerged('tx_communityflexiblelayout');
 		
 		$this->name = $this->conf['profileType'];
 		

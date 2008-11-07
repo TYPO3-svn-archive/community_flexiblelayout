@@ -75,7 +75,7 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	}
 
 	public function execute($content, array $configuration) {
-		$this->request = t3lib_div::_GP('tx_community');
+		$this->request = t3lib_div::GParrayMerged('tx_community');
 		$this->logger->debug("\$configuration['profileType'] = " . $configuration['profileType']);
 		if (($configuration['profileType'] == 'userProfile' || $configuration['profileType'] == 'StartPage') && (!isset($this->request['user']))) {
 			$userGateway = t3lib_div::makeInstance('tx_community_model_UserGateway');
@@ -84,7 +84,7 @@ class tx_communityflexiblelayout_controller_Dashboard {
 				$GLOBALS['_GET']['tx_community']['user'] = $user->getUid();
 			}
 		}
-		$this->request = t3lib_div::_GP('tx_community');
+		$this->request = t3lib_div::GParrayMerged('tx_community');
 
 		$profileId = (isset($this->request['user'])) ? (int) $this->request['user'] : (int) $this->request['group'];
 		
