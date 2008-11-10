@@ -61,7 +61,7 @@
    	function initToolbar() {
 		$('.tx-communityflexiblelayout-dashboard-container .label').each(function() {
 		        if ($(this).parent().hasClass('removable')) {
-		                $(this).find('.remove-icon').remove();
+						$(this).find('.remove-icon').remove();
 		                $(this).append('<div class="remove-icon"></div>');
 		        }
 		});
@@ -69,6 +69,7 @@
 		        var widget = $(this).parent().parent().parent().parent().parent();
 		        widget.remove().appendTo('#tx-communityflexiblelayout-clipboard');
 		        widget.find('.content').hide();
+		        widget.find('.remove-icon').remove();
 		        updateConfig();
 		});
    	}
