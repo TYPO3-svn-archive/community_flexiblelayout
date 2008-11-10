@@ -33,6 +33,44 @@
 		}
 		return '';
    	}
+   	
+   	function updateConfig() {
+		if (getParam('tx_community[group]').length) {
+			$.post('/index.php', {
+				'id': __PAGEID__,
+				'tx_community[group]': getParam('tx_community[group]'), 
+				'tx_communityflexiblelayout[cmd]': 'saveDashboard',
+				'tx_communityflexiblelayout[dashboardConfig][]': getDashboardConfig()
+			});
+		} else if (getParam('tx_community[user]').length) {
+			$.post('/index.php', {
+				'id': __PAGEID__,
+				'tx_community[user]': getParam('tx_community[user]'), 
+				'tx_communityflexiblelayout[cmd]': 'saveDashboard',
+				'tx_communityflexiblelayout[dashboardConfig][]': getDashboardConfig()
+			});
+		} else {
+			$.post('/index.php', {
+				'id': __PAGEID__,
+				'tx_communityflexiblelayout[cmd]': 'saveDashboard',
+				'tx_communityflexiblelayout[dashboardConfig][]': getDashboardConfig()
+			});
+		}
+   	}
+   	
+   	function initToolbar() {
+		$('.tx-communityflexiblelayout-dashboard-container .label').each(function() {
+		        if ($(this).parent().hasClass('removable')) {
+		                $(this).find('.remove-icon').remove();
+		                $(this).append('<div class="remove-icon"></div>');
+		        }
+		});
+		$('.tx-communityflexiblelayout-dashboard-container .remove-icon').click(function() {
+		        var widget = $(this).parent().parent().parent().parent().parent();
+		        widget.remove().appendTo('#tx-communityflexiblelayout-clipboard');
+		        widget.find('.content').hide();
+		});
+   	}
 	
 	$(document).ready(function() {
 		if ( (typeof __EDIT__ != 'undefined') && __EDIT__) {
@@ -88,28 +126,10 @@
 						.height(ui.helper.height()); // maintain size of placeholder when ui.item is repositioned
 				},
 				'update': function(e, ui) {
-					if (getParam('tx_community[group]').length) {
-						$.post('/index.php', {
-							'id': __PAGEID__,
-							'tx_community[group]': getParam('tx_community[group]'), 
-							'tx_communityflexiblelayout[cmd]': 'saveDashboard',
-							'tx_communityflexiblelayout[dashboardConfig][]': getDashboardConfig()
-						});
-					} else if (getParam('tx_community[user]').length) {
-						$.post('/index.php', {
-							'id': __PAGEID__,
-							'tx_community[user]': getParam('tx_community[user]'), 
-							'tx_communityflexiblelayout[cmd]': 'saveDashboard',
-							'tx_communityflexiblelayout[dashboardConfig][]': getDashboardConfig()
-						});
-					} else {
-						$.post('/index.php', {
-							'id': __PAGEID__,
-							'tx_communityflexiblelayout[cmd]': 'saveDashboard',
-							'tx_communityflexiblelayout[dashboardConfig][]': getDashboardConfig()
-						});
-					}
+					updateConfig();
+					initToolbar();
 				}
 			});
+			initToolbar();
 		}
 	});
