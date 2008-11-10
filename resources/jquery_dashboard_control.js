@@ -69,6 +69,7 @@
 		        var widget = $(this).parent().parent().parent().parent().parent();
 		        widget.remove().appendTo('#tx-communityflexiblelayout-clipboard');
 		        widget.find('.content').hide();
+		        updateConfig();
 		});
    	}
 	
