@@ -77,10 +77,9 @@ class tx_communityflexiblelayout_controller_Dashboard {
 	public function execute($content, array $configuration) {
 		$this->request = t3lib_div::GParrayMerged('tx_community');
 		$this->logger->debug("\$configuration['profileType'] = " . $configuration['profileType']);
-		$userGateway = t3lib_div::makeInstance('tx_community_model_UserGateway');
-		$user = $userGateway->findCurrentlyLoggedInUser();
-		
 		if (($configuration['profileType'] == 'userProfile' || $configuration['profileType'] == 'StartPage') && (!isset($this->request['user']))) {
+			$userGateway = t3lib_div::makeInstance('tx_community_model_UserGateway');
+			$user = $userGateway->findCurrentlyLoggedInUser();
 			if (!is_null($user)) {
 				$GLOBALS['_GET']['tx_community']['user'] = $user->getUid();
 			}
@@ -88,9 +87,6 @@ class tx_communityflexiblelayout_controller_Dashboard {
 		$this->request = t3lib_div::GParrayMerged('tx_community');
 
 		$profileId = (isset($this->request['user'])) ? (int) $this->request['user'] : (int) $this->request['group'];
-		if (isset($configuration['fixProfileType']) && strlen($configuration['fixProfileType']) && !is_null($user)) {
-			$profileId = $user->getUid();
-		}
 		
 		// hook implementation for the community_pranks extension
 		if (t3lib_extMgm::isLoaded('community_pranks')) {
