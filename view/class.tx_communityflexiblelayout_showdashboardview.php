@@ -118,6 +118,14 @@ class tx_communityflexiblelayout_ShowDashboardView {
 		$marker = array(
 			'###PAGEID###' => $GLOBALS['TSFE']->id
 		);
+
+		if ($this->model->isProfileComplete()) {
+			$content = $this->cObj->substituteSubpart(
+				$content,
+				'###HINT_INCOMPLETE###',
+				''
+			);
+		}
 		return $this->cObj->substituteMarkerArray($content, $marker);
 	}
 }

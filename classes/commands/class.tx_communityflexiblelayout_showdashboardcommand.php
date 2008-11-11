@@ -56,6 +56,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 	protected $cols = array();
 	protected $request;
 	protected $allowed = false;
+	protected $completeProfile = true;
 	
 	public function __construct() {
 		$this->communityApplicationManager = tx_community_ApplicationManager::getInstance();
@@ -137,6 +138,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 					$this->accessManager->addResource($widget);
 					if (!$this->accessManager->isAllowed($widget)) {
 						$this->logger->debug('BLOCKED: ' . $widget->getName());
+						$this->completeProfile = false;
 						continue;
 					}
 				}
@@ -179,6 +181,10 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 	
 	public function isAllowed() {
 		return $this->allowed;
+	}
+	
+	public function isProfileComplete() {
+		return $this->completeProfile;
 	}
 	
 	public function getCommandName() {
