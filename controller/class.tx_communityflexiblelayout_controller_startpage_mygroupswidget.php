@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('PATH_community') . 'controller/class.tx_community_controller_userprofile_mygroupswidget.php');
+require_once(t3lib_extMgm::extPath('community') . 'controller/class.tx_community_controller_userprofile_mygroupswidget.php');
 
 /**
  * a widget for the personal startpage to show the user's group memberships
