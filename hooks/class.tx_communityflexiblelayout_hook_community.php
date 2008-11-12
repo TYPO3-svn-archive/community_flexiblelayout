@@ -62,11 +62,16 @@ class tx_communityflexiblelayout_hook_Community implements tx_community_UserProf
 	public function getProfileUid($uid, tx_community_model_UserProfile $profileModel) {
 		$registry				= tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->configuration	= $registry->getConfiguration();
+		
+		$userGateway	= t3lib_div::makeInstance('tx_community_model_UserGateway');
+		$loggedinUser	= $userGateway->findCurrentlyLoggedInUser();
+		
+		
 		if (strlen($this->configuration['fixProfileType'])) {
 			switch ($this->configuration['fixUser']) {
 				case 'logedInUser':
-					if ($this->loggedinUser !== null) {
-						return $this->loggedinUser->getUid();
+					if (!is_null($loggedinUser)) {
+						return $loggedinUser->getUid();
 					}
 				break;
 				default:
