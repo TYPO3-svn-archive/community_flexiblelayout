@@ -59,7 +59,7 @@ class tx_communityflexiblelayout_hook_Community implements tx_community_UserProf
 		return $profileActions;
 	}
 	
-	public function getProfileUid($uid, $profileModel) {
+	public function getProfileUid($uid, tx_community_model_UserProfile $profileModel) {
 		$registry				= tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->configuration	= $registry->getConfiguration();
 		if (strlen($this->configuration['fixProfileType'])) {
