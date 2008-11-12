@@ -22,11 +22,13 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('community').'interfaces/interface.tx_community_userprofileactionsprovider.php');
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_localizationmanager.php');
+require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
+require_once(t3lib_extMgm::extPath('community').'interfaces/interface.tx_community_userprofileactionsprovider.php');
+require_once(t3lib_extMgm::extPath('community').'interfaces/interface.tx_community_userprofileprovider.php');
 require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_usergateway.php');
 
-class tx_communityflexiblelayout_hook_Community implements tx_community_UserProfileActionsProvider {
+class tx_communityflexiblelayout_hook_Community implements tx_community_UserProfileActionsProvider, tx_community_UserProfileProvider {
 	/**
 	 * @var tx_community_controller_userprofile_ProfileActionsWidget
 	 */
@@ -55,6 +57,24 @@ class tx_communityflexiblelayout_hook_Community implements tx_community_UserProf
 			$profileActions[] = array('link' => $link);	
 		}
 		return $profileActions;
+	}
+	
+	public function getProfileUid($uid, $profileModel) {
+		$registry				= tx_community_Registry::getInstance('tx_communityflexiblelayout');
+		$this->configuration	= $registry->getConfiguration();
+		if (strlen($this->configuration['fixProfileType'])) {
+			switch ($this->configuration['fixUser']) {
+				case 'logedInUser':
+					if ($this->loggedinUser !== null) {
+						return $this->loggedinUser->getUid();
+					}
+				break;
+				default:
+					return (int) $this->configuration['fixUser'];
+				break;
+			}
+		}
+		return $uid;
 	}
 	
 	protected function getScoolmateLinks() {

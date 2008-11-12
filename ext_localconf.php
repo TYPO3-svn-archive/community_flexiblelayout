@@ -39,6 +39,6 @@ $TX_COMMUNITY['applications']['StartPage'] = array(
 );
 
 //$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tx_community']['getUserProfileActions'][] = 'EXT:community_flexiblelayout/hooks/class.tx_communityflexiblelayout_hook_community.php:tx_communityflexiblelayout_hook_Community';
-
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tx_community']['tx_community_model_UserProfile']['getProfileUid'][] = 'EXT:community_flexiblelayout/hooks/class.tx_communityflexiblelayout_hook_community.php:tx_communityflexiblelayout_hook_Community';
 
 ?>
