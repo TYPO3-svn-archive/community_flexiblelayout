@@ -25,7 +25,7 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 	}
 	defaultConfiguration {
 		userProfile {
-			0 = 1,1,widgetWidget
+			0 = 1,1,widget
 			1 = 1,2,communityPinboardWidget
 			2 = 2,1,myGroups 
 		}
