@@ -38,10 +38,11 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 		StartPage {
 			0 = 1,1,communityPointsStatementOfAccountWidget
 			1 = 1,1,communityPinboardWidget
-			2 = 4,1,onlineFriends
-			3 = 4,2,friendsBirthdayList
-			4 = 4,3,tx_communitymessages 
-			5 = 4,4,myGroups 
+			2 = 2.1,lastVisitors
+			3 = 4,1,onlineFriends
+			4 = 4,2,friendsBirthdayList
+			5 = 4,3,tx_communitymessages 
+			6 = 4,4,myGroups 
 		}
 	}
 }
