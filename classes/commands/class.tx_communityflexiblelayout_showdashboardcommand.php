@@ -115,6 +115,11 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 			$this->allowed = true;
 		}
 		
+		// @FIXME: temporary solution for the addAsFriend problem, we disable the ACL for the userProfile.
+		if ($this->conf['profileType'] == 'userProfile') {
+			$this->allowed = true;
+		}
+		
 		if ($this->allowed == false) {
 			throw new tx_communityflexiblelayout_exception_NoAccess();
 		}
