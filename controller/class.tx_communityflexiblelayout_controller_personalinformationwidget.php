@@ -39,7 +39,7 @@ class tx_communityflexiblelayout_controller_PersonalInformationWidget extends tx
 		$this->localizationManager = tx_community_LocalizationManager::getInstance('EXT:community_flexiblelayout/lang/locallang_application.xml', $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']);
 
 		$this->name     = 'personalInformation2';
-		$this->label    = $this->localizationManager->getLL('label_PersonalInformationWidget2');
+		$this->label    = $this->localizationManager->getLL('label_PersonalInformationWidget');
 
 		$this->draggable = true;
 		$this->removable = true;
