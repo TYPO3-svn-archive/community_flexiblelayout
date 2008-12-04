@@ -9,6 +9,20 @@ plugin.tx_communityflexiblelayout {
 	}
 }
 
+plugin.tx_community {
+	applications {
+		userProfile {
+			widgets {
+				image {
+				personalInformation2 {
+					templateFile = EXT:community_flexiblelayout/resources/templates/personalinformationwidget.htm
+				}
+			}
+		}
+	}
+}
+
+
 plugin.tx_communityflexiblelayout.controller.dashboard {
 	template		= EXT:community_flexiblelayout/resources/template.html
 	containerCount	= 3
