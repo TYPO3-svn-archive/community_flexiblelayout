@@ -5,7 +5,7 @@ if (!defined ('TYPO3_MODE')) {
 
 $TX_COMMUNITY['applications']['StartPage'] = array(
 	'classReference' => 'EXT:community/controller/class.tx_community_controller_userprofileapplication.php:tx_community_controller_UserProfileApplication',
-	'label' => 'LLL:EXT:community/lang/locallang_application.xml:userProfile',
+	'label' => 'LLL:EXT:community/lang/locallang_applications.xml:userProfile',
 	'accessControl' => false,
 	'widgets' => array(
 		'friendsBirthdayList' => array(
@@ -51,13 +51,13 @@ $TX_COMMUNITY['applications']['userProfile']['accessControl'] = false;
 
 $TX_COMMUNITY['applications']['userProfile']['widgets']['personalInformation2'] = array(
 	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_personalinformationwidget.php:tx_communityflexiblelayout_controller_PersonalInformationWidget',
-	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_applications.xml:userProfile_personalInformation',
+	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:userProfile_personalInformation',
 	'actions' => array(
 		'index'
 	),
 	'defaultAction' => 'index',
 	'accessControl' => array(
-		'read' => 'LLL:EXT:community_flexiblelayout/lang/locallang_applications.xml:privacy_userProfile_personalInformationWidget_read'
+		'read' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:privacy_userProfile_personalInformationWidget_read'
 	)
 );
 
