@@ -48,7 +48,7 @@ $TX_COMMUNITY['applications']['StartPage'] = array(
 );
 
 $TX_COMMUNITY['applications']['userProfile']['accessControl'] = false;
-
+/*
 $TX_COMMUNITY['applications']['userProfile']['widgets']['personalInformation2'] = array(
 	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_personalinformationwidget.php:tx_communityflexiblelayout_controller_PersonalInformationWidget',
 	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_applications.xml:userProfile_personalInformation',
@@ -61,7 +61,7 @@ $TX_COMMUNITY['applications']['userProfile']['widgets']['personalInformation2'] 
 	)
 );
 
-
+*/
 //$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tx_community']['getUserProfileActions'][] = 'EXT:community_flexiblelayout/hooks/class.tx_communityflexiblelayout_hook_community.php:tx_communityflexiblelayout_hook_Community';
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tx_community']['tx_community_model_UserProfile']['getProfileUid'][] = 'EXT:community_flexiblelayout/hooks/class.tx_communityflexiblelayout_hook_community.php:tx_communityflexiblelayout_hook_Community';
 
