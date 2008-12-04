@@ -11,6 +11,7 @@
 			<label index="action_editRelationship">edit relationship</label>
 			<label index="userProfile_personalInformation">about me</label>
 			<label index="privacy_userProfile_personalInformationWidget_read">decide how can see your personal information</label>
+			<label index="label_PersonalInformationWidget">more information</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="action_addAsFriend">Schulfreunde werden</label>
@@ -18,6 +19,7 @@
 			<label index="action_editRelationship">Freundschaft ändern</label>
 			<label index="userProfile_personalInformation">Persönliche Informationen</label>
 			<label index="privacy_userProfile_personalInformationWidget_read">Wer darf deine persönlichen Informationen sehen?</label>
+			<label index="label_PersonalInformationWidget">Meine Interessen</label>
 		</languageKey>
 	</data>
 </T3locallang>
