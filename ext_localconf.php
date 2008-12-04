@@ -5,7 +5,7 @@ if (!defined ('TYPO3_MODE')) {
 
 $TX_COMMUNITY['applications']['StartPage'] = array(
 	'classReference' => 'EXT:community/controller/class.tx_community_controller_userprofileapplication.php:tx_community_controller_UserProfileApplication',
-	'label' => 'LLL:EXT:community/lang/locallang_applications.xml:userProfile',
+	'label' => 'LLL:EXT:community/lang/locallang_application.xml:userProfile',
 	'accessControl' => false,
 	'widgets' => array(
 		'friendsBirthdayList' => array(
