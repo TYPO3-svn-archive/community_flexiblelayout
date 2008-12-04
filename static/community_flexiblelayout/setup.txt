@@ -13,7 +13,6 @@ plugin.tx_community {
 	applications {
 		userProfile {
 			widgets {
-				image {
 				personalInformation2 {
 					templateFile = EXT:community_flexiblelayout/resources/templates/personalinformationwidget.htm
 				}
