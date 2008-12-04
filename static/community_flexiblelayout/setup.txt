@@ -14,7 +14,7 @@ plugin.tx_community {
 		userProfile {
 			widgets {
 				personalInformation2 {
-					templateFile = EXT:community_flexiblelayout/resources/templates/personalinformationwidget.htm
+					templateFile = EXT:community_flexiblelayout/resources/personalinformationwidget.htm
 				}
 			}
 		}
