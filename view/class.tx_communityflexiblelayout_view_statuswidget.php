@@ -65,7 +65,7 @@ class tx_communityflexiblelayout_view_StatusWidget {
 		$template = new $templateClass(
 			t3lib_div::makeInstance('tslib_cObj'),
 			$this->templateFile,
-			'list_groups'
+			'status_widget'
 		);
 		/* @var $template tx_community_Template */
 
