@@ -63,7 +63,7 @@ class tx_communityflexiblelayout_controller_ConnectionManagerApplication extends
 
 		$openFriendRequests = $this->getUserGateway()->findUnconfirmedFriends();
 		
-		$view->setUserModel($openFriendRequests);
+		$view->setUsers($openFriendRequests);
 		
 		return $view->render();
 	}
