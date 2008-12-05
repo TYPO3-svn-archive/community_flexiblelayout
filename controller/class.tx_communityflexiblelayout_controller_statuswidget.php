@@ -67,7 +67,7 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 		);
 		debug($rows);
 		
-		$view = t3lib_div::makeInstance('tx_communitflexiblelayout_view_StatusWidget');
+		$view = t3lib_div::makeInstance('tx_communityflexiblelayout_view_StatusWidget');
 		$view->setUserModel($requestingUser);
 		$view->setOpenFriendRequestCount(count($rows));
 		$view->setTemplateFile($this->configuration['applications.']['StartPage.']['widgets.']['statusWidget.']['templateFile']);

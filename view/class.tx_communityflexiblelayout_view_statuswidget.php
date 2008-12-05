@@ -35,7 +35,7 @@ require_once($GLOBALS['PATH_community'] . 'model/class.tx_community_model_userga
  * @package TYPO3
  * @subpackage community
  */
-class tx_communitflexiblelayouty_view_StatusWidget {
+class tx_communityflexiblelayout_view_StatusWidget {
 	/**
 	 * @var tx_community_LocalizationManager
 	 */
