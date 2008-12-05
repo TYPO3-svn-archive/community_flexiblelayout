@@ -69,6 +69,15 @@ $TX_COMMUNITY['applications']['userProfile']['widgets']['personalInformation2'] 
 		'read' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:privacy_userProfile_personalInformationWidget_read'
 	)
 );
+$TX_COMMUNITY['applications']['userProfile']['widgets']['statusWidget'] = array(
+	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_statuswidget.php:tx_communityflexiblelayout_controller_StatusWidget',
+	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_statusWidget',
+	'accessControl' => false,
+	'actions' => array(
+		'index'
+	),
+	'defaultAction' => 'index',
+);
 
 
 //$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tx_community']['getUserProfileActions'][] = 'EXT:community_flexiblelayout/hooks/class.tx_communityflexiblelayout_hook_community.php:tx_communityflexiblelayout_hook_Community';
