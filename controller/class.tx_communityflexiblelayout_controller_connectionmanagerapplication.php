@@ -25,6 +25,8 @@
 require_once(t3lib_extMgm::extPath('community') . 'model/class.tx_community_model_usergateway.php');
 require_once(t3lib_extMgm::extPath('community') . 'classes/class.tx_community_localizationmanager.php');
 
+require_once(t3lib_extMgm::extPath('community_flexiblelayout') . 'view/class.tx_communityflexiblelayout_view_connectionmanagerindex.php');
+
 /**
  * Connection Manager Application Controller
  *
