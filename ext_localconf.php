@@ -69,14 +69,21 @@ $TX_COMMUNITY['applications']['userProfile']['widgets']['personalInformation2'] 
 		'read' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:privacy_userProfile_personalInformationWidget_read'
 	)
 );
-$TX_COMMUNITY['applications']['userProfile']['widgets']['statusWidget'] = array(
-	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_statuswidget.php:tx_communityflexiblelayout_controller_StatusWidget',
-	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_statusWidget',
+$TX_COMMUNITY['applications']['connectionManager'] = array(
+	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_connectionmanagerapplication.php:tx_communityflexiblelayout_controller_ConnectionManagerApplication',
+	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:connectionManager',
 	'accessControl' => false,
-	'actions' => array(
-		'index'
-	),
-	'defaultAction' => 'index',
+	'widgets' => array(
+		'statusWidget' => array(
+			'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_statuswidget.php:tx_communityflexiblelayout_controller_StatusWidget',
+			'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_statusWidget',
+			'accessControl' => false,
+			'actions' => array(
+				'index'
+			),
+			'defaultAction' => 'index',
+		),
+	)
 );
 
 

@@ -10,6 +10,7 @@ plugin.tx_communityflexiblelayout {
 }
 
 plugin.tx_community {
+	pages.connectionManager = 
 	applications {
 		userProfile {
 			widgets {
@@ -18,7 +19,8 @@ plugin.tx_community {
 				}
 			}
 		}
-		StartPage {
+		connectionManager {
+			templateFile = EXT:community_flexiblelayout/resources/connectionManager.htm
 			widgets {
 				statusWidget {
 					templateFile = EXT:community_flexiblelayout/resources/statuswidget.htm

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template for the user profile's personal information widget</title>
+</head>
+<body>
+
+<!-- ###CONNECTIONS### begin -->
+<p>Du hast ###FRIENDREQUESTCOUNTER### offene Freundschaftanfragen.</p>
+	<div id="tx-community-connections-list">
+		<!-- ###LOOP:USERS### begin -->
+		<!-- ###LOOP_CONTENT### -->
+		<div id="groupTeaser###USER.UID###">
+			<p>###LINK:###USER.name###|###TS:plugin.tx_community.pages.userProfile###|tx_community[user]=###USER.uid######</p>
+		</div>
+		<!-- ###LOOP_CONTENT### -->
+		<!-- ###LOOP:USERS### end -->
+	</div>
+<!-- ###CONNECTIONS### end -->
+
+</body>
+</html>
