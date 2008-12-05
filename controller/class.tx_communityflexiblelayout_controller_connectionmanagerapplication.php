@@ -56,6 +56,18 @@ class tx_communityflexiblelayout_controller_ConnectionManagerApplication extends
 
 		// TODO refactor this method
 	public function indexAction() {
+		$openFriendRequests = $this->getUserGateway()->findUnconfirmedFriends();
+
+			// now use the user list to present the result
+		$userList = $GLOBALS['TX_COMMUNITY']['applicationManager']->getApplication(
+			'userList',
+			$this->data,
+			$this->configuration
+		);
+		$userList->setUserListModel($openFriendRequests);
+		return $userList->execute();
+		
+		
 		$view = t3lib_div::makeInstance('tx_communityflexiblelayout_view_connectionManagerIndex');
 		/* @var $view tx_communityflexiblelayout_view_connectionManagerIndex */
 		$view->setTemplateFile($this->configuration['applications.']['connectionManager.']['templateFile']);
