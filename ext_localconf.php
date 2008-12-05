@@ -83,6 +83,10 @@ $TX_COMMUNITY['applications']['connectionManager'] = array(
 	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_connectionmanagerapplication.php:tx_communityflexiblelayout_controller_ConnectionManagerApplication',
 	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:connectionManager',
 	'accessControl' => false,
+	'actions' => array(
+		'index'
+	),
+	'defaultAction' => 'index',
 	'widgets' => array(
 		'statusWidget' => array(
 			'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_statuswidget.php:tx_communityflexiblelayout_controller_StatusWidget',
