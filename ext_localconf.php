@@ -53,6 +53,7 @@ $TX_COMMUNITY['applications']['StartPage'] = array(
 			'defaultAction' => 'index',
 			'accessControl' => false
 		)
+	)
 );
 
 $TX_COMMUNITY['applications']['userProfile']['accessControl'] = false;
