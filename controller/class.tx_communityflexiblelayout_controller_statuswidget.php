@@ -62,7 +62,7 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 		$view = t3lib_div::makeInstance('tx_communityflexiblelayout_view_StatusWidget');
 		$view->setUserModel($requestingUser);
 		$view->setOpenFriendRequestCount(count($openFriendRequestUser));
-		$view->setTemplateFile($this->configuration['applications.']['StartPage.']['widgets.']['statusWidget.']['templateFile']);
+		$view->setTemplateFile($this->configuration['applications.']['connectionManager.']['widgets.']['statusWidget.']['templateFile']);
 		$view->setLanguageKey($this->communityApplication->LLkey);
 
 		$content = $view->render();
