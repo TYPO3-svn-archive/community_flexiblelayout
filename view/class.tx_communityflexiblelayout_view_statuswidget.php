@@ -41,6 +41,14 @@ class tx_communityflexiblelayout_view_StatusWidget {
 	 */
 	protected $llManager;
 
+	public function setTemplateFile($templateFile) {
+		$this->templateFile = $templateFile;
+	}
+
+	public function setLanguageKey($languageKey) {
+		$this->languageKey = $languageKey;
+	}
+	
 	public function setUserModel($userModel) {
 		$this->userModel = $userModel;
 	}
