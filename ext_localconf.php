@@ -43,8 +43,16 @@ $TX_COMMUNITY['applications']['StartPage'] = array(
 				'index'
 			),
 			'defaultAction' => 'index'
+		),
+		'statusWidget' => array(
+			'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_statuswidget.php:tx_communityflexiblelayout_controller_StatusWidget',
+			'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_statusWidget',
+			'actions' => array(
+				'index'
+			),
+			'defaultAction' => 'index',
+			'accessControl' => false
 		)
-	)
 );
 
 $TX_COMMUNITY['applications']['userProfile']['accessControl'] = false;
