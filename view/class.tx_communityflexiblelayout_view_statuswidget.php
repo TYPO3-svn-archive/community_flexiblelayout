@@ -90,7 +90,7 @@ class tx_communityflexiblelayout_view_StatusWidget {
 		
 		$template->addVariable('user', $this->userModel);
 		$template->addMarker('friendrequestcounter', $this->openFriendRequestCount);
-		$template->addLoop('groups', 'group', $this->groups);
+		//$template->addLoop('groups', 'group', $this->groups);
 
 		return $template->render();
 	}
