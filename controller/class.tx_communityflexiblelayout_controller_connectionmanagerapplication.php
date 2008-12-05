@@ -49,7 +49,7 @@ class tx_communityflexiblelayout_controller_ConnectionManagerApplication extends
 		$this->name = 'connectionManager';
 
 		$llMangerClass = t3lib_div::makeInstanceClassName('tx_community_LocalizationManager');
-		$this->llManager = call_user_func(array($llMangerClass, 'getInstance'), 'EXT:community_flexiblelayout/lang/locallang_connectionmananger.xml',	$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']);
+		$this->llManager = call_user_func(array($llMangerClass, 'getInstance'), 'EXT:community_flexiblelayout/lang/locallang_connectionmanager.xml',	$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']);
 	}
 
 		// TODO refactor this method
