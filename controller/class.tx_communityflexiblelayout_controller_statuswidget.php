@@ -23,6 +23,7 @@
 ***************************************************************/
 
 require_once(t3lib_extMgm::extPath('community') . 'controller/class.tx_community_controller_abstractcommunityapplicationwidget.php');
+require_once(t3lib_extMgm::extPath('community_flexiblelayout') . 'view/class.tx_communityflexiblelayout_view_statuswidget.php');
 
 /**
  * status information widget for the persoal startpage
