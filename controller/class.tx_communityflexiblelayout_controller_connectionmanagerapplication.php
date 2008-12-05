@@ -32,7 +32,7 @@ require_once(t3lib_extMgm::extPath('community') . 'classes/class.tx_community_lo
  * @package TYPO3
  * @subpackage community
  */
-class tx_communityflexiblelayout_controller_ConnectionManagerApplication extends tx_community_controller_GroupProfileApplication {
+class tx_communityflexiblelayout_controller_ConnectionManagerApplication extends tx_community_controller_AbstractCommunityApplication {
 	/**
 	 * @var tx_community_LocalizationManager
 	 */
