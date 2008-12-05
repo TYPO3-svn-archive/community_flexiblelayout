@@ -47,8 +47,7 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 	}
 
 	/**
-	 * the default action for this widget, fetches the user to show the personal
-	 * information for, creates a view and returns the view's output
+	 * the default action for this widget,
 	 *
 	 * @return	string	the view's output
 	 */
