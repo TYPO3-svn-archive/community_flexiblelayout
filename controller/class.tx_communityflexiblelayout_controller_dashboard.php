@@ -88,18 +88,14 @@ class tx_communityflexiblelayout_controller_Dashboard {
 
 		$profileId = (isset($this->request['user'])) ? (int) $this->request['user'] : (int) $this->request['group'];
 		
-		// hook implementation for the community_pranks extension
-		if (t3lib_extMgm::isLoaded('community_pranks')) {
-			require_once(t3lib_extMgm::extPath('community_pranks').'model/class.tx_communitypranks_model_prankgateway.php');
-			/** @var tx_communitypranks_model_PranksGateway */
-			$pranksGateway = t3lib_div::makeInstance('tx_communitypranks_model_PranksGateway');
-			$resourceId = "tx_communityflexiblelayout_{$configuration['profileType']}_{$profileId}";
-			$pranks = $pranksGateway->findByResourceId($resourceId);
-			foreach ($pranks as $prank) {
-				$configuration = $prank->overwriteConfiguration($configuration);
-				if (method_exists($prank, 'myCustomFunction')) {
-					$prank->myCustomFunction();
+			// hook implementation for changeing the configuration
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tx_communityflexiblelayout']['getConfiguration'])) {
+			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tx_communityflexiblelayout']['getConfiguration'] as $classReference) {
+				$hookObject = & t3lib_div::getUserObj($classReference);
+				if ($hookObject instanceof tx_communityflexiblelayout_ConfigurationProvider) {
+					$configuration = $hookObject->getConfiguration($configuration, $profileId, $this);
 				}
+
 			}
 		}
 
