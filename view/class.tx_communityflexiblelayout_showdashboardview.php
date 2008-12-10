@@ -23,6 +23,7 @@
  ***************************************************************/
 
 require_once(t3lib_extMgm::extPath('community').'classes/class.tx_community_registry.php');
+require_once(t3lib_extMgm::extPath('community').'model/class.tx_community_model_usergateway.php');
 
 /**
  * show Dashbaord View
@@ -72,6 +73,12 @@ class tx_communityflexiblelayout_ShowDashboardView {
 			$marker['CONTAINER_ID'] = "tx-communityflexiblelayout-dashboard-col{$currentColumn}";
 			$marker['CONTAINER_CLASSES'] = implode(' ', $containerClasses);
 
+			$userGateway = t3lib_div::makeInstance('tx_community_model_usergateway');
+			$userUid 	 = t3lib_div::_GP('tx_community');
+			$userUid	 = $userUid['user'];
+			$requestedUser = $userGateway->findById($userUid);
+			$nickname 	 = (!is_null($requestedUser)) ? $requestedUser->getNickname() : '';  
+			
 			$widgetsArray = $this->model->getWidgetsByCol($currentColumn);
 			$widgetCode = '';
 			if (is_array($widgetsArray)) {
@@ -82,7 +89,7 @@ class tx_communityflexiblelayout_ShowDashboardView {
 					//$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
 					$widgetClasses[] = ($widget->getCssClass()) ? $widget->getCssClass() : '' ;
 					$widgetMarker = array(
-						'WIDGET_LABEL'	=> $widget->getLabel(),
+						'WIDGET_LABEL'	=> str_replace('###NICKNAME###', $nickname, $widget->getLabel()),
 						'WIDGET_CONTENT' => $widget->execute(),
 						'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getName()}",
 						'WIDGET_CLASSES' => implode(' ', $widgetClasses)
