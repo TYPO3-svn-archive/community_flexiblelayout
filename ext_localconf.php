@@ -79,6 +79,11 @@ $TX_COMMUNITY['applications']['userProfile']['widgets']['statusWidget'] = array(
 	),
 	'defaultAction' => 'index',
 );
+$TX_COMMUNITY['applications']['userProfile']['widgets']['lastVisitors']['accessControl'] = array(
+	'read' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:privacy_userProfile_lastVisitors_read'
+);
+
+
 $TX_COMMUNITY['applications']['connectionManager'] = array(
 	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_connectionmanagerapplication.php:tx_communityflexiblelayout_controller_ConnectionManagerApplication',
 	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:connectionManager',
