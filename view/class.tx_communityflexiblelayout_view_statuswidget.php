@@ -57,6 +57,10 @@ class tx_communityflexiblelayout_view_StatusWidget {
 		$this->openFriendRequestCount = $counter;
 	}
 	
+	public function setDocuementsSubpart($subpart) {
+		$this->documentsSubpart = $subpart;
+	}
+	
 	public function render() {
 		$llMangerClass = t3lib_div::makeInstanceClassName('tx_community_LocalizationManager');
 		$this->llManager = call_user_func(array($llMangerClass, 'getInstance'), 'EXT:community_flexiblelayout/lang/locallang_statuswidget.xml',	$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']);
@@ -89,9 +93,25 @@ class tx_communityflexiblelayout_view_StatusWidget {
 		);
 		
 		$template->addVariable('user', $this->userModel);
+		$template->addMarker('documents_status', $this->renderDocumentsStatus());
 		$template->addMarker('friendrequestcounter', $this->openFriendRequestCount);
+		$template->addMarker('page_id', $GLOBALS['TSFE']->id);
 		//$template->addLoop('groups', 'group', $this->groups);
 
+		return $template->render();
+	}
+	
+	protected function renderDocumentsStatus() {
+		$llMangerClass = t3lib_div::makeInstanceClassName('tx_community_LocalizationManager');
+		$this->llManager = call_user_func(array($llMangerClass, 'getInstance'), 'EXT:community_flexiblelayout/lang/locallang_statuswidget.xml',	$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']);
+
+		$templateClass = t3lib_div::makeInstanceClassName('tx_community_Template');
+		$template = new $templateClass(
+			t3lib_div::makeInstance('tslib_cObj'),
+			$this->templateFile,
+			$this->documentsSubpart
+		);
+				
 		return $template->render();
 	}
 }
