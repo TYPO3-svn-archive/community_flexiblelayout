@@ -21,7 +21,7 @@ $(document).ready(function() {
 				// console.log(response);
 				response = eval('('+response+')');
 				// console.log(response);
-				if (response.previewImageId) {
+				if (response.status == 'success') {
 					self.location.reload();
 				}
 			}
