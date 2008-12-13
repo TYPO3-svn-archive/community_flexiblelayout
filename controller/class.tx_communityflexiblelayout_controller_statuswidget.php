@@ -65,6 +65,34 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 		$view->setTemplateFile($this->configuration['applications.']['connectionManager.']['widgets.']['statusWidget.']['templateFile']);
 		$view->setLanguageKey($this->communityApplication->LLkey);
 
+		$userGroups = $GLOBALS['TSFE']->fe_user->user['usergroup'];
+		$userGroups = t3lib_div::trimExplode(',', $userGroups);
+		
+			// is Community Member
+		if (in_array(1, $userGroups)) {
+			$view->setDocuementsSubpart('template_member');
+		}
+		
+			// is confirmed mit perso
+		if (in_array(27, $userGroups)) {
+			$view->setDocuementsSubpart('template_confirmed_perso');
+		}
+			
+			// is confirmed mit einverständniserklärung
+		if (in_array(28, $userGroups)) {
+			$view->setDocuementsSubpart('template_confirmed_einver');
+		}
+			
+			// is confirmed mit perso und einverständniserklärung
+		if (in_array(29, $userGroups)) {
+			$view->setDocuementsSubpart('template_confirmed_both');
+		}
+		
+			// is confirmed ohne Dokumente
+		if (in_array(30, $userGroups)) {
+			$view->setDocuementsSubpart('template_confirmed_without');
+		}
+		
 		$content = $view->render();
 		
 		return $content;

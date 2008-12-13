@@ -78,4 +78,5 @@ tt_content.list.20.community_flexiblelayout_Dashboard = < plugin.tx_communityfle
 
 page.includeJS {
 	jqueryDashboardControl		= EXT:community_flexiblelayout/resources/jquery_dashboard_control.js
+	jqueryAjaxUploaderControl	= EXT:community_flexiblelayout/resources/jquery_ajaxuploader_control.js
 }

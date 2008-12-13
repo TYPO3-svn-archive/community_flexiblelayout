@@ -108,5 +108,5 @@ $TX_COMMUNITY['applications']['connectionManager'] = array(
 
 //$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tx_community']['getUserProfileActions'][] = 'EXT:community_flexiblelayout/hooks/class.tx_communityflexiblelayout_hook_community.php:tx_communityflexiblelayout_hook_Community';
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tx_community']['tx_community_model_UserProfile']['getProfileUid'][] = 'EXT:community_flexiblelayout/hooks/class.tx_communityflexiblelayout_hook_community.php:tx_communityflexiblelayout_hook_Community';
-
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tx_ajaxupload']['observer'][] = 'EXT:community_flexiblelayout/hooks/class.tx_communityflexiblelayout_hook_observer.php:tx_communityflexiblelayout_hook_Observer';
 ?>
