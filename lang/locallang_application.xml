@@ -22,8 +22,8 @@
 			<label index="action_removeAsFriend">Freundschaft auflösen</label>
 			<label index="action_editRelationship">Freundschaft ändern</label>
 			<label index="userProfile_personalInformation">Persönliche Informationen</label>
-			<label index="privacy_userProfile_personalInformationWidget_read">Wer darf deine persönlichen Informationen sehen?</label>
-			<label index="privacy_userProfile_lastVisitors_read">Wer darf deine Hühnerstange sehen? Wer darf deine letzten Besucher sehen?</label>
+			<label index="privacy_userProfile_personalInformationWidget_read">Wer darf deine Interessen sehen?</label>
+			<label index="privacy_userProfile_lastVisitors_read">Wer darf deine Hühnerstange sehen? Wer darf deine letzten Besucher sehen? </label>
 			<label index="label_PersonalInformationWidget">Meine Interessen</label>
 			<label index="startPage_statusWidget">Aktuelle Informationen</label>
 			<label index="label_StatusWidget">Aktuelle Informationen</label>
