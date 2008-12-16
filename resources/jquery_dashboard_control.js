@@ -2,7 +2,7 @@
 	function getDashboardConfig() {
 		var rData = new Array();
 		$('.tx-communityflexiblelayout-dashboard-container').each(function() {
-			container = $(this).attr('id').replace('tx-communityflexiblelayout-dashboard-col', '');
+			var container = $(this).attr('id').replace('tx-communityflexiblelayout-dashboard-col', '');
 			counter = 1;
 			$(this).find('.widget').each(function() {
 				var widget = [
@@ -117,10 +117,9 @@
 						.width("auto")
 						.height(ui.helper.height()); 
 				},
+				'beforeStop': function(e, ui) {
+				},
 				'stop': function(e, ui) {
-					ui.placeholder
-						.width("auto")
-						.height("auto"); 
 				},
 				'sort': function(e, ui) {
 					ui.placeholder
@@ -129,6 +128,7 @@
 				},
 				'update': function(e, ui) {
 					updateConfig();
+					ui.placeholder.hide(); 
 					initToolbar();
 				}
 			});
