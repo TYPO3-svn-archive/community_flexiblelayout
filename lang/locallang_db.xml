@@ -7,6 +7,11 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="tt_content.list_type_Dashboard">Community Flexible Layout (Dashboard)</label>
+			<label index="fe_users.tx_communityflexiblelayout_lotteryonly">lottery only</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="tt_content.list_type_Dashboard">Community Flexible Layout (Dashboard)</label>
+			<label index="fe_users.tx_communityflexiblelayout_lotteryonly">Nur Gewinnspiel</label>
 		</languageKey>
 	</data>
 </T3locallang>

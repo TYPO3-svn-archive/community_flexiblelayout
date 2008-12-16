@@ -68,6 +68,7 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 		$userGroups = $GLOBALS['TSFE']->fe_user->user['usergroup'];
 		$userGroups = t3lib_div::trimExplode(',', $userGroups);
 		
+		// check member status and set correct subpart
 			// is Community Member
 		if (in_array(1, $userGroups)) {
 			$view->setDocuementsSubpart('template_member');
@@ -91,6 +92,26 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 			// is confirmed ohne Dokumente
 		if (in_array(30, $userGroups)) {
 			$view->setDocuementsSubpart('template_confirmed_without');
+		}
+		
+		// check lottery flag
+		$request = t3lib_div::GParrayMerged('tx_communityflexiblelayout');
+		if ($request['activateAccount'] && $request['activateAccount'] == 1) {
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+				'fe_users',
+				'uid = ' . $requestingUser->getUid(),
+				array(
+					'tx_communityflexiblelayout_lotteryonly' => 0
+				)
+			);
+		} 
+		
+		$view->setLotterySubpart('');
+		if ($this->configuration['applications.']['connectionManager.']['widgets.']['statusWidget.']['lotteryActive']) {
+			$lotteryOnlyFlag = $GLOBALS['TSFE']->fe_user->user['tx_communityflexiblelayout_lotteryonly'];
+			if ($lotteryOnlyFlag == 1) {
+				$view->setLotterySubpart('template_lottery');
+			}
 		}
 		
 		$content = $view->render();

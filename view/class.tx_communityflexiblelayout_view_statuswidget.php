@@ -40,6 +40,8 @@ class tx_communityflexiblelayout_view_StatusWidget {
 	 * @var tx_community_LocalizationManager
 	 */
 	protected $llManager;
+	protected $documentsSubpart;
+	protected $lotterySubpart;
 
 	public function setTemplateFile($templateFile) {
 		$this->templateFile = $templateFile;
@@ -59,6 +61,10 @@ class tx_communityflexiblelayout_view_StatusWidget {
 	
 	public function setDocuementsSubpart($subpart) {
 		$this->documentsSubpart = $subpart;
+	}
+	
+	public function setLotterySubpart($subpart) {
+		$this->lotterySubpart = $subpart;
 	}
 	
 	public function render() {
@@ -94,6 +100,7 @@ class tx_communityflexiblelayout_view_StatusWidget {
 		
 		$template->addVariable('user', $this->userModel);
 		$template->addMarker('documents_status', $this->renderDocumentsStatus());
+		$template->addMarker('lottery_status', $this->renderLotteryStatus());
 		$template->addMarker('friendrequestcounter', $this->openFriendRequestCount);
 		$template->addMarker('page_id', $GLOBALS['TSFE']->id);
 		//$template->addLoop('groups', 'group', $this->groups);
@@ -110,6 +117,20 @@ class tx_communityflexiblelayout_view_StatusWidget {
 			t3lib_div::makeInstance('tslib_cObj'),
 			$this->templateFile,
 			$this->documentsSubpart
+		);
+				
+		return $template->render();
+	}
+		
+	protected function renderLotteryStatus() {
+		$llMangerClass = t3lib_div::makeInstanceClassName('tx_community_LocalizationManager');
+		$this->llManager = call_user_func(array($llMangerClass, 'getInstance'), 'EXT:community_flexiblelayout/lang/locallang_statuswidget.xml',	$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']);
+
+		$templateClass = t3lib_div::makeInstanceClassName('tx_community_Template');
+		$template = new $templateClass(
+			t3lib_div::makeInstance('tslib_cObj'),
+			$this->templateFile,
+			$this->lotterySubpart
 		);
 				
 		return $template->render();

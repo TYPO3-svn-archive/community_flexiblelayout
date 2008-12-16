@@ -24,6 +24,7 @@ plugin.tx_community {
 			widgets {
 				statusWidget {
 					templateFile = EXT:community_flexiblelayout/resources/statuswidget.htm
+					lotteryActive = 1
 				}
 			}
 		}

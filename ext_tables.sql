@@ -17,3 +17,11 @@ CREATE TABLE tx_communityflexiblelayout_dashboardconfig (
     PRIMARY KEY (uid),
     KEY parent (pid)
 );
+
+#
+# Table structure for table 'fe_users'
+#
+CREATE TABLE fe_users (
+	tx_communityflexiblelayout_lotteryonly int(4) DEFAULT '0' NOT NULL,
+);
+
