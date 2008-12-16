@@ -104,7 +104,7 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 					'tx_communityflexiblelayout_lotteryonly' => 0
 				)
 			);
-			$redirectUrl = '/' . $pObj->pi_getPageLink(
+			$redirectUrl = '/' . $this->communityApplication->pi_getPageLink(
 				$GLOBALS['TSFE']->id
 			);
 			header('Location: ' . $redirectUrl);
