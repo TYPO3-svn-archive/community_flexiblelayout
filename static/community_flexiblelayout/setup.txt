@@ -71,7 +71,7 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 			5 = 2,1,friendsBirthdayList
 
 			6 = 4,1,onlineFriends
-			7 = 4.2,myFriends
+			7 = 4,2,myFriends
 			8 = 4,3,lastVisitors
 			9 = 4,4,myGroups 
 		}
