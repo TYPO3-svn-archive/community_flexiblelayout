@@ -88,6 +88,16 @@ $TX_COMMUNITY['applications']['userProfile']['widgets']['personalInformation2'] 
 	)
 );
 
+$TX_COMMUNITY['applications']['userProfile']['widgets']['contentWidget'] = array(
+	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_contentwidget.php:tx_communityflexiblelayout_controller_ContentWidget',
+	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_contentWidget',
+	'accessControl' => false,
+	'actions' => array(
+		'index'
+	),
+	'defaultAction' => 'index',
+);
+
 $TX_COMMUNITY['applications']['userProfile']['widgets']['statusWidget'] = array(
 	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_statuswidget.php:tx_communityflexiblelayout_controller_StatusWidget',
 	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_statusWidget',
@@ -97,6 +107,7 @@ $TX_COMMUNITY['applications']['userProfile']['widgets']['statusWidget'] = array(
 	),
 	'defaultAction' => 'index',
 );
+
 $TX_COMMUNITY['applications']['userProfile']['widgets']['lastVisitors']['accessControl'] = array(
 	'read' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:privacy_userProfile_lastVisitors_read'
 );
