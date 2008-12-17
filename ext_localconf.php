@@ -26,6 +26,15 @@ $TX_COMMUNITY['applications']['StartPage'] = array(
 			),
 			'defaultAction' => 'index'
 		),
+		'myFriends' => array(
+			'classReference' => 'EXT:community/controller/userprofile/class.tx_community_controller_userprofile_myfriendswidget.php:tx_community_controller_userprofile_MyFriendsWidget',
+			'label' => 'LLL:EXT:community/lang/locallang_applications.xml:userProfile_myFriends',
+			'accessControl' => false,
+			'actions' => array(
+				'index'
+			),
+			'defaultAction' => 'index'
+		),
 		'onlineFriends' => array(
 			'classReference' => 'EXT:community/controller/userprofile/class.tx_community_controller_userprofile_onlinefriendswidget.php:tx_community_controller_userprofile_OnlineFriendsWidget',
 			'label' => 'LLL:EXT:community/lang/locallang_applications.xml:userProfile_onlineFriends',
