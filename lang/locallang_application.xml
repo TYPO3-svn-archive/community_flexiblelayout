@@ -15,7 +15,8 @@
 			<label index="label_PersonalInformationWidget">more information</label>
 			<label index="startPage_statusWidget">status informations</label>
 			<label index="label_StatusWidget">status informations</label>
-			<label index="startPage_contentWidget">welcome</label>
+			<label index="startPage_contentWidget">Content Widget</label>
+			<label index="label_ContentWidget">welcome</label>
 			<label index="connectionManager">Connection Manager</label>
 		</languageKey>
 		<languageKey index="de" type="array">
@@ -28,7 +29,8 @@
 			<label index="label_PersonalInformationWidget">Meine Interessen</label>
 			<label index="startPage_statusWidget">Aktuelle Informationen</label>
 			<label index="label_StatusWidget">Aktuelle Informationen</label>
-			<label index="startPage_contentWidget">Willkommen</label>
+			<label index="startPage_contentWidget">Content Widget</label>
+			<label index="label_ContentWidget">Willkommen</label>
 			<label index="connectionManager">Connection Manager</label>
 		</languageKey>
 	</data>

@@ -59,7 +59,7 @@ class tx_communityflexiblelayout_controller_ContentWidget extends tx_community_c
 		$openFriendRequestUser = $this->communityApplication->getUserGateway()->findUnconfirmedFriends($requestingUser);
 		
 		$view = t3lib_div::makeInstance('tx_communityflexiblelayout_view_ContentWidget');
-		$view->setTemplateFile($this->configuration['applications.']['connectionManager.']['widgets.']['contentWidget.']['templateFile']);
+		$view->setTemplateFile($this->configuration['applications.']['userProfile.']['widgets.']['contentWidget.']['templateFile']);
 		$view->setLanguageKey($this->communityApplication->LLkey);
 
 		$content = $view->render();
