@@ -61,6 +61,15 @@ $TX_COMMUNITY['applications']['StartPage'] = array(
 				'index'
 			),
 			'defaultAction' => 'index',
+		),
+		'contentWidget' => array(
+			'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_contentwidget.php:tx_communityflexiblelayout_controller_ContentWidget',
+			'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_contentWidget',
+			'accessControl' => false,
+			'actions' => array(
+				'index'
+			),
+			'defaultAction' => 'index',
 		)
 	)
 );
