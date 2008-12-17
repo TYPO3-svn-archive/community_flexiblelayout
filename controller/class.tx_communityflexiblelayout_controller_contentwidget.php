@@ -41,9 +41,9 @@ class tx_communityflexiblelayout_controller_ContentWidget extends tx_community_c
 		$this->name     = 'contentWidget';
 		$this->label    = $this->localizationManager->getLL('label_ContentWidget');
 
-		$this->draggable = true;
-		$this->removable = true;
-		$this->position  = 2;
+		$this->draggable = false;
+		$this->removable = false;
+		$this->position  = 1;
 	}
 
 	/**
