@@ -17,6 +17,14 @@ plugin.tx_community {
 				personalInformation2 {
 					templateFile = EXT:community_flexiblelayout/resources/personalinformationwidget.htm
 				}
+				contentWidget {
+					templateFile = EXT:community_flexiblelayout/resources/contentwidget.htm
+					content = RECORDS
+					content {
+						tables = tt_content
+						source = 
+					}
+				}
 			}
 		}
 		connectionManager {
