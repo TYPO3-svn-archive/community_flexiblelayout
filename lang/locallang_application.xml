@@ -12,7 +12,7 @@
 			<label index="userProfile_personalInformation">about me</label>
 			<label index="privacy_userProfile_personalInformationWidget_read">decide how can see your personal information</label>
 			<label index="privacy_userProfile_lastVisitors_read">decide how can see your last visotrs</label>
-			<label index="label_PersonalInformationWidget">more information</label>
+			<label index="label_PersonalInformationWidget2">more information</label>
 			<label index="startPage_statusWidget">status informations</label>
 			<label index="label_StatusWidget">status informations</label>
 			<label index="startPage_contentWidget">Content Widget</label>
@@ -26,7 +26,7 @@
 			<label index="userProfile_personalInformation">Persönliche Informationen</label>
 			<label index="privacy_userProfile_personalInformationWidget_read">Wer darf deine Interessen sehen?</label>
 			<label index="privacy_userProfile_lastVisitors_read">Wer darf deine letzten Besucher sehen?</label>
-			<label index="label_PersonalInformationWidget">Meine Interessen</label>
+			<label index="label_PersonalInformationWidget2">Meine Interessen</label>
 			<label index="startPage_statusWidget">Aktuelle Informationen</label>
 			<label index="label_StatusWidget">Aktuelle Informationen</label>
 			<label index="startPage_contentWidget">Content Widget</label>
