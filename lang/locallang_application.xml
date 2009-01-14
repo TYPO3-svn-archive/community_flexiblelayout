@@ -17,6 +17,7 @@
 			<label index="label_StatusWidget">status informations</label>
 			<label index="startPage_contentWidget">Content Widget</label>
 			<label index="label_ContentWidget">welcome</label>
+			<label index="label_coaspecialWidget">special</label>			
 			<label index="connectionManager">Connection Manager</label>
 		</languageKey>
 		<languageKey index="de" type="array">
@@ -30,7 +31,10 @@
 			<label index="startPage_statusWidget">Aktuelle Informationen</label>
 			<label index="label_StatusWidget">Aktuelle Informationen</label>
 			<label index="startPage_contentWidget">Content Widget</label>
+			<label index="startPage_coaspecialWidget">Mach mit und gewinne!</label>
 			<label index="label_ContentWidget">Willkommen</label>
+			<label index="label_coaspecialWidget">Mach mit und gewinne!</label>
+			<label index="label_coaspecialWidgetLottery">Werde Mitglied der Community</label>			
 			<label index="connectionManager">Connection Manager</label>
 		</languageKey>
 	</data>

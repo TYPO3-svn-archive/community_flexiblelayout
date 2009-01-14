@@ -42,6 +42,7 @@ class tx_communityflexiblelayout_CommandResolver implements tx_communityflexible
 		$registry				= tx_community_Registry::getInstance('tx_communityflexiblelayout');
 		$this->conf				= $registry->getConfiguration();
 
+
 		try {
 			$this->profile		= tx_community_ProfileFactory::createProfile($this->conf['profileType']);
 		} catch (Exception $exception) {

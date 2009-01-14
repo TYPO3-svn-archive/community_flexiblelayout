@@ -97,7 +97,6 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 		}	
 		
 		$profileId = $this->profile->getUid();
-		
 		// check if it is the users own profile
 		if ($this->conf['profileType'] == 'userProfile' && $this->profile->isEditable()) {
 			$this->allowed = true;

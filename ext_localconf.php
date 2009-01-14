@@ -70,7 +70,16 @@ $TX_COMMUNITY['applications']['StartPage'] = array(
 				'index'
 			),
 			'defaultAction' => 'index',
-		)
+		),
+		'coaspecialWidget' => array(
+			'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_coaspecialwidget.php:tx_communityflexiblelayout_controller_CoaspecialWidget',
+			'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_coaspecialWidget',
+			'accessControl' => false,
+			'actions' => array(
+				'index'
+			),
+			'defaultAction' => 'index',
+		)		
 	)
 );
 
@@ -91,6 +100,16 @@ $TX_COMMUNITY['applications']['userProfile']['widgets']['personalInformation2'] 
 $TX_COMMUNITY['applications']['userProfile']['widgets']['contentWidget'] = array(
 	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_contentwidget.php:tx_communityflexiblelayout_controller_ContentWidget',
 	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_contentWidget',
+	'accessControl' => false,
+	'actions' => array(
+		'index'
+	),
+	'defaultAction' => 'index',
+);
+
+$TX_COMMUNITY['applications']['userProfile']['widgets']['coaspecialWidget'] = array(
+	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_coaspecialwidget.php:tx_communityflexiblelayout_controller_CoaspecialWidget',
+	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_coaspecialWidget',
 	'accessControl' => false,
 	'actions' => array(
 		'index'

@@ -22,6 +22,8 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+include_once(t3lib_extMgm::extPath('community') . 'controller/class.tx_community_controller_groupprofileapplication.php');
+	     
 require_once(t3lib_extMgm::extPath('community') . 'controller/class.tx_community_controller_abstractcommunityapplicationwidget.php');
 require_once(t3lib_extMgm::extPath('community_flexiblelayout') . 'view/class.tx_communityflexiblelayout_view_statuswidget.php');
 
@@ -38,7 +40,8 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 	public function __construct() {
 		parent::__construct();
 		$this->localizationManager = tx_community_LocalizationManager::getInstance('EXT:community_flexiblelayout/lang/locallang_application.xml', $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']);
-
+		#$this->groupProfilApp = new tx_community_controller_GroupProfileApplication();
+		#$this->groupProfilApp->execute();
 		$this->name     = 'statusWidget';
 		$this->label    = $this->localizationManager->getLL('label_StatusWidget');
 
@@ -54,11 +57,13 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 	 */
 	public function indexAction() {
 		$content = '';
-
+#debug($this->communityApplication);
+		$this->groupGateway = t3lib_div::makeInstance('tx_community_model_GroupGateway');
+		$group = $this->groupGateway->findById(8);
+		debug($group);
+		
 		$requestingUser = $this->communityApplication->getRequestingUser();
-		
 		$openFriendRequestUser = $this->communityApplication->getUserGateway()->findUnconfirmedFriends($requestingUser);
-		
 		$view = t3lib_div::makeInstance('tx_communityflexiblelayout_view_StatusWidget');
 		$view->setUserModel($requestingUser);
 		$view->setOpenFriendRequestCount(count($openFriendRequestUser));
@@ -93,8 +98,7 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 		if (in_array(30, $userGroups)) {
 			$view->setDocuementsSubpart('template_confirmed_without');
 		}
-		
-		// check lottery flag
+		$communityRequest = t3lib_div::GParrayMerged('tx_community');
 		$request = t3lib_div::GParrayMerged('tx_communityflexiblelayout');
 		if ($request['activateAccount'] && $request['activateAccount'] == 1) {
 			$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
@@ -108,13 +112,40 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 				$GLOBALS['TSFE']->id
 			);
 			header('Location: ' . $redirectUrl);
-		} 
+		}
 		
+		if($communityRequest['cdromcode'] && substr($communityRequest['cdromcode'],0,13)=='whcdrom-76893'){
+		    ##	$requestedGroup = $this->communityApplication->getRequestedGroup(); 
+		    $this->groupGateway = t3lib_div::makeInstance('tx_community_model_GroupGateway');
+		    $group = $this->groupGateway->findById(24);
+		    $success  = $group->addMember($requestingUser,true);
+		    $group->save();
+		
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+				'fe_users',
+				'uid = ' . $requestingUser->getUid(),
+				array(
+					'tx_communityflexiblelayout_cdromcode' => $communityRequest['cdromcode']
+				)
+			);
+			$redirectUrl = '/' . $this->communityApplication->pi_getPageLink(
+				$GLOBALS['TSFE']->id
+			);
+	                $uid = $GLOBALS["TSFE"]->fe_user->getKey("ses","newuserid");
+	                $pointsAPIClass         = t3lib_div::makeInstanceClassName('tx_communitypoints_api');
+	                $pointsAPI              = new $pointsAPIClass($uid);
+	                $pointsAPI->deposit(5, "Punkte zur Bande: 5 Eier zum weitermachen");											
+			header('Location: ' . $redirectUrl);
+		}
+		$view->setCdromSubpart('',$communityRequest['cdromcode']);	
+		if(!$GLOBALS['TSFE']->fe_user->user['tx_communityflexiblelayout_cdromcode']){
+		    $view->setCdromSubpart('template_cdrom',$communityRequest['cdromcode']);		
+		}
 		$view->setLotterySubpart('');
 		if ($this->configuration['applications.']['connectionManager.']['widgets.']['statusWidget.']['lotteryActive']) {
 			$lotteryOnlyFlag = $GLOBALS['TSFE']->fe_user->user['tx_communityflexiblelayout_lotteryonly'];
 			if ($lotteryOnlyFlag == 1) {
-				$view->setLotterySubpart('template_lottery');
+			#	$view->setLotterySubpart('template_lottery');
 			}
 		}
 		

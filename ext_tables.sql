@@ -23,5 +23,6 @@ CREATE TABLE tx_communityflexiblelayout_dashboardconfig (
 #
 CREATE TABLE fe_users (
 	tx_communityflexiblelayout_lotteryonly int(4) DEFAULT '0' NOT NULL,
+	tx_communityflexiblelayout_cdromcode varchar(20) DEFAULT '' NOT NULL,	
 );
 

@@ -108,6 +108,8 @@ class tx_communityflexiblelayout_controller_Dashboard {
 			$model->execute();
 			$cmdName = $model->getCommandName();
 			$this->logger->debug("\$cmdName: $cmdName");
+			$this->logger->debug("\$request1: ".print_r($_GET,1));
+			$this->logger->debug("\$request2: ".print_r($_POST,1));
 			$viewName = "tx_communityflexiblelayout_".ucfirst($cmdName)."View";
 		} catch (tx_community_exception_NoProfileId $exception) {
 			$this->logger->fatal($exception->__toString());

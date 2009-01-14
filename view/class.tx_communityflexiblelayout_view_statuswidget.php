@@ -66,6 +66,14 @@ class tx_communityflexiblelayout_view_StatusWidget {
 	public function setLotterySubpart($subpart) {
 		$this->lotterySubpart = $subpart;
 	}
+
+	public function setCdromSubpart($subpart,$code) {
+		$this->cdromErrorValue = '';
+		if($code){
+			$this->cdromErrorValue = 'Bandencode ung&uuml;ltig';
+		}
+		$this->cdromSubpart = $subpart;
+	}
 	
 	public function render() {
 		$llMangerClass = t3lib_div::makeInstanceClassName('tx_community_LocalizationManager');
@@ -100,6 +108,7 @@ class tx_communityflexiblelayout_view_StatusWidget {
 		
 		$template->addVariable('user', $this->userModel);
 		$template->addMarker('documents_status', $this->renderDocumentsStatus());
+		$template->addMarker('cdrom_status', $this->renderCdromStatus());
 		$template->addMarker('lottery_status', $this->renderLotteryStatus());
 		$template->addMarker('friendrequestcounter', $this->openFriendRequestCount);
 		$template->addMarker('page_id', $GLOBALS['TSFE']->id);
@@ -121,6 +130,21 @@ class tx_communityflexiblelayout_view_StatusWidget {
 				
 		return $template->render();
 	}
+
+	protected function renderCdromStatus() {
+		$llMangerClass = t3lib_div::makeInstanceClassName('tx_community_LocalizationManager');
+		$this->llManager = call_user_func(array($llMangerClass, 'getInstance'), 'EXT:community_flexiblelayout/lang/locallang_statuswidget.xml',	$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']);
+		$templateClass = t3lib_div::makeInstanceClassName('tx_community_Template');
+		$template = new $templateClass(
+			t3lib_div::makeInstance('tslib_cObj'),
+			$this->templateFile,
+			$this->cdromSubpart
+		);
+				
+		$template->addMarker('msg',$this->cdromErrorValue);
+		return $template->render();
+	}
+
 		
 	protected function renderLotteryStatus() {
 		$llMangerClass = t3lib_div::makeInstanceClassName('tx_community_LocalizationManager');
