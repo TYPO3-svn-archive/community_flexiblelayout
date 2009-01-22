@@ -83,25 +83,29 @@ class tx_communityflexiblelayout_ShowDashboardView {
 			$widgetCode = '';
 			if (is_array($widgetsArray)) {
 				foreach ($widgetsArray as $widgetName => $widget) {
-					$widgetClasses = array();
-					$widgetClasses[] = 'widget undraggable';
-					//$widgetClasses[] = ($widget->isDraggable()) ? 'draggable' : 'undraggable';
-					//$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
-					$widgetClasses[] = ($widget->getCssClass()) ? $widget->getCssClass() : '' ;
-					$widgetMarker = array(
-						'WIDGET_LABEL'	=> str_replace('###NICKNAME###', $nickname, $widget->getLabel()),
-						'WIDGET_CONTENT' => $widget->execute(),
-						'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getName()}",
-						'WIDGET_CLASSES' => implode(' ', $widgetClasses)
-					);
+					$widgetContent = $widget->execute();
+					// if string length of result from execute() is 0
+					if (strlen($widgetContent)) {
+						$widgetClasses = array();
+						$widgetClasses[] = 'widget undraggable';
+						//$widgetClasses[] = ($widget->isDraggable()) ? 'draggable' : 'undraggable';
+						//$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
+						$widgetClasses[] = ($widget->getCssClass()) ? $widget->getCssClass() : '' ;
+						$widgetMarker = array(
+							'WIDGET_LABEL'	=> str_replace('###NICKNAME###', $nickname, $widget->getLabel()),
+							'WIDGET_CONTENT' => $widgetContent,
+							'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getName()}",
+							'WIDGET_CLASSES' => implode(' ', $widgetClasses)
+						);
+							
+						$tmpWidgetCode = $this->cObj->substituteMarkerArray(
+							$widgetTemplate,
+							$widgetMarker,
+							'###|###'
+						);
 						
-					$tmpWidgetCode = $this->cObj->substituteMarkerArray(
-						$widgetTemplate,
-						$widgetMarker,
-						'###|###'
-					);
-					
-					$widgetCode .= $this->cObj->stdWrap($tmpWidgetCode, $this->conf['containerConfig.'][$currentColumn.'.']['widgets.'][$widget->getName().'.']['stdWrap.']);
+						$widgetCode .= $this->cObj->stdWrap($tmpWidgetCode, $this->conf['containerConfig.'][$currentColumn.'.']['widgets.'][$widget->getName().'.']['stdWrap.']);
+					}
 				}
 			}
 			$container = $this->cObj->substituteSubpart(
