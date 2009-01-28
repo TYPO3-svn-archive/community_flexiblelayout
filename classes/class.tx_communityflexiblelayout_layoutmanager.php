@@ -76,9 +76,19 @@ class tx_communityflexiblelayout_LayoutManager {
 		debug($config, 'config');
 		debug($defaultConfig, 'defaultConfig');
 		
-		foreach ($defaultConfig as $default) {
-			
+		$widgetIds = array_keys($config);
+		foreach ($defaultConfig as $widgetId => $widgetConfig) {
+			if (!in_array($widgetId, $widgetIds)) {
+				$config[$widgetId] = $widgetConfig;
+			}
 		}
+		
+		foreach ($config as $key => $dataArray) {
+			$returnData[] = "{$dataArray['col']},{$dataArray['pos']},{$dataArray['id']}";
+		}
+		
+		debug($returnData, 'returnData');
+		return serialize($returnData);
 	}
 
 	public function setConfiguration($communityId, $profileType, $profileId, $configuration) {
