@@ -1,6 +1,20 @@
 
 	function getDashboardConfig() {
 		var rData = new Array();
+		
+		$('#tx-communityflexiblelayout-clipboard').each(function() {
+			var container = 0;
+			counter = 1;
+			$(this).find('.widget').each(function() {
+				var widget = [
+					container,
+					counter++,
+					$(this).attr('id').replace('tx-communityflexiblelayout-dashboard-widget-', '')
+				];
+				rData.push(widget); 
+			});
+		});
+		
 		$('.tx-communityflexiblelayout-dashboard-container').each(function() {
 			var container = $(this).attr('id').replace('tx-communityflexiblelayout-dashboard-col', '');
 			counter = 1;
