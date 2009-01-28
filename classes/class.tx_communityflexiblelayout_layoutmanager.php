@@ -47,6 +47,8 @@ class tx_communityflexiblelayout_LayoutManager {
 			$data = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 			$config = $data['configuration'];
 		}
+		
+			// get default widget positions
 		$defaultConfig = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']['controller.']['dashboard.']['defaultConfiguration.'][$profileType.'.'];
 		if (is_array($defaultConfig)) {
 			foreach($defaultConfig as $c) {
@@ -60,6 +62,7 @@ class tx_communityflexiblelayout_LayoutManager {
 			$defaultConfig = $newConfig;
 		}
 		
+			// get users widget positions
 		$config = unserialize($config);
 		if (is_array($config)) {
 			foreach($config as $c) {
@@ -73,9 +76,9 @@ class tx_communityflexiblelayout_LayoutManager {
 			$config = $newConfig;
 		}
 		
-		debug($config, 'config');
-		debug($defaultConfig, 'defaultConfig');
-		
+			// now we must check if we have new widgets which 
+			// not available in users config. in this case, we
+			// add the missing widgets with the defaul configuration
 		$widgetIds = array_keys($config);
 		foreach ($defaultConfig as $widgetId => $widgetConfig) {
 			if (!in_array($widgetId, $widgetIds)) {
@@ -87,7 +90,6 @@ class tx_communityflexiblelayout_LayoutManager {
 			$returnData[] = "{$dataArray['col']},{$dataArray['pos']},{$dataArray['id']}";
 		}
 		
-		debug($returnData, 'returnData');
 		return serialize($returnData);
 	}
 
