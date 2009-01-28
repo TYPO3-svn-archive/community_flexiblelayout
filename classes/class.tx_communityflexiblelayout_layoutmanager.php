@@ -45,9 +45,29 @@ class tx_communityflexiblelayout_LayoutManager {
 		);
 		if ($GLOBALS['TYPO3_DB']->sql_num_rows($res) > 0) {
 			$data = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-			return $data['configuration'];
+			$config = $data['configuration'];
 		}
-		return serialize($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']['controller.']['dashboard.']['defaultConfiguration.'][$profileType.'.']);
+		$defaultConfig = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']['controller.']['dashboard.']['defaultConfiguration.'][$profileType.'.'];
+		
+		$config = unserialize($config);
+		if (is_array($config)) {
+			foreach($config as $c) {
+				$parts = t3lib_div::trimExplode(',', $c);
+				$newConfig[$parts[2]] = array(
+					'col'	=> $parts[0],
+					'pos'	=> $parts[1],
+					'id'	=> $parts[2]
+				);
+			}
+			$config = $newConfig;
+		}
+		
+		debug($config, 'config');
+		debug($defaultConfig, 'defaultConfig');
+		
+		foreach ($defaultConfig as $default) {
+			
+		}
 	}
 
 	public function setConfiguration($communityId, $profileType, $profileId, $configuration) {
