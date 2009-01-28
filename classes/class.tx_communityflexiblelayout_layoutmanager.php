@@ -48,6 +48,17 @@ class tx_communityflexiblelayout_LayoutManager {
 			$config = $data['configuration'];
 		}
 		$defaultConfig = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']['controller.']['dashboard.']['defaultConfiguration.'][$profileType.'.'];
+		if (is_array($defaultConfig)) {
+			foreach($defaultConfig as $c) {
+				$parts = t3lib_div::trimExplode(',', $c);
+				$newConfig[$parts[2]] = array(
+					'col'	=> $parts[0],
+					'pos'	=> $parts[1],
+					'id'	=> $parts[2]
+				);
+			}
+			$defaultConfig = $newConfig;
+		}
 		
 		$config = unserialize($config);
 		if (is_array($config)) {
