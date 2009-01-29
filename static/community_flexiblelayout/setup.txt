@@ -74,9 +74,10 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 		}
 		groupProfile {
 			0 = 1,1,groupInformation
-			1 = 1,2,profileActions
-			2 = 1,3,memberList
-			3 = 1,4,communityPinboardWidget 
+			1 = 1,2,communityVideoWidget
+			2 = 1,3,profileActions
+			3 = 1,4,memberList
+			4 = 1,5,communityPinboardWidget
 		}
 		StartPage {
 			0 = 1,1,contentWidget
