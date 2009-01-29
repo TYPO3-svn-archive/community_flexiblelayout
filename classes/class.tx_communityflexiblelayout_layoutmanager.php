@@ -79,13 +79,14 @@ class tx_communityflexiblelayout_LayoutManager {
 			// now we must check if we have new widgets which 
 			// not available in users config. in this case, we
 			// add the missing widgets with the defaul configuration
-		$widgetIds = array_keys($config);
-		foreach ($defaultConfig as $widgetId => $widgetConfig) {
-			if (!in_array($widgetId, $widgetIds)) {
-				$config[$widgetId] = $widgetConfig;
+		if (is_array($config)) {
+			$widgetIds = array_keys($config);
+			foreach ($defaultConfig as $widgetId => $widgetConfig) {
+				if (!in_array($widgetId, $widgetIds)) {
+					$config[$widgetId] = $widgetConfig;
+				}
 			}
 		}
-		
 			// now we must check if there widgets with the same
 			// position in the same column
 		$columns = array();
