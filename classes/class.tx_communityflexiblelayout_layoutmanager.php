@@ -88,11 +88,12 @@ class tx_communityflexiblelayout_LayoutManager {
 			}
 				// now we must check if there widgets with the same
 				// position in the same column
+				// in this case we musst set the current widget on
+				// the next free position
 			$columns = array();
 			foreach ($config as $widgetId => $widgetConfig) {
 				 $columns[$widgetConfig['col']][] = $widgetConfig;
 			}
-			debug($columns);
 			foreach ($columns as $columnId => &$columnConfigs) {
 				$idStack = array();
 				foreach ($columnConfigs as &$columnConfig) {
@@ -105,7 +106,6 @@ class tx_communityflexiblelayout_LayoutManager {
 					}
 				}
 			}
-			debug($columns);
 		} else {
 			$config = $defaultConfig;
 		}
