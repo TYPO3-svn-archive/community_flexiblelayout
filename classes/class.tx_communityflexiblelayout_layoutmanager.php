@@ -62,6 +62,8 @@ class tx_communityflexiblelayout_LayoutManager {
 			$defaultConfig = $newConfig;
 		}
 		
+		$returnData = $defaultConfig;
+		
 			// get users widget positions
 		$config = unserialize($config);
 		if (is_array($config)) {
@@ -74,12 +76,11 @@ class tx_communityflexiblelayout_LayoutManager {
 				);
 			}
 			$config = $newConfig;
-		}
+
 		
 			// now we must check if we have new widgets which 
 			// not available in users config. in this case, we
 			// add the missing widgets with the defaul configuration
-		if (is_array($config)) {
 			$widgetIds = array_keys($config);
 			foreach ($defaultConfig as $widgetId => $widgetConfig) {
 				if (!in_array($widgetId, $widgetIds)) {
@@ -106,11 +107,11 @@ class tx_communityflexiblelayout_LayoutManager {
 				}
 			}
 			debug($columns);
+			foreach ($config as $key => $dataArray) {
+				$returnData[] = "{$dataArray['col']},{$dataArray['pos']},{$dataArray['id']}";
+			}
 		}
 		
-		foreach ($config as $key => $dataArray) {
-			$returnData[] = "{$dataArray['col']},{$dataArray['pos']},{$dataArray['id']}";
-		}
 		
 		return serialize($returnData);
 	}
