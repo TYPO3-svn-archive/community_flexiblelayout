@@ -107,7 +107,7 @@ class tx_communityflexiblelayout_LayoutManager {
 			}
 			debug($columns);
 		} else {
-			$columnConfig = $defaultConfig;
+			$config = $defaultConfig;
 		}
 
 		foreach ($config as $key => $dataArray) {
