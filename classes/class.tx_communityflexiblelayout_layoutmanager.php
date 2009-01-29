@@ -86,6 +86,27 @@ class tx_communityflexiblelayout_LayoutManager {
 			}
 		}
 		
+			// now we must check if there widgets with the same
+			// position in the same column
+		$columns = array();
+		foreach ($config as $widgetId => $widgetConfig) {
+			 $columns[$widgetConfig['col']][] = $widgetConfig;
+		}
+		debug($columns);
+		foreach ($columns as $columnId => &$columnConfigs) {
+			$idStack = array();
+			foreach ($columnConfigs as &$columnConfig) {
+				if (!in_array($columnConfig['pos'], $idStack)) {
+					$idStack[] = $columnConfig['pos'];
+				} else {
+					while (in_array($columnConfig['pos'], $idStack)) {
+						$columnConfig['pos']++;
+					}
+				}
+			}
+		}
+		debug($columns);
+		
 		foreach ($config as $key => $dataArray) {
 			$returnData[] = "{$dataArray['col']},{$dataArray['pos']},{$dataArray['id']}";
 		}
