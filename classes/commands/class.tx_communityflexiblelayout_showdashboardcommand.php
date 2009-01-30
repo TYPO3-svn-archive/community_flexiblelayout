@@ -120,7 +120,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 				$groupGateway = t3lib_div::makeInstance('tx_community_model_GroupGateway');
 				$group = $groupGateway->findRequestedGroup();
 				if (!is_null($group)) {
-					$checkHash = md5($group->getUid() . $group->getCrdate() . $this->requestingUser->getUid());
+					$checkHash = md5($group->getUid() . $group->getCrdate() . $this->getRequestingUser()->getUid());
 				}
 			}
 			if ($inviteHash == $checkHash) {
