@@ -127,7 +127,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 				$this->allowed = true;
 			}
 		}
-		if ($this->conf['profileType'] == 'groupProfile' && ($this->profile->getGrouptype() == tx_community_model_Group::TYPE_SECRET)) {
+		if ($this->conf['profileType'] == 'groupProfile') {
 			$groupGateway = t3lib_div::makeInstance('tx_community_model_GroupGateway');
 			$group = $groupGateway->findRequestedGroup();
 			if (!is_null($group)) {
