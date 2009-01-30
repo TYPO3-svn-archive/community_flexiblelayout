@@ -113,6 +113,20 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 		if ($this->conf['profileType'] == 'groupProfile' && ($this->profile->getGrouptype() < tx_community_model_Group::TYPE_SECRET)) {
 			$this->allowed = true;
 		}
+		if ($this->conf['profileType'] == 'groupProfile' && isset($this->request['inviteHash'])) {
+			$inviteHash = $this->request['inviteHash'];
+			$checkHash  = '';
+			if (isset($this->request['group'])) {
+				$groupGateway = t3lib_div::makeInstance('tx_community_model_GroupGateway');
+				$group = $groupGateway->findRequestedGroup();
+				if (!is_null($group)) {
+					$checkHash = md5($group->getUid() . $group->getCrdate() . $this->requestingUser->getUid());
+				}
+			}
+			if ($inviteHash == $checkHash) {
+				$this->allowed = true;
+			}
+		}
 		
 		// @FIXME: temporary solution for the addAsFriend problem, we disable the ACL for the userProfile.
 		if ($this->conf['profileType'] == 'userProfile') {
