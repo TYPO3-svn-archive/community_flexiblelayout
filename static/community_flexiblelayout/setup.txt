@@ -14,7 +14,7 @@ plugin.tx_ajaxupload.controller.tx_communityflexiblelaout_perso {
 }
 
 plugin.tx_ajaxupload.controller.tx_communityflexiblelaout_einver < plugin.tx_ajaxupload.controller.tx_communityflexiblelaout_perso
-plugin.tx_ajaxupload.controller.tx_communityflexiblelaout_einver = tx_communityflexiblelaout_einver
+plugin.tx_ajaxupload.controller.tx_communityflexiblelaout_einver.uploaderId = tx_communityflexiblelaout_einver
 
 
 

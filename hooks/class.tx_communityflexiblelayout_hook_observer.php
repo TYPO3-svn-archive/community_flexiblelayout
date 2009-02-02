@@ -77,6 +77,9 @@ class tx_communityflexiblelayout_hook_Observer implements tx_ajaxupload_Observer
 	public function onError(array $resultArray) {
 	}
 
+	public function onDelete(array $resultArray) {
+	}
+
 	/**
 	 * this function checks if it is allowed to upload files
 	 *
