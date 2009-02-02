@@ -1,4 +1,23 @@
 
+plugin.tx_ajaxupload.controller.tx_communityflexiblelaout_perso < plugin.tx_ajaxupload.controller.uploader
+plugin.tx_ajaxupload.controller.tx_communityflexiblelaout_perso {
+        uploadPath              = uploads/tx_ajaxupload/
+        allowedExtensions       = gif,jpg,jpeg,png,pdf,tif,tiff
+        deniedExtensions        = exe,dmg
+
+        # max upload file size in bytes, default 500 KB
+        maxUploadSize           = 524288000
+
+        # set an uploaderId to identify the upload in the observer onSuccess or onError
+        # this id will be submitted to the resultArray, for example use your extension key.
+        uploaderId              = tx_communityflexiblelaout_perso
+}
+
+plugin.tx_ajaxupload.controller.tx_communityflexiblelaout_einver < plugin.tx_ajaxupload.controller.tx_communityflexiblelaout_perso
+plugin.tx_ajaxupload.controller.tx_communityflexiblelaout_einver = tx_communityflexiblelaout_einver
+
+
+
 plugin.tx_communityflexiblelayout {
 	controller {
 		dashboard = USER_INT
