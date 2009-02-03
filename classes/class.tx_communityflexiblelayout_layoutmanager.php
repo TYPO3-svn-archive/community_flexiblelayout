@@ -142,7 +142,7 @@ class tx_communityflexiblelayout_LayoutManager {
 	}
 	
 	public function putWidgetToClipboard($communityId, $profileType, $profileId, $widgetId) {
-		$configuration = $this->getConfiguration($communityId, $profileType, $profileId);#
+		$configuration = $this->getConfiguration($communityId, $profileType, $profileId);
 		$configuration = unserialize($configuration);
 		foreach($configuration as $c) {
 			$parts = t3lib_div::trimExplode(',', $c);
