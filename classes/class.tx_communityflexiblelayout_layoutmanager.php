@@ -114,7 +114,6 @@ class tx_communityflexiblelayout_LayoutManager {
 			$returnData[] = "{$dataArray['col']},{$dataArray['pos']},{$dataArray['id']}";
 		}
 		
-		
 		return serialize($returnData);
 	}
 
@@ -140,6 +139,27 @@ class tx_communityflexiblelayout_LayoutManager {
 			);
 			return ($GLOBALS['TYPO3_DB']->sql_affected_rows());
 		}
+	}
+	
+	public function putWidgetToClipboard($communityId, $profileType, $profileId, $widgetId) {
+		$configuration = $this->getConfiguration($communityId, $profileType, $profileId);#
+		$configuration = unserialize($configuration);
+		foreach($configuration as $c) {
+			$parts = t3lib_div::trimExplode(',', $c);
+			$newConfiguration[$parts[2]] = array(
+				'col'	=> $parts[0],
+				'pos'	=> $parts[1],
+				'id'	=> $parts[2]
+			);
+		}
+		$configuration = $newConfiguration;
+		if (array_key_exists($widgetId, $configuration)) {
+			$configuration[$widgetId]['col'] = 0;
+		}
+		foreach ($configuration as $key => $dataArray) {
+			$returnData[] = "{$dataArray['col']},{$dataArray['pos']},{$dataArray['id']}";
+		}
+		return $this->setConfiguration($communityId, $profileType, $profileId, serialize($returnData));
 	}
 }
 ?>
