@@ -36,6 +36,29 @@ class tx_communityflexiblelayout_LayoutManager {
 		);
 		return ($GLOBALS['TYPO3_DB']->sql_num_rows($res) > 0);
 	}
+	
+	protected function TSConf2Array($tsconf) {
+		if (is_array($tsconf)) {
+			foreach($tsconf as $config) {
+				$parts = t3lib_div::trimExplode(',', $config);
+				$newConfig[$parts[2]] = array(
+					'col'	=> $parts[0],
+					'pos'	=> $parts[1],
+					'id'	=> $parts[2]
+				);
+			}
+			return $newConfig;
+		}
+		return false;
+	}
+	
+	protected function Array2TSConf($configuration) {
+		$returnData = array();
+		foreach ($configuration as $key => $dataArray) {
+			$returnData[] = "{$dataArray['col']},{$dataArray['pos']},{$dataArray['id']}";
+		}
+		return $returnData;
+	}
 
 	public function getConfiguration($communityId, $profileType, $profileId) {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
@@ -43,55 +66,33 @@ class tx_communityflexiblelayout_LayoutManager {
 			$this->table,
 			'community_id = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($communityId, $this->table) . ' AND profile_type = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($profileType, $this->table) . ' AND profile_id = ' . intval($profileId) 
 		);
+		$userConfiguration = null;
 		if ($GLOBALS['TYPO3_DB']->sql_num_rows($res) > 0) {
 			$data = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-			$config = $data['configuration'];
+			$userConfiguration = $this->TSConf2Array(unserialize($data['configuration']));
 		}
-		
+
 			// get default widget positions
 		$defaultConfig = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']['controller.']['dashboard.']['defaultConfiguration.'][$profileType.'.'];
-		if (is_array($defaultConfig)) {
-			foreach($defaultConfig as $c) {
-				$parts = t3lib_div::trimExplode(',', $c);
-				$newConfig[$parts[2]] = array(
-					'col'	=> $parts[0],
-					'pos'	=> $parts[1],
-					'id'	=> $parts[2]
-				);
-			}
-			$defaultConfig = $newConfig;
-		}
-		
-		
-			// get users widget positions
-		$config = unserialize($config);
-		if (is_array($config)) {
-			foreach($config as $c) {
-				$parts = t3lib_div::trimExplode(',', $c);
-				$newConfig[$parts[2]] = array(
-					'col'	=> $parts[0],
-					'pos'	=> $parts[1],
-					'id'	=> $parts[2]
-				);
-			}
-			$config = $newConfig;
+		$defaultConfig = $this->TSConf2Array($defaultConfig);
 
-		
+			// get users widget positions
+		if ($userConfiguration !== null) {
 				// now we must check if we have new widgets which 
 				// not available in users config. in this case, we
 				// add the missing widgets with the defaul configuration
-			$widgetIds = array_keys($config);
 			foreach ($defaultConfig as $widgetId => $widgetConfig) {
-				if (!in_array($widgetId, $widgetIds)) {
-					$config[$widgetId] = $widgetConfig;
+				if (!array_key_exists($widgetId, $userConfiguration)) {
+					$userConfiguration[$widgetId] = $widgetConfig;
 				}
 			}
-				// now we must check if there widgets with the same
+
+				// now we must check if there is a widget with the same
 				// position in the same column
 				// in this case we musst set the current widget on
 				// the next free position
 			$columns = array();
-			foreach ($config as $widgetId => $widgetConfig) {
+			foreach ($userConfiguration as $widgetId => $widgetConfig) {
 				 $columns[$widgetConfig['col']][] = $widgetConfig;
 			}
 			foreach ($columns as $columnId => &$columnConfigs) {
@@ -107,14 +108,12 @@ class tx_communityflexiblelayout_LayoutManager {
 				}
 			}
 		} else {
-			$config = $defaultConfig;
-		}
-
-		foreach ($config as $key => $dataArray) {
-			$returnData[] = "{$dataArray['col']},{$dataArray['pos']},{$dataArray['id']}";
+			$userConfiguration = $defaultConfig;
 		}
 		
-		return serialize($returnData);
+		$userConfiguration = $this->Array2TSConf($userConfiguration);
+
+		return serialize($userConfiguration);
 	}
 
 	public function setConfiguration($communityId, $profileType, $profileId, $configuration) {
@@ -144,21 +143,13 @@ class tx_communityflexiblelayout_LayoutManager {
 	public function putWidgetToClipboard($communityId, $profileType, $profileId, $widgetId) {
 		$configuration = $this->getConfiguration($communityId, $profileType, $profileId);
 		$configuration = unserialize($configuration);
-		foreach($configuration as $c) {
-			$parts = t3lib_div::trimExplode(',', $c);
-			$newConfiguration[$parts[2]] = array(
-				'col'	=> $parts[0],
-				'pos'	=> $parts[1],
-				'id'	=> $parts[2]
-			);
-		}
-		$configuration = $newConfiguration;
+		$configuration = $this->TSConf2Array($configuration);
+		
 		if (array_key_exists($widgetId, $configuration)) {
 			$configuration[$widgetId]['col'] = 0;
 		}
-		foreach ($configuration as $key => $dataArray) {
-			$returnData[] = "{$dataArray['col']},{$dataArray['pos']},{$dataArray['id']}";
-		}
+		$returnData = $this->Array2TSConf($configuration);
+		
 		return $this->setConfiguration($communityId, $profileType, $profileId, serialize($returnData));
 	}
 }
