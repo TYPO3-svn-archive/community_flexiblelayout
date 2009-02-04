@@ -76,9 +76,6 @@ class tx_communityflexiblelayout_LayoutManager {
 		$defaultConfig = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']['controller.']['dashboard.']['defaultConfiguration.'][$profileType.'.'];
 		$defaultConfig = $this->TSConf2Array($defaultConfig);
 
-		debug($userConfiguration);
-		debug($defaultConfig);
-		
 			// get users widget positions
 		if ($userConfiguration !== null) {
 				// now we must check if we have new widgets which 
