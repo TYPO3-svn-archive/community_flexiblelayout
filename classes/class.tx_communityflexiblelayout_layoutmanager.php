@@ -104,9 +104,16 @@ class tx_communityflexiblelayout_LayoutManager {
 						while (in_array($columnConfig['pos'], $idStack)) {
 							$columnConfig['pos']++;
 						}
+						$idStack[] = $columnConfig['pos'];
 					}
 				}
 			}
+			foreach ($columns as $colId => $items) {
+				foreach ($items as $index => $config) {
+					$tempConfiguration[$config['id']] = $config;
+				}
+			}
+			$userConfiguration = $tempConfiguration;
 		} else {
 			$userConfiguration = $defaultConfig;
 		}
