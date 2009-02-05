@@ -79,7 +79,25 @@ $TX_COMMUNITY['applications']['StartPage'] = array(
 				'index'
 			),
 			'defaultAction' => 'index',
-		)	
+		),
+		'coaspecialWidget2' => array(
+			'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_coaspecialwidget.php:tx_communityflexiblelayout_controller_CoaspecialWidget',
+			'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_coaspecialWidget',
+			'accessControl' => false,
+			'actions' => array(
+				'index'
+			),
+			'defaultAction' => 'index',
+		),
+		'coaspecialWidget3' => array(
+			'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_coaspecialwidget.php:tx_communityflexiblelayout_controller_CoaspecialWidget',
+			'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_coaspecialWidget',
+			'accessControl' => false,
+			'actions' => array(
+				'index'
+			),
+			'defaultAction' => 'index',
+		)		
 	)
 );
 

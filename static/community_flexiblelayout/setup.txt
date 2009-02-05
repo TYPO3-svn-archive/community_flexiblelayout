@@ -70,6 +70,34 @@ plugin.tx_community {
 				}				
 			}
 		}
+		StartPage {
+			widgets {
+				coaspecialWidget {
+					templateFile = EXT:community_flexiblelayout/resources/coaspecialwidget.htm
+					content = RECORDS
+					content {
+						tables = tt_content
+						source = 
+					}
+				}				
+				coaspecialWidget2 {
+					templateFile = EXT:community_flexiblelayout/resources/coaspecialwidget2.htm
+					content = RECORDS
+					content {
+						tables = tt_content
+						source = 
+					}
+				}				
+				coaspecialWidget3 {
+					templateFile = EXT:community_flexiblelayout/resources/coaspecialwidget3.htm
+					content = RECORDS
+					content {
+						tables = tt_content
+						source = 
+					}
+				}				
+			}
+		}
 		connectionManager {
 			templateFile = EXT:community_flexiblelayout/resources/connectionManager.htm
 			widgets {
