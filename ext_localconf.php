@@ -135,6 +135,26 @@ $TX_COMMUNITY['applications']['userProfile']['widgets']['coaspecialWidget'] = ar
 	'defaultAction' => 'index',
 );
 
+$TX_COMMUNITY['applications']['userProfile']['widgets']['coaspecialWidget2'] = array(
+	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_coaspecialwidget.php:tx_communityflexiblelayout_controller_CoaspecialWidget',
+	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_coaspecialWidget',
+	'accessControl' => false,
+	'actions' => array(
+		'index'
+	),
+	'defaultAction' => 'index',
+);
+
+$TX_COMMUNITY['applications']['userProfile']['widgets']['coaspecialWidget3'] = array(
+	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_coaspecialwidget.php:tx_communityflexiblelayout_controller_CoaspecialWidget',
+	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_coaspecialWidget',
+	'accessControl' => false,
+	'actions' => array(
+		'index'
+	),
+	'defaultAction' => 'index',
+);
+
 $TX_COMMUNITY['applications']['userProfile']['widgets']['statusWidget'] = array(
 	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_statuswidget.php:tx_communityflexiblelayout_controller_StatusWidget',
 	'label' => 'LLL:EXT:community_flexiblelayout/lang/locallang_application.xml:startPage_statusWidget',
