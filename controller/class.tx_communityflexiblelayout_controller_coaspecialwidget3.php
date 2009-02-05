@@ -34,6 +34,7 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget3 extends tx_communi
 	public function __construct() {
 		parent::__construct();
 		$this->name     = 'coaspecialWidget3';
+		$this->label    = $this->localizationManager->getLL('label_'.$this->name);
 	}
 }
 
