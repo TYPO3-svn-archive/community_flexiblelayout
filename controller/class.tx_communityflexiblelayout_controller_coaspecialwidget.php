@@ -39,7 +39,7 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget extends tx_communit
 		$this->localizationManager = tx_community_LocalizationManager::getInstance('EXT:community_flexiblelayout/lang/locallang_application.xml', $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']);
 		
 		$this->name     = 'coaspecialWidget';
-		$this->label    = $this->localizationManager->getLL('label_coaspecialWidget');
+		$this->label    = $this->localizationManager->getLL('label_'.$this->name);
 		if($GLOBALS['TSFE']->fe_user->user['tx_communityflexiblelayout_lotteryonly']){
 			$this->label    = $this->localizationManager->getLL('label_coaspecialWidgetLottery');
 		}

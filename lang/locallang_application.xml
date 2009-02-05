@@ -18,6 +18,8 @@
 			<label index="startPage_contentWidget">Content Widget</label>
 			<label index="label_ContentWidget">welcome</label>
 			<label index="label_coaspecialWidget">special</label>			
+			<label index="label_coaspecialWidget2">special</label>			
+			<label index="label_coaspecialWidget3">special</label>			
 			<label index="connectionManager">Connection Manager</label>
 		</languageKey>
 		<languageKey index="de" type="array">
@@ -35,6 +37,8 @@
 			<label index="label_ContentWidget">Willkommen</label>
 			<label index="label_coaspecialWidget">Mach mit und gewinne!</label>
 			<label index="label_coaspecialWidgetLottery">Werde Mitglied der Community</label>			
+			<label index="label_coaspecialWidget2">Spezial 2</label>
+			<label index="label_coaspecialWidget3">Spezial 3</label>
 			<label index="connectionManager">Connection Manager</label>
 		</languageKey>
 	</data>
