@@ -85,7 +85,7 @@ class tx_communityflexiblelayout_ShowDashboardView {
 				foreach ($widgetsArray as $widgetName => $widget) {
 					$widgetContent = $widget->execute();
 					// if string length of result from execute() is 0
-					if (strlen($widgetContent)) {
+					if (strlen(trim($widgetContent))) {
 						$widgetClasses = array();
 						$widgetClasses[] = 'widget undraggable';
 						//$widgetClasses[] = ($widget->isDraggable()) ? 'draggable' : 'undraggable';
