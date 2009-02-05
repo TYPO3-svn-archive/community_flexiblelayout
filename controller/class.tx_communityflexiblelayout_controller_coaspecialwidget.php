@@ -48,6 +48,10 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget extends tx_communit
 		$this->removable = false;
 		$this->position  = 4;
 	}
+	
+	public function setName($name) {
+		$this->name = $name;
+	}
 
 	/**
 	 * the default action for this widget,
@@ -62,8 +66,7 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget extends tx_communit
 		$openFriendRequestUser = $this->communityApplication->getUserGateway()->findUnconfirmedFriends($requestingUser);
 		
 		$view = t3lib_div::makeInstance('tx_communityflexiblelayout_view_CoaspecialWidget');
-		#debug($this->configuration['applications.']['userProfile.']['widgets.']['coaspecialWidget.']);
-		$view->setTemplateFile($this->configuration['applications.']['userProfile.']['widgets.']['coaspecialWidget.']['templateFile']);
+		$view->setTemplateFile($this->configuration['applications.']['userProfile.']['widgets.'][$this->name.'.']['templateFile']);
 		$view->setLanguageKey($this->communityApplication->LLkey);
 
 		$content = $view->render();

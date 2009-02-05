@@ -52,6 +52,22 @@ plugin.tx_community {
 						source = 
 					}
 				}				
+				coaspecialWidget2 {
+					templateFile = EXT:community_flexiblelayout/resources/coaspecialwidget2.htm
+					content = RECORDS
+					content {
+						tables = tt_content
+						source = 
+					}
+				}				
+				coaspecialWidget3 {
+					templateFile = EXT:community_flexiblelayout/resources/coaspecialwidget3.htm
+					content = RECORDS
+					content {
+						tables = tt_content
+						source = 
+					}
+				}				
 			}
 		}
 		connectionManager {

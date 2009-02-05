@@ -65,6 +65,9 @@ class tx_communityflexiblelayout_EditDashboardView {
 			$widgetCode = '';
 			if (is_array($widgetsArray)) {
 				foreach ($widgetsArray as $widgetName => $widget) {
+					if (method_exists($widget, 'setName')) {
+						$widget->setName($widgetName);
+					}
 					$widgetContent = $widget->execute();
 					// if string length of result from execute() is 0
 					if (strlen($widgetContent)) {
