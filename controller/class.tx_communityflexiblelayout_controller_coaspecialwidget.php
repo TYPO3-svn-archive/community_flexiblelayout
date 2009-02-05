@@ -49,10 +49,6 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget extends tx_communit
 		$this->position  = 4;
 	}
 	
-	public function setName($name) {
-		$this->name = $name;
-	}
-
 	/**
 	 * the default action for this widget,
 	 *
