@@ -56,7 +56,16 @@ class tx_communityflexiblelayout_controller_ConnectionManagerApplication extends
 
 		// TODO refactor this method
 	public function indexAction() {
-		$openFriendRequests = $this->getUserGateway()->findUnconfirmedFriends();
+		$roleIds = $GLOBALS['TYPO3_DB']->execSELECTgetRows(
+			'uid, name',
+			'tx_community_acl_role',
+			'is_friend_role = 1'
+		);
+		$openFriendRequests = array();
+		foreach ($roleIds as $roleId) {
+			$openFriendRequests = array_merge($openFriendRequests, $this->getUserGateway()->findUnconfirmedFriends(null, $roleId['uid']));	
+		}
+		
 
 			// now use the user list to present the result
 		$userList = $GLOBALS['TX_COMMUNITY']['applicationManager']->getApplication(
@@ -66,18 +75,6 @@ class tx_communityflexiblelayout_controller_ConnectionManagerApplication extends
 		);
 		$userList->setUserListModel($openFriendRequests);
 		return $userList->execute();
-		
-		
-		$view = t3lib_div::makeInstance('tx_communityflexiblelayout_view_connectionManagerIndex');
-		/* @var $view tx_communityflexiblelayout_view_connectionManagerIndex */
-		$view->setTemplateFile($this->configuration['applications.']['connectionManager.']['templateFile']);
-		$view->setLanguageKey($this->LLkey);
-
-		$openFriendRequests = $this->getUserGateway()->findUnconfirmedFriends();
-		
-		$view->setUsers($openFriendRequests);
-		
-		return $view->render();
 	}
 }
 
