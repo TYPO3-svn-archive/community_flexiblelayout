@@ -37,7 +37,8 @@ class tx_communityflexiblelayout_hook_Observer implements tx_ajaxupload_Observer
 					'fe_users',
 					'uid = ' . $GLOBALS['TSFE']->fe_user->user['uid'],
 					array(
-						'usergroup'	=> '29'
+						'usergroup'	=> '29',
+						'identity_card'	=> $resultArray['newImageName']
 					)
 				);
 			} else {
@@ -45,7 +46,8 @@ class tx_communityflexiblelayout_hook_Observer implements tx_ajaxupload_Observer
 					'fe_users',
 					'uid = ' . $GLOBALS['TSFE']->fe_user->user['uid'],
 					array(
-						'usergroup'	=> '27'
+						'usergroup'	=> '27',
+						'identity_card'	=> $resultArray['newImageName']
 					)
 				);
 			}
@@ -59,7 +61,8 @@ class tx_communityflexiblelayout_hook_Observer implements tx_ajaxupload_Observer
 					'fe_users',
 					'uid = ' . $GLOBALS['TSFE']->fe_user->user['uid'],
 					array(
-						'usergroup'	=> '29'
+						'usergroup'	=> '29',
+						'okfile'	=> $resultArray['newImageName']
 					)
 				);
 			} else {
@@ -67,7 +70,8 @@ class tx_communityflexiblelayout_hook_Observer implements tx_ajaxupload_Observer
 					'fe_users',
 					'uid = ' . $GLOBALS['TSFE']->fe_user->user['uid'],
 					array(
-						'usergroup'	=> '28'
+						'usergroup'	=> '28',
+						'okfile'	=> $resultArray['newImageName']
 					)
 				);
 			}

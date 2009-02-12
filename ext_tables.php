@@ -12,6 +12,14 @@ $feUsersTempColumns = array (
 			'type' => 'check',
 		)
 	),
+	'tx_communityflexiblelayout_cdromcode' => array (
+		'exclude' => 1,
+		'label'   => 'LLL:EXT:community_flexiblelayout/lang/locallang_db.xml:fe_users.tx_communityflexiblelayout_cdromcode',
+		'config'  => array (
+			'type' => 'input',
+		)
+	),
+
 );
 
 	// adding additional columns to fe_users

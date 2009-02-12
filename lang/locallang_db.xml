@@ -8,10 +8,12 @@
 		<languageKey index="default" type="array">
 			<label index="tt_content.list_type_Dashboard">Community Flexible Layout (Dashboard)</label>
 			<label index="fe_users.tx_communityflexiblelayout_lotteryonly">lottery only</label>
+			<label index="fe_users.tx_communityflexiblelayout_cdromcode">CDROM Code</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tt_content.list_type_Dashboard">Community Flexible Layout (Dashboard)</label>
 			<label index="fe_users.tx_communityflexiblelayout_lotteryonly">Nur Gewinnspiel</label>
+			<label index="fe_users.tx_communityflexiblelayout_cdromcode">CDROM Code</label>			
 		</languageKey>
 	</data>
 </T3locallang>
