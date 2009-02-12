@@ -56,7 +56,7 @@ class tx_communityflexiblelayout_controller_ConnectionManagerApplication extends
 
 		// TODO refactor this method
 	public function indexAction() {
-		$roleIds = $GLOBALS['TYPO3_DB']->execSELECTgetRows(
+		$roleIds = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 			'uid, name',
 			'tx_community_acl_role',
 			'is_friend_role = 1'
