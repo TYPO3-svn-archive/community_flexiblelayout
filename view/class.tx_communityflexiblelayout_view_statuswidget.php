@@ -108,7 +108,8 @@ class tx_communityflexiblelayout_view_StatusWidget {
 		
 		$template->addVariable('user', $this->userModel);
 		$template->addMarker('documents_status', $this->renderDocumentsStatus());
-		$template->addMarker('cdrom_status', $this->renderCdromStatus());
+		//$template->addMarker('cdrom_status', $this->renderCdromStatus());
+		$template->addMarker('cdrom_status', '');
 		$template->addMarker('lottery_status', $this->renderLotteryStatus());
 		$template->addMarker('friendrequestcounter', $this->openFriendRequestCount);
 		$template->addMarker('page_id', $GLOBALS['TSFE']->id);
