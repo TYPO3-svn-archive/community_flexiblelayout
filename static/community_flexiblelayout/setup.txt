@@ -151,13 +151,14 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 
 			5 = 2,2,friendsBirthdayList
 
-			6 = 4,1,coaspecialWidget
-			7 = 4,2,onlineFriends
-			8 = 4,3,myFriends
-			9 = 4,4,lastVisitors
-			10 = 4,5,myGroups 
-			11 = 4,6,coaspecialWidget2
-			12 = 4,7,coaspecialWidget3
+			6 = 4,1,tx_communityinvite
+			7 = 4,2,coaspecialWidget
+			8 = 4,3,onlineFriends
+			9 = 4,4,myFriends
+			10 = 4,5,lastVisitors
+			11 = 4,6,myGroups 
+			12 = 4,7,coaspecialWidget2
+			13 = 4,8,coaspecialWidget3
 		}
 	}
 }
