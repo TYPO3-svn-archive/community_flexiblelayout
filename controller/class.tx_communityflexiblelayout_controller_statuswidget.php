@@ -101,7 +101,7 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 
 			// wenn Dokumente überprüft
 		if (in_array(34, $userGroups)) {
-			$view->setDocuementsApprovedSubpart('template_confirmed_documents');
+			$view->setDocumentsApprovedSubpart('template_confirmed_documents');
 		}
 		$communityRequest = t3lib_div::GParrayMerged('tx_community');
 		$request = t3lib_div::GParrayMerged('tx_communityflexiblelayout');
