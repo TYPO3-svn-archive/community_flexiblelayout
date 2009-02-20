@@ -41,7 +41,7 @@ class tx_communityflexiblelayout_view_StatusWidget {
 	 */
 	protected $llManager;
 	protected $documentsSubpart;
-	protected $documentsApporvedSubpart = '';
+	protected $documentsApprovedSubpart = '';
 	protected $lotterySubpart;
 
 	public function setTemplateFile($templateFile) {
@@ -65,7 +65,7 @@ class tx_communityflexiblelayout_view_StatusWidget {
 	}
 	
 	public function setDocumentsApprovedSubpart($subpart) {
-		$this->documentsApporvedSubpart = $subpart;
+		$this->documentsApprovedSubpart = $subpart;
 	}
 	
 	public function setLotterySubpart($subpart) {
