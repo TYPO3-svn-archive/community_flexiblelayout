@@ -41,6 +41,7 @@ class tx_communityflexiblelayout_view_StatusWidget {
 	 */
 	protected $llManager;
 	protected $documentsSubpart;
+	protected $documentsApporvedSubpart = '';
 	protected $lotterySubpart;
 
 	public function setTemplateFile($templateFile) {
@@ -61,6 +62,10 @@ class tx_communityflexiblelayout_view_StatusWidget {
 	
 	public function setDocuementsSubpart($subpart) {
 		$this->documentsSubpart = $subpart;
+	}
+	
+	public function setDocumentsApprovedSubpart($subpart) {
+		$this->documentsApporvedSubpart = $subpart;
 	}
 	
 	public function setLotterySubpart($subpart) {
@@ -108,7 +113,8 @@ class tx_communityflexiblelayout_view_StatusWidget {
 		
 		$template->addVariable('user', $this->userModel);
 		$template->addMarker('documents_status', $this->renderDocumentsStatus());
-		//$template->addMarker('cdrom_status', $this->renderCdromStatus());
+		$template->addMarker('documents_approved', $this->rederDocumentsApproved());
+		// $template->addMarker('cdrom_status', $this->renderCdromStatus());
 		$template->addMarker('cdrom_status', '');
 		$template->addMarker('lottery_status', $this->renderLotteryStatus());
 		$template->addMarker('friendrequestcounter', $this->openFriendRequestCount);
@@ -131,7 +137,21 @@ class tx_communityflexiblelayout_view_StatusWidget {
 				
 		return $template->render();
 	}
+	
+	protected function renderDocumentsApproved() {
+		$llMangerClass = t3lib_div::makeInstanceClassName('tx_community_LocalizationManager');
+		$this->llManager = call_user_func(array($llMangerClass, 'getInstance'), 'EXT:community_flexiblelayout/lang/locallang_statuswidget.xml',	$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']);
 
+		$templateClass = t3lib_div::makeInstanceClassName('tx_community_Template');
+		$template = new $templateClass(
+			t3lib_div::makeInstance('tslib_cObj'),
+			$this->templateFile,
+			$this->documentsApprovedSubpart
+		);
+				
+		return $template->render();
+	}
+	
 	protected function renderCdromStatus() {
 		$llMangerClass = t3lib_div::makeInstanceClassName('tx_community_LocalizationManager');
 		$this->llManager = call_user_func(array($llMangerClass, 'getInstance'), 'EXT:community_flexiblelayout/lang/locallang_statuswidget.xml',	$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']);
