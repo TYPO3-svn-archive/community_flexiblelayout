@@ -113,7 +113,7 @@ class tx_communityflexiblelayout_view_StatusWidget {
 		
 		$template->addVariable('user', $this->userModel);
 		$template->addMarker('documents_status', $this->renderDocumentsStatus());
-		$template->addMarker('documents_approved', $this->rederDocumentsApproved());
+		$template->addMarker('documents_approved', $this->renderDocumentsApproved());
 		// $template->addMarker('cdrom_status', $this->renderCdromStatus());
 		$template->addMarker('cdrom_status', '');
 		$template->addMarker('lottery_status', $this->renderLotteryStatus());
