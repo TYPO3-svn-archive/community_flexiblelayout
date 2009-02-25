@@ -33,9 +33,9 @@
 			<label index="startPage_statusWidget">Aktuelle Informationen</label>
 			<label index="label_StatusWidget">Aktuelle Informationen</label>
 			<label index="startPage_contentWidget">Content Widget</label>
-			<label index="startPage_coaspecialWidget">Mach mit und gewinne!</label>
+			<label index="startPage_coaspecialWidget">Wilde Neuigkeiten!</label>
 			<label index="label_ContentWidget">Willkommen</label>
-			<label index="label_coaspecialWidget">Mach mit und gewinne!</label>
+			<label index="label_coaspecialWidget">Wilde Neuigkeiten!</label>
 			<label index="label_coaspecialWidgetLottery">Werde Mitglied der Community</label>			
 			<label index="label_coaspecialWidget2">Spezial 2</label>
 			<label index="label_coaspecialWidget3">Spezial 3</label>
