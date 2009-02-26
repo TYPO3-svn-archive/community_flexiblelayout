@@ -57,10 +57,8 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 	 */
 	public function indexAction() {
 		$content = '';
-#debug($this->communityApplication);
 		$this->groupGateway = t3lib_div::makeInstance('tx_community_model_GroupGateway');
 		$group = $this->groupGateway->findById(8);
-		debug($group);
 		
 		$requestingUser = $this->communityApplication->getRequestingUser();
 		$openFriendRequestUser = $this->communityApplication->getUserGateway()->findUnconfirmedFriends($requestingUser);
