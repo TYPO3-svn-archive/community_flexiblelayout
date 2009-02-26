@@ -59,12 +59,14 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget extends tx_communit
 		$content = '';
 
 		$this->configuration = $this->getConfiguration();
+		debug($this->configuration);
 		if ($uid = $this->configuration['content.']['source']) {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 				'header',
 				$this->configuration['content.']['tables'],
 				'uid = ' . $uid
 			);
+			debug($res);
 			$this->label = $res[0]['header'];
 		}
 		
