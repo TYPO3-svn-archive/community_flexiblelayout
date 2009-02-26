@@ -69,7 +69,7 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget extends tx_communit
 		}
 		
 		$view = t3lib_div::makeInstance('tx_communityflexiblelayout_view_CoaspecialWidget');
-		$view->setTemplateFile($this->configuration['applications.'][$this->getCommunityApplication()->getName().'.']['widgets.'][$this->name.'.']['templateFile']);
+		$view->setTemplateFile($this->configuration['templateFile']);
 		$view->setLanguageKey($this->communityApplication->LLkey);
 
 		$content = $view->render();
