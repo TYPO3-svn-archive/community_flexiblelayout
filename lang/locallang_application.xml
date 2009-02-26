@@ -21,6 +21,9 @@
 			<label index="label_coaspecialWidget2">special</label>			
 			<label index="label_coaspecialWidget3">special</label>			
 			<label index="connectionManager">Connection Manager</label>
+			<!-- Widget Labels -->
+			<label index="label_dashboard_StartPage_myFriends">my Friends</label>
+			<label index="label_dashboard_userProfile_myFriends">friends of ###NICKANME###</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="action_addAsFriend">Schulfreunde werden</label>
@@ -40,6 +43,9 @@
 			<label index="label_coaspecialWidget2">Spezial 2</label>
 			<label index="label_coaspecialWidget3">Spezial 3</label>
 			<label index="connectionManager">Connection Manager</label>
+			<!-- Widget Labels -->
+			<label index="label_dashboard_StartPage_myFriends">Meine Freunde</label>
+			<label index="label_dashboard_userProfile_myFriends">Freunde von ###NICKANME###</label>
 		</languageKey>
 	</data>
 </T3locallang>

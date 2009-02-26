@@ -66,6 +66,13 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 		$this->request = t3lib_div::GParrayMerged('tx_community');
 		$this->accessManager = tx_community_AccessManager::getInstance();
 		
+		$localizationManagerClass = t3lib_div::makeInstanceClassName('tx_community_LocalizationManager');
+		$this->localizationManager = call_user_func(
+			array($localizationManagerClass, 'getInstance'),
+			t3lib_extMgm::extPath('community_flexiblelayout') . 'lang/locallang_application.xml',
+			$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']
+		);
+				
 		$this->name = $this->conf['profileType'];
 		
 		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
@@ -170,6 +177,11 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 					}
 				}
 				$this->logger->debug('ADDED: ' . $widget->getName());
+				$labelKey = 'label_dashboard_'.$this->conf['profileType'].'_'.$widget->getName();
+				$label = $this->localizationManager->getLL($labelKey);
+				if (strlen($label) > 0) {
+					$widget->setLabel();
+				}
 				$this->widgets[$widgetName] = $widget;
 			}
 		}
