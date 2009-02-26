@@ -48,15 +48,6 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget extends tx_communit
 		$this->removable = false;
 		$this->position  = 4;
 		
-		$this->configuration = $this->getConfiguration();
-		if ($uid = $this->configuration['content.']['source']) {
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-				'header',
-				$this->configuration['content.']['tables'],
-				'uid = ' . $uid
-			);
-			$this->label = $res[0]['header'];
-		}
 	}
 	
 	/**
@@ -67,6 +58,16 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget extends tx_communit
 	public function indexAction() {
 		$content = '';
 
+		$this->configuration = $this->getConfiguration();
+		if ($uid = $this->configuration['content.']['source']) {
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+				'header',
+				$this->configuration['content.']['tables'],
+				'uid = ' . $uid
+			);
+			$this->label = $res[0]['header'];
+		}
+		
 		$requestingUser = $this->communityApplication->getRequestingUser();
 		
 		$openFriendRequestUser = $this->communityApplication->getUserGateway()->findUnconfirmedFriends($requestingUser);
