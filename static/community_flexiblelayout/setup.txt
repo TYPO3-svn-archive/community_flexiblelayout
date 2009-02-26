@@ -135,7 +135,6 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 			4 = 2,1,myFriends
 			5 = 3,1,tx_communityquiz
 			6 = 3,2,myGroups 
-			7 = 3,3,lastVisitorsLogger
 		}
 		groupProfile {
 			0 = 1,1,groupInformation

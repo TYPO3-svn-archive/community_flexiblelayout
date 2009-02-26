@@ -21,9 +21,34 @@
 			<label index="label_coaspecialWidget2">special</label>			
 			<label index="label_coaspecialWidget3">special</label>			
 			<label index="connectionManager">Connection Manager</label>
-			<!-- Widget Labels -->
+
+			<!-- Widget Labels StartPage -->
 			<label index="label_dashboard_StartPage_myFriends">my Friends</label>
+			<label index="label_dashboard_StartPage_statusWidget">news</label>
+			<label index="label_dashboard_StartPage_tx_communitymessages">messages</label>
+			<label index="label_dashboard_StartPage_communityPinboardWidget">pinboard</label>
+			<label index="label_dashboard_StartPage_communityPointsStatementOfAccountWidget">Statement of account</label>
+			<label index="label_dashboard_StartPage_friendsBirthdayList">friends birthdays</label>
+			<label index="label_dashboard_StartPage_tx_communityquiz">quiz</label>
+			<label index="label_dashboard_StartPage_tx_communityinvite">invite friends</label>
+			<label index="label_dashboard_StartPage_onlineFriends">online friends</label>
+			<label index="label_dashboard_StartPage_lastVisitors">last visitors</label>
+			<label index="label_dashboard_StartPage_myGroups">my groups</label>
+
+			<!-- Widget Labels userProfile -->
 			<label index="label_dashboard_userProfile_myFriends">friends of ###NICKNAME###</label>
+			<label index="label_dashboard_userProfile_widget">###NICKNAME###</label>
+			<label index="label_dashboard_userProfile_personalInformation2">interests of ###NICKNAME###</label>
+			<label index="label_dashboard_userProfile_communityPinboardWidget">pinboard of ###NICKNAME###</label>
+			<label index="label_dashboard_userProfile_tx_communityquiz">this is ###NICKNAME###</label>
+			<label index="label_dashboard_userProfile_myGroups">groups of ###NICKNAME###</label>
+
+			<!-- Widget Labels groupProfile -->
+			<label index="label_dashboard_userProfile_groupInformation">group information</label>
+			<label index="label_dashboard_userProfile_communityVideoWidget">group video</label>
+			<label index="label_dashboard_userProfile_profileActions">group actions</label>
+			<label index="label_dashboard_userProfile_memberList">member list</label>
+			<label index="label_dashboard_userProfile_communityPinboardWidget">pinboard</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="action_addAsFriend">Schulfreunde werden</label>
@@ -43,9 +68,34 @@
 			<label index="label_coaspecialWidget2">Spezial 2</label>
 			<label index="label_coaspecialWidget3">Spezial 3</label>
 			<label index="connectionManager">Connection Manager</label>
-			<!-- Widget Labels -->
+
+			<!-- Widget Labels StartPage -->
 			<label index="label_dashboard_StartPage_myFriends">Meine Freunde</label>
+			<label index="label_dashboard_StartPage_statusWidget">Aktuelle Informationen</label>
+			<label index="label_dashboard_StartPage_tx_communitymessages">Neue Nachrichten</label>
+			<label index="label_dashboard_StartPage_communityPinboardWidget">Tafel</label>
+			<label index="label_dashboard_StartPage_communityPointsStatementOfAccountWidget">Deine Eier Aktionen</label>
+			<label index="label_dashboard_StartPage_friendsBirthdayList">Anstehende Geburtstage</label>
+			<label index="label_dashboard_StartPage_tx_communityquiz">Quiz</label>
+			<label index="label_dashboard_StartPage_tx_communityinvite">Freunde einladen</label>
+			<label index="label_dashboard_StartPage_onlineFriends">Freunde online</label>
+			<label index="label_dashboard_StartPage_lastVisitors">Letzte Besucher</label>
+			<label index="label_dashboard_StartPage_myGroups">Meine Banden</label>
+
+			<!-- Widget Labels userProfile -->
 			<label index="label_dashboard_userProfile_myFriends">Freunde von ###NICKNAME###</label>
+			<label index="label_dashboard_userProfile_widget">###NICKNAME###</label>
+			<label index="label_dashboard_userProfile_personalInformation2">Interessen von ###NICKNAME###</label>
+			<label index="label_dashboard_userProfile_communityPinboardWidget">Tafel von ###NICKNAME###</label>
+			<label index="label_dashboard_userProfile_tx_communityquiz">Das ist ###NICKNAME###</label>
+			<label index="label_dashboard_userProfile_myGroups">Banden von ###NICKNAME###</label>
+
+			<!-- Widget Labels groupProfile -->
+			<label index="label_dashboard_userProfile_groupInformation">Informationen über die Bande</label>
+			<label index="label_dashboard_userProfile_communityVideoWidget">Wilde Hühner Video</label>
+			<label index="label_dashboard_userProfile_profileActions">Bandenaktionen</label>
+			<label index="label_dashboard_userProfile_memberList">Bandenmitglieder</label>
+			<label index="label_dashboard_userProfile_communityPinboardWidget">Tafel</label>
 		</languageKey>
 	</data>
 </T3locallang>
