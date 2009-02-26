@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
+require_once(t3lib_extMgm::extPath('community').'controller/class.tx_community_controller_userprofileapplication.php');
 
 /**
  * Startpage Application Controller
