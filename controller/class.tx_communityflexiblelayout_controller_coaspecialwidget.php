@@ -68,12 +68,8 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget extends tx_communit
 			$this->label = $res[0]['header'];
 		}
 		
-		$requestingUser = $this->communityApplication->getRequestingUser();
-		
-		$openFriendRequestUser = $this->communityApplication->getUserGateway()->findUnconfirmedFriends($requestingUser);
-		
 		$view = t3lib_div::makeInstance('tx_communityflexiblelayout_view_CoaspecialWidget');
-		$view->setTemplateFile($this->configuration['applications.']['userProfile.']['widgets.'][$this->name.'.']['templateFile']);
+		$view->setTemplateFile($this->configuration['applications.'][$this->getCommunityApplication()->getName().'.']['widgets.'][$this->name.'.']['templateFile']);
 		$view->setLanguageKey($this->communityApplication->LLkey);
 
 		$content = $view->render();
