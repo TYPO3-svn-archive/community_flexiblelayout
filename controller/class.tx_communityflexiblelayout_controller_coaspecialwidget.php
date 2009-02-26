@@ -58,7 +58,7 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget extends tx_communit
 	public function indexAction() {
 		$content = '';
 
-		$this->configuration = $this->getConfiguration();
+		$this->configuration = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_community.']['applications.'][$this->getCommunityApplication()->getName().'.']['widgets.'][$this->name.'.'];
 		debug($this->configuration);
 		if ($uid = $this->configuration['content.']['source']) {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
