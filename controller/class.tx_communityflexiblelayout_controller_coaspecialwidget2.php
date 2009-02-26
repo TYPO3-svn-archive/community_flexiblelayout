@@ -34,19 +34,6 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget2 extends tx_communi
 	public function __construct() {
 		parent::__construct();
 		$this->name     = 'coaspecialWidget2';
-		// $this->label    = $this->localizationManager->getLL('label_'.$this->name);
-		$uid = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_community.']['applications.']['StartPage.']['widgets.']['coaspecialWidget2.']['content.']['source'];
-		if ($uid > 0) {
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-				'header',
-				'tt_content',
-				'uid = ' . $uid
-			);
-			if ($GLOBALS['TYPO3_DB']->sql_num_rows($res) > 0) {
-				$data = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-				$this->label = $data['header'];
-			}
-		}
 	}
 }
 
