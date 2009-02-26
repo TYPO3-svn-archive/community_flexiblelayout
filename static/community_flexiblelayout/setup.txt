@@ -122,7 +122,7 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 	fixProfileType	=
 	fixUser			=
 	disabledWidgets {
-		userProfile		= image,onlineFriends,friendsBirthdayList,personalInformation,profileActions,statusMessage,lastVisitorsLogger,statusWidget,contentWidget
+		userProfile		= image,onlineFriends,friendsBirthdayList,personalInformation,profileActions,statusMessage,lastVisitorsLogger,statusWidget,contentWidget,coaspecialWidget,coaspecialWidget2,coaspecialWidget3
 		groupProfile	= image,statusMessage
 		StartPage		= image,statusMessage,lastVisitorsLogger,statusMessage
 	}

@@ -4,7 +4,8 @@ if (!defined ('TYPO3_MODE')) {
 }
 
 $TX_COMMUNITY['applications']['StartPage'] = array(
-	'classReference' => 'EXT:community/controller/class.tx_community_controller_userprofileapplication.php:tx_community_controller_UserProfileApplication',
+	//'classReference' => 'EXT:community/controller/class.tx_community_controller_userprofileapplication.php:tx_community_controller_UserProfileApplication',
+	'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_startpageapplication.php:tx_communityflexiblelayout_controller_StartPageApplication',
 	'label' => 'LLL:EXT:community/lang/locallang_applications.xml:userProfile',
 	'accessControl' => false,
 	'widgets' => array(
