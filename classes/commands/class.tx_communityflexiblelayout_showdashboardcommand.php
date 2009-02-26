@@ -180,7 +180,7 @@ class tx_communityflexiblelayout_showDashboardCommand extends tx_community_contr
 				$labelKey = 'label_dashboard_'.$this->conf['profileType'].'_'.$widget->getName();
 				$label = $this->localizationManager->getLL($labelKey);
 				if (strlen($label) > 0) {
-					$widget->setLabel();
+					$widget->setLabel($label);
 				}
 				$this->widgets[$widgetName] = $widget;
 			}
