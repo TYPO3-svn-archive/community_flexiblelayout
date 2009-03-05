@@ -167,10 +167,17 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 		
 		$communityConfiguration = $this->communityApplication->getConfiguration();
 		
-		$mailboxLink = $this->communityApplication->pi_linkToPage(
-			'neue Nachricht(en)', 
-			$communityConfiguration['pages.']['messageCenter']
+		$linkConfig = array();
+		$linkConfig['parameter'] = $communityConfiguration['pages.']['messageCenter'];
+		$linkConfig['ATagParams'] = 'class="color-01 bold"';
+		$link = array(
+			'value'	=> 'neue Nachricht(en)', 
+			'stdWrap.' => array(
+				'typolink.' => $linkConfig
+			)
 		);
+		
+		$mailboxLink = $this->communityApplication->cObj->cObjGetSingle('TEXT', $link);
 
 		$view->setMessagesLink("Du hast {$messageCount} {$mailboxLink}");
 		
