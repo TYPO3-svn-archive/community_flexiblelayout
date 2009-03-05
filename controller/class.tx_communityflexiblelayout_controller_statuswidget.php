@@ -152,6 +152,28 @@ class tx_communityflexiblelayout_controller_StatusWidget extends tx_community_co
 			}
 		}
 		
+		$messageGateway = t3lib_div::makeInstance('tx_communitymessages_model_MessageGateway');
+		$messages1 = $messageGateway->findByStatus('new');
+		$messages2 = $messageGateway->findByStatus('system_new');
+		
+		$messageCount = 0;
+		if (is_array($messages1)) {
+			$messageCount += count($messages1);
+		}
+
+		if (is_array($messages2)) {
+			$messageCount += count($messages2);
+		}
+		
+		$communityConfiguration = $this->communityApplication->getConfiguration();
+		
+		$mailboxLink = $this->communityApplication->pi_linkToPage(
+			'neue Nachricht(en)', 
+			$communityConfiguration['pages.']['messageCenter']
+		);
+
+		$view->setMessagesLink("Du hast {$messageCount} {$mailboxLink}");
+		
 		$content = $view->render();
 		
 		return $content;

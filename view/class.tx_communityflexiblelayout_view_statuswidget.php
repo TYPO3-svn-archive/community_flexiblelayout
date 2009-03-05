@@ -43,6 +43,7 @@ class tx_communityflexiblelayout_view_StatusWidget {
 	protected $documentsSubpart;
 	protected $documentsApprovedSubpart = '';
 	protected $lotterySubpart;
+	protected $messagesLink;
 
 	public function setTemplateFile($templateFile) {
 		$this->templateFile = $templateFile;
@@ -70,6 +71,10 @@ class tx_communityflexiblelayout_view_StatusWidget {
 	
 	public function setLotterySubpart($subpart) {
 		$this->lotterySubpart = $subpart;
+	}
+	
+	public function setMessagesLink($link) {
+		$this->messagesLink = $link;
 	}
 
 	public function setCdromSubpart($subpart,$code) {
@@ -117,6 +122,7 @@ class tx_communityflexiblelayout_view_StatusWidget {
 		// $template->addMarker('cdrom_status', $this->renderCdromStatus());
 		$template->addMarker('cdrom_status', '');
 		$template->addMarker('lottery_status', $this->renderLotteryStatus());
+		$template->addMarker('messages_link', $this->messagesLink);
 		$template->addMarker('friendrequestcounter', $this->openFriendRequestCount);
 		$template->addMarker('page_id', $GLOBALS['TSFE']->id);
 		//$template->addLoop('groups', 'group', $this->groups);
