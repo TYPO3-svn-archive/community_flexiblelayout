@@ -53,12 +53,19 @@ class tx_communityflexiblelayout_EditDashboardView {
 		$templateCode = $this->cObj->getSubpart($templateCode, '###TEMPLATE_EDITDASHBOARD###');
 		$containerTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_CONTAINER###');
 		$widgetTemplate = $this->cObj->getSubpart($templateCode, '###TEMPLATE_WIDGET###');
+		
 		for ($i=1; $i<=$this->conf['containerCount']; $i++) {
 			$containerClasses = array();
 			$containerClasses[] = 'container';
 			$containerClasses[] = $this->conf['containerClass'];
 			$containerClasses[] = ($this->conf['containerConfig.'][$i.'.']['alternativClassName']) ? $this->conf['containerConfig.'][$i.'.']['alternativClassName'] : '';
 
+			$userGateway = t3lib_div::makeInstance('tx_community_model_usergateway');
+			$userUid 	 = t3lib_div::_GP('tx_community');
+			$userUid	 = $userUid['user'];
+			$requestedUser = $userGateway->findById($userUid);
+			$nickname 	 = (!is_null($requestedUser)) ? $requestedUser->getNickname() : $userGateway->findCurrentlyLoggedInUser()->getNickname();  
+			
 			$marker['CONTAINER_ID'] = "tx-communityflexiblelayout-dashboard-col{$i}";
 			$marker['CONTAINER_CLASSES'] = implode(' ', $containerClasses);
 			$widgetsArray = $this->model->getWidgetsByCol($i);
@@ -74,7 +81,7 @@ class tx_communityflexiblelayout_EditDashboardView {
 						$widgetClasses[] = ($widget->isRemovable()) ? 'removable' : '';
 						$widgetClasses[] = ($widget->getCssClass()) ? $widget->getCssClass() : '' ;
 						$widgetMarker = array(
-							'WIDGET_LABEL'	=> $widget->getLabel(),
+							'WIDGET_LABEL'	=> str_replace('###NICKNAME###', $nickname, $widget->getLabel()),
 							'WIDGET_CONTENT' => $widgetContent,
 							'WIDGET_ID' => "tx-communityflexiblelayout-dashboard-widget-{$widget->getName()}",
 							'WIDGET_CLASSES' => implode(' ', $widgetClasses)
