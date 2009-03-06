@@ -126,6 +126,11 @@ class tx_communityflexiblelayout_editDashboardCommand extends tx_community_contr
 		}
 
 		foreach ($this->widgets as $widgetName => $widget) {
+			$labelKey = 'label_dashboard_'.$this->conf['profileType'].'_'.$widget->getName();
+			$label = $this->localizationManager->getLL($labelKey);
+			if (strlen($label) > 0) {
+				$widget->setLabel($label);
+			}
 			if (is_array($config[$widgetName])) {
 				$this->cols[$config[$widgetName]['col']]['pos'.$config[$widgetName]['pos']] = $widget;
 			} else {
