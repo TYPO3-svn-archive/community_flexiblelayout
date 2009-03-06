@@ -72,6 +72,14 @@ class tx_communityflexiblelayout_editDashboardCommand extends tx_community_contr
 		$this->request = t3lib_div::GParrayMerged('tx_community');
 		//$this->userGateway = new tx_community_model_UserGateway();
 		$this->accessManager = tx_community_AccessManager::getInstance();
+
+		$localizationManagerClass = t3lib_div::makeInstanceClassName('tx_community_LocalizationManager');
+		$this->localizationManager = call_user_func(
+			array($localizationManagerClass, 'getInstance'),
+			t3lib_extMgm::extPath('community_flexiblelayout') . 'lang/locallang_application.xml',
+			$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_communityflexiblelayout.']
+		);
+				
 		
 		$this->name = $this->conf['profileType'];
 		
