@@ -44,11 +44,11 @@
 			<label index="label_dashboard_userProfile_myGroups">groups of ###NICKNAME###</label>
 
 			<!-- Widget Labels groupProfile -->
-			<label index="label_dashboard_userProfile_groupInformation">group information</label>
-			<label index="label_dashboard_userProfile_communityVideoWidget">group video</label>
-			<label index="label_dashboard_userProfile_profileActions">group actions</label>
-			<label index="label_dashboard_userProfile_memberList">member list</label>
-			<label index="label_dashboard_userProfile_communityPinboardWidget">pinboard</label>
+			<label index="label_dashboard_groupProfile_groupInformation">group information</label>
+			<label index="label_dashboard_groupProfile_communityVideoWidget">group video</label>
+			<label index="label_dashboard_groupProfile_profileActions">group actions</label>
+			<label index="label_dashboard_groupProfile_memberList">member list</label>
+			<label index="label_dashboard_groupProfile_communityPinboardWidget">pinboard</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="action_addAsFriend">Schulfreunde werden</label>
@@ -91,11 +91,11 @@
 			<label index="label_dashboard_userProfile_myGroups">Banden von ###NICKNAME###</label>
 
 			<!-- Widget Labels groupProfile -->
-			<label index="label_dashboard_userProfile_groupInformation">Informationen über die Bande</label>
-			<label index="label_dashboard_userProfile_communityVideoWidget">Wilde Hühner Video</label>
-			<label index="label_dashboard_userProfile_profileActions">Bandenaktionen</label>
-			<label index="label_dashboard_userProfile_memberList">Bandenmitglieder</label>
-			<label index="label_dashboard_userProfile_communityPinboardWidget">Tafel</label>
+			<label index="label_dashboard_groupProfile_groupInformation">Informationen über die Bande</label>
+			<label index="label_dashboard_groupProfile_communityVideoWidget">Wilde Hühner Video</label>
+			<label index="label_dashboard_groupProfile_profileActions">Bandenaktionen</label>
+			<label index="label_dashboard_groupProfile_memberList">Bandenmitglieder</label>
+			<label index="label_dashboard_groupProfile_communityPinboardWidget">Tafel</label>
 		</languageKey>
 	</data>
 </T3locallang>
