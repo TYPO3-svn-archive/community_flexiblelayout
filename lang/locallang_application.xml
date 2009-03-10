@@ -76,7 +76,7 @@
 			<label index="label_dashboard_StartPage_communityPinboardWidget">Tafel</label>
 			<label index="label_dashboard_StartPage_communityPointsStatementOfAccountWidget">Deine Eier Aktionen</label>
 			<label index="label_dashboard_StartPage_friendsBirthdayList">Anstehende Geburtstage</label>
-			<label index="label_dashboard_StartPage_tx_communityquiz">Quiz</label>
+			<label index="label_dashboard_StartPage_tx_communityquiz">Wer bist du?</label>
 			<label index="label_dashboard_StartPage_tx_communityinvite">Freunde einladen</label>
 			<label index="label_dashboard_StartPage_onlineFriends">Freunde online</label>
 			<label index="label_dashboard_StartPage_lastVisitors">Letzte Besucher</label>
