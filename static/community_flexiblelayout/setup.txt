@@ -151,7 +151,8 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 
 			4 = 2,1,friendsBirthdayList
 
-			5 = 4,1,tx_communityquiz
+			5 = 3,1,tx_communityquiz
+
 			6 = 4,2,tx_communityinvite
 			7 = 4,3,coaspecialWidget
 			8 = 4,4,onlineFriends
