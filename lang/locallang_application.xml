@@ -23,6 +23,10 @@
 			<label index="connectionManager">Connection Manager</label>
 
 			<!-- Widget Labels StartPage -->
+			<label index="label_dashboard_StartPage_ContentWidget">welcome</label>
+			<label index="label_dashboard_StartPage_coaspecialWidget">special</label>			
+			<label index="label_dashboard_StartPage_coaspecialWidget2">special</label>			
+			<label index="label_dashboard_StartPage_coaspecialWidget3">special</label>			
 			<label index="label_dashboard_StartPage_myFriends">my Friends</label>
 			<label index="label_dashboard_StartPage_statusWidget">news</label>
 			<label index="label_dashboard_StartPage_tx_communitymessages">messages</label>
@@ -42,6 +46,8 @@
 			<label index="label_dashboard_userProfile_communityPinboardWidget">pinboard of ###NICKNAME###</label>
 			<label index="label_dashboard_userProfile_tx_communityquiz">this is ###NICKNAME###</label>
 			<label index="label_dashboard_userProfile_myGroups">groups of ###NICKNAME###</label>
+			<label index="label_dashboard_userProfile_tx_communityquiz">quiz</label>
+			<label index="label_dashboard_userProfile_tx_communityinvite">invite friends</label>
 
 			<!-- Widget Labels groupProfile -->
 			<label index="label_dashboard_groupProfile_groupInformation">group information</label>
@@ -70,6 +76,11 @@
 			<label index="connectionManager">Connection Manager</label>
 
 			<!-- Widget Labels StartPage -->
+			<label index="label_dashboard_StartPage_ContentWidget">Willkommen</label>
+			<label index="label_dashboard_StartPage_coaspecialWidget">Wilde Neuigkeiten!</label>
+			<label index="label_dashboard_StartPage_coaspecialWidgetLottery">Werde Mitglied der Community</label>			
+			<label index="label_dashboard_StartPage_coaspecialWidget2">Spezial 2</label>
+			<label index="label_dashboard_StartPage_coaspecialWidget3">Spezial 3</label>
 			<label index="label_dashboard_StartPage_myFriends">Meine Freunde</label>
 			<label index="label_dashboard_StartPage_statusWidget">Aktuelle Informationen</label>
 			<label index="label_dashboard_StartPage_tx_communitymessages">Neue Nachrichten</label>
