@@ -122,9 +122,9 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 	fixProfileType	=
 	fixUser			=
 	disabledWidgets {
-		userProfile		= image,onlineFriends,friendsBirthdayList,personalInformation,profileActions,statusMessage,lastVisitorsLogger,statusWidget,contentWidget,coaspecialWidget,coaspecialWidget2,coaspecialWidget3
+		userProfile		= image,onlineFriends,friendsBirthdayList,personalInformation,profileActions,statusMessage,lastVisitorsLogger,statusWidget,contentWidget,coaspecialWidget,coaspecialWidget2,coaspecialWidget3,tx_calcommunity
 		groupProfile	= image,statusMessage
-		StartPage		= image,statusMessage,lastVisitorsLogger,statusMessage,tx_communitymessages,tx_calcommunity
+		StartPage		= image,statusMessage,lastVisitorsLogger,statusMessage,tx_communitymessages
 	}
 	defaultConfiguration {
 		userProfile {
@@ -152,17 +152,18 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 			3 = 1,4,communityPointsStatementOfAccountWidget
 
 			4 = 2,1,friendsBirthdayList
+			5 = 2,2,tx_calcommunity
 
-			5 = 3,1,tx_communityquiz
+			6 = 3,1,tx_communityquiz
 
-			6 = 4,2,tx_communityinvite
-			7 = 4,3,coaspecialWidget
-			8 = 4,4,onlineFriends
-			9 = 4,5,myFriends
-			10 = 4,6,lastVisitors
-			11 = 4,7,myGroups 
-			12 = 4,8,coaspecialWidget2
-			13 = 4,9,coaspecialWidget3
+			7 = 4,2,tx_communityinvite
+			8 = 4,3,coaspecialWidget
+			9 = 4,4,onlineFriends
+			10 = 4,5,myFriends
+			11 = 4,6,lastVisitors
+			12 = 4,7,myGroups 
+			13 = 4,8,coaspecialWidget2
+			14 = 4,9,coaspecialWidget3
 		}
 	}
 }
