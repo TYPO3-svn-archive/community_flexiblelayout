@@ -124,7 +124,7 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 	disabledWidgets {
 		userProfile		= image,onlineFriends,friendsBirthdayList,personalInformation,profileActions,statusMessage,lastVisitorsLogger,statusWidget,contentWidget,coaspecialWidget,coaspecialWidget2,coaspecialWidget3,tx_calcommunity
 		groupProfile	= image,statusMessage
-		StartPage		= image,statusMessage,lastVisitorsLogger,statusMessage,tx_communitymessages
+		StartPage		= image,statusMessage,lastVisitorsLogger,statusMessage,tx_communitymessages,tx_calcommunity
 	}
 	defaultConfiguration {
 		userProfile {
@@ -152,7 +152,7 @@ plugin.tx_communityflexiblelayout.controller.dashboard {
 			3 = 1,4,communityPointsStatementOfAccountWidget
 
 			4 = 2,1,friendsBirthdayList
-			5 = 2,2,tx_calcommunity
+			# 5 = 2,2,tx_calcommunity
 
 			6 = 3,1,tx_communityquiz
 
