@@ -45,11 +45,23 @@ class tx_communityflexiblelayout_controller_startpage_MyGroupsWidget extends tx_
 		$groups = $groupGateway->findGroupsByUser(
 			$this->communityApplication->getRequestingUser()
 		);
-
+		$cObj = t3lib_div::makeInstance('tslib_cObj');
+ 
 		$view = t3lib_div::makeInstance('tx_community_view_userprofile_MyGroups');
 		$view->setTemplateFile($this->configuration['applications.']['userProfile.']['widgets.']['myGroups.']['templateFile']);
 		$view->setLanguageKey($this->communityApplication->LLkey);
-		$view->setGroupModel($groups);
+
+               foreach ($groups as $group) {
+                   if ($group->getGroupType() != tx_community_model_Group::TYPE_SECRET) {
+	                $imgConf = $this->configuration['applications.']['userProfile.']['widgets.']['myGroups.']['groupImage.'];
+	                 $imgConf['file'] = (strlen($group->getImage()) > 0) ? $group->getImage() : $imgConf['file'];
+	                  $genImage = $cObj->cObjGetSingle('IMAGE', $imgConf);
+	               $group->setHTMLImage($genImage);
+	                $listGroupsArray[] = $group;
+	            }
+		}																								    
+																								                    $view->setGroupModel($listGroupsArray);
+		$view->setGroupModel($listGroupsArray);
 
 		return $view->render();
 	}
