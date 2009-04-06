@@ -72,6 +72,11 @@ class tx_communityflexiblelayout_controller_CoaspecialWidget extends tx_communit
 		
 		return $content;
 	}
+	
+	public function setLabel($label) {
+		// we reject external setting of the title, because we use the 
+		// header value of the content element as title @see indexAction()
+	}
 }
 
 
