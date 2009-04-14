@@ -19,7 +19,7 @@ $TX_COMMUNITY['applications']['StartPage'] = array(
 			'defaultAction' => 'index'
 		),
 		'myGroups' => array(
-			'classReference' => 'EXT:community_flexiblelayout/controller/class.tx_communityflexiblelayout_controller_startpage_mygroupswidget.php:tx_communityflexiblelayout_controller_startpage_MyGroupsWidget',
+			'classReference' => 'EXT:community/controller/class.tx_community_controller_userprofile_mygroupswidget.php:tx_community_controller_userprofile_MyGroupsWidget',
 			'label' => 'LLL:EXT:community/lang/locallang_applications.xml:userProfile_myGroups',
 			'accessControl' => false,
 			'actions' => array(
