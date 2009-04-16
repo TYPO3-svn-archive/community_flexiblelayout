@@ -51,12 +51,12 @@ class tx_communityflexiblelayout_hook_Community implements tx_community_UserProf
 		
 		$this->configuration = $this->profileActionsWidget->getConfiguration();
 		
-		$links = $this->getScoolmateLinks();
+/*		$links = $this->getScoolmateLinks();
 		
 		foreach ($links as $link) {
 			$profileActions[] = array('link' => $link);	
 		}
-		
+*/	
 		$rejectLink = $this->getRejectFriendshipRequestLink();
 		
 		if ($rejectLink !== null) {
