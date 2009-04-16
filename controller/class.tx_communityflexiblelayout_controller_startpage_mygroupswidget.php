@@ -60,7 +60,8 @@ class tx_communityflexiblelayout_controller_startpage_MyGroupsWidget extends tx_
 	                $listGroupsArray[] = $group;
 	            }
 		}																								    
-																								                    $view->setGroupModel($listGroupsArray);
+		
+		$view->setGroupModel($listGroupsArray);
 		$view->setGroupModel($listGroupsArray);
 
 		return $view->render();
