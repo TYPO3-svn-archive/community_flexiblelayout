@@ -56,6 +56,13 @@ class tx_communityflexiblelayout_hook_Community implements tx_community_UserProf
 		foreach ($links as $link) {
 			$profileActions[] = array('link' => $link);	
 		}
+		
+		$rejectLink = $this->getRejectFriendshipRequestLink();
+		
+		if ($rejectLink !== null) {
+			$profileActions[] = array('link' => $rejectLink);
+		}
+		
 		return $profileActions;
 	}
 	
@@ -80,6 +87,30 @@ class tx_communityflexiblelayout_hook_Community implements tx_community_UserProf
 			}
 		}
 		return $uid;
+	}
+	
+	protected function getRejectFriendshipRequestLink() {
+		$requestedUser  = $this->profileActionsWidget->getCommunityApplication()->getRequestedUser();
+		$requestingUser = $this->profileActionsWidget->getCommunityApplication()->getRequestingUser();
+		$openFriendRequests = $this->profileActionsWidget->getCommunityApplication()->getUserGateway()->findUnconfirmedFriends($requestingUser);
+		if (is_array($openFriendRequests)) {
+			foreach ($openFriendRequests as $openFriendRequest) {
+				if ($requestedUser->getUid() == $openFriendRequest->getUid()) {
+					return $this->profileActionsWidget->getCommunityApplication()->pi_linkToPage(
+						$this->localizationManager->getLL('action_rejectAsFriend'),
+						$GLOBALS['TSFE']->id,
+						'',
+						array(
+							'tx_community' => array(
+								'user' => $this->profileActionsWidget->getCommunityApplication()->getRequestedUser()->getUid(),
+								'profileActionsAction' => 'removeAsFriend'
+							)
+						)
+					); 
+				}
+			}
+		}
+		return null;
 	}
 	
 	protected function getScoolmateLinks() {

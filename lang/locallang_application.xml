@@ -9,6 +9,7 @@
 			<label index="action_addAsFriend">add as scoolmate</label>
 			<label index="action_removeAsFriend">remove as scoolmate</label>
 			<label index="action_editRelationship">edit relationship</label>
+			<label index="action_rejectAsFriend">reject friendship request</label>
 			<label index="userProfile_personalInformation">about me</label>
 			<label index="privacy_userProfile_personalInformationWidget_read">decide how can see your personal information</label>
 			<label index="privacy_userProfile_lastVisitors_read">decide how can see your last visotrs</label>
@@ -60,6 +61,7 @@
 			<label index="action_addAsFriend">Schulfreunde werden</label>
 			<label index="action_removeAsFriend">Freundschaft auflösen</label>
 			<label index="action_editRelationship">Freundschaft ändern</label>
+			<label index="action_rejectAsFriend">Freundschaft ablehnen</label>
 			<label index="userProfile_personalInformation">Persönliche Informationen</label>
 			<label index="privacy_userProfile_personalInformationWidget_read">Wer darf deine Interessen sehen?</label>
 			<label index="privacy_userProfile_lastVisitors_read">Wer darf deine letzten Besucher sehen?</label>
