@@ -60,7 +60,7 @@ class tx_communityflexiblelayout_hook_Community implements tx_community_UserProf
 		$rejectLink = $this->getRejectFriendshipRequestLink();
 		
 		if ($rejectLink !== null) {
-			$profileActions[] = array('link' => $rejectLink);
+			$profileActions[] = array('link' => $rejectLink, 'class' => 'removeAsFriend');
 		}
 		
 		return $profileActions;
